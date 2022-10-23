@@ -1,9 +1,7 @@
-using System.Runtime.CompilerServices;
-
-namespace KompasRingPlugin.Model;
+Ôªønamespace Model;
 
 /// <summary>
-///  ÓÎ¸ˆÓ.
+/// –ö–æ–ª—å—Ü–æ.
 /// </summary>
 public class Ring
 {
@@ -18,7 +16,7 @@ public class Ring
         }
     }
 
-    
+
     private float _height;
 
     public float Height
@@ -29,7 +27,7 @@ public class Ring
             _height = value;
         }
     }
-    
+
 
     private float _radius;
 
@@ -53,7 +51,7 @@ public class Ring
         }
     }
 
-    
+
     private Engraving _engraving;
 
     public Engraving Engraving
@@ -67,7 +65,7 @@ public class Ring
 
     public static bool IsReadyForBuild(Ring ring)
     {
-        if (ring.Width.Equals(0) || ring.Height.Equals(0) || ring.Radius.Equals(0)|| ring.RoundScale.Equals(0))
+        if (ring.Width.Equals(0) || ring.Height.Equals(0) || ring.Radius.Equals(0) || ring.RoundScale.Equals(0))
         {
             return false;
         }
