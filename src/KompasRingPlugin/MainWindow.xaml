@@ -5,7 +5,8 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:KompasRingPlugin"
 		mc:Ignorable="d"
-		Height="345" Width="500"
+		MinHeight="600"
+        MinWidth="863"
 		WindowStyle="None">
 	<Window.Resources>
 		<!-- Expander style -->
@@ -21,7 +22,7 @@
 							</Grid.RowDefinitions>
 							<Border
 								Name="Border"
-								Height="15"
+								Height="25"
 								Grid.Row="0"
 								Background="#2F2F2F">
 								<Grid>
@@ -41,11 +42,12 @@
 
 									<ContentPresenter
                                         Grid.ColumnSpan="2"
-                                        HorizontalAlignment="Center">
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
                                         <ContentPresenter.Content>
 											<TextBlock Text="{TemplateBinding Header}"
                                                        Foreground="AliceBlue"
-                                                       FontSize="10"/>
+                                                       FontSize="14"/>
                                         </ContentPresenter.Content>
                                     </ContentPresenter>
                                 </Grid>
@@ -74,15 +76,15 @@
 	<Grid>
 
 		<Grid.RowDefinitions>
-			<RowDefinition Height="20"/>
+			<RowDefinition Height="30"/>
 			<RowDefinition/>
 		</Grid.RowDefinitions>
 
 		<Border
 			Background="#333333">
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-				<Button Width="20"/>
-				<Button Width="20" Style="{DynamicResource closeButton}"/>
+				<Button Width="30"/>
+				<Button Width="30" Style="{DynamicResource closeButton}"/>
 			</StackPanel>
 		</Border>
 
@@ -122,8 +124,8 @@
 			<Button 
 					Content="Построить" 
 					VerticalAlignment="Bottom" 
-					Width="90"
-					Height="25"
+					Width="155"
+					Height="40"
 					Margin="0,0,0,5"/>
 		</Grid>
 	</Grid>
