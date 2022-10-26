@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasRingPlugin", "KompasRingPlugin.csproj", "{002FCB71-C445-416D-A60C-45AD381D7AF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasRingPlugin", "..\KompasRingPlugin.UI\KompasRingPlugin.csproj", "{4DF88302-49B4-47B4-9384-2273015ED244}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasRingPlugin.Model", "..\Model\KompasRingPlugin.Model.csproj", "{3A6C4A13-3583-4AAC-9851-995BA7F3E34D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasRingPlugin.Model", "..\KompasRingPlugin.M\KompasRingPlugin.Model.csproj", "{CE532C10-8669-46B4-B032-5B0BAE762983}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{002FCB71-C445-416D-A60C-45AD381D7AF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{002FCB71-C445-416D-A60C-45AD381D7AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{002FCB71-C445-416D-A60C-45AD381D7AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{002FCB71-C445-416D-A60C-45AD381D7AF1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A6C4A13-3583-4AAC-9851-995BA7F3E34D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A6C4A13-3583-4AAC-9851-995BA7F3E34D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A6C4A13-3583-4AAC-9851-995BA7F3E34D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A6C4A13-3583-4AAC-9851-995BA7F3E34D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DF88302-49B4-47B4-9384-2273015ED244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DF88302-49B4-47B4-9384-2273015ED244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DF88302-49B4-47B4-9384-2273015ED244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DF88302-49B4-47B4-9384-2273015ED244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE532C10-8669-46B4-B032-5B0BAE762983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE532C10-8669-46B4-B032-5B0BAE762983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE532C10-8669-46B4-B032-5B0BAE762983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE532C10-8669-46B4-B032-5B0BAE762983}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
