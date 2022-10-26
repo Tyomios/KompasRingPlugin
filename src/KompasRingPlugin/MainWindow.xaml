@@ -34,22 +34,13 @@
 									<!-- The following puts the toggle button in the right hand column, just like I want! -->
 									<ToggleButton
 										Grid.Column="0"
+										Grid.ColumnSpan="2"
 										IsChecked="{Binding Path=IsExpanded,Mode=TwoWay,
 															RelativeSource={RelativeSource TemplatedParent}}"
-										HorizontalAlignment="Right"
-										Width="25"
-										Margin="0,0,5,0"
-										Background="#FFFFFF"/>
-
-									<ContentPresenter
-                                        Grid.ColumnSpan="2"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center">
-                                        <ContentPresenter.Content>
-											<TextBlock Text="{TemplateBinding Header}"
-                                                       Style="{DynamicResource textParameters}"/>
-                                        </ContentPresenter.Content>
-                                    </ContentPresenter>
+										HorizontalAlignment="Stretch"
+                                        Background="Transparent"
+                                        Style="{DynamicResource invisibleToggleButton}"
+                                        Content="{TemplateBinding Header}"/>
                                 </Grid>
 							</Border>
 							<Border
@@ -73,6 +64,8 @@
 			</Setter>
 		</Style>
 	</Window.Resources>
+
+	
 	<Border CornerRadius="0"
             BorderBrush="Transparent"
             Background="#484848">

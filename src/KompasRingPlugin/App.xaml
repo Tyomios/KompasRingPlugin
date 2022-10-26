@@ -17,7 +17,25 @@
 
         <SolidColorBrush x:Key="primaryRed" Color="#A85959"/>
 
-        
+        <Style x:Key="invisibleToggleButton" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="Transparent">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                                <ContentPresenter.Content>
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Style="{DynamicResource textParameters}"/>
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
 
         <Style x:Key="closeWindowButton" TargetType="{x:Type Button}">
             <Setter Property="Template">
@@ -105,5 +123,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+
+        
+
     </Application.Resources>
 </Application>
