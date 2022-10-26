@@ -4,6 +4,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:KompasRingPlugin"
+		xmlns:controls="clr-namespace:KompasRingPlugin.Controls"
 		mc:Ignorable="d"
 		Height="570"
         Width="860"
@@ -54,9 +55,10 @@
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsExpanded" Value="True">
 								<Setter TargetName="ContentRow" Property="Height"
-									Value="{Binding ElementName=Content, Path=Height}" />
+									Value="{Binding ElementName=Content, Path=Height}"/>
 								<Setter TargetName="Border" Property="BorderBrush"
 									Value="#484848"/>
+								<Setter Property="Margin" Value="0,0,0,10"/>
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
@@ -105,7 +107,8 @@
 							IsExpanded="True"
 							Style="{DynamicResource expander}">
                         <StackPanel>
-                            <TextBox Height ="40" Margin="0,5"/>
+                            <!--<TextBox Height ="40" Margin="0,5"/>-->
+                            <controls:AdvancedTextbox/>
                             <TextBox Height ="40" Margin="0,5"/>
                             <TextBox Height ="40" Margin="0,5"/>
                         </StackPanel>
