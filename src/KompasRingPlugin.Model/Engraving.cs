@@ -1,4 +1,4 @@
-﻿namespace KompasRingPlugin.Model;
+﻿namespace Model;
 
 /// <summary>
 /// Гравировка.
