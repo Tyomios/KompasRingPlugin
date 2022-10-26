@@ -19,7 +19,7 @@
 
         
 
-        <Style x:Key="closeButton" TargetType="{x:Type Button}">
+        <Style x:Key="closeWindowButton" TargetType="{x:Type Button}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -37,6 +37,26 @@
             </Setter>
         </Style>
 
+
+        <Style x:Key="hideWindowButton" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="Transparent">
+                            <Path 
+                                x:Name="Pt"
+                                VerticalAlignment="Bottom"
+                                Margin="5,0,5,6"
+                                Data="M0.3,0.3 L0.0,0.3"
+                                Stretch="Uniform"
+                                Stroke="#FFFFFF"
+                                StrokeThickness="2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Style x:Key="expander" TargetType="{x:Type Expander}">
             <Setter Property="Template">

@@ -86,9 +86,10 @@
             <Border
 			Background="#333333">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Width="30"/>
+                    <Button Width="30"
+                            Style="{DynamicResource hideWindowButton}"/>
                     <Button Width="30" 
-                            Style="{DynamicResource closeButton}"
+                            Style="{DynamicResource closeWindowButton}"
                             Command="Close"/>
                 </StackPanel>
             </Border>
