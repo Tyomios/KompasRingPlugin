@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:KompasRingPlugin"
 		mc:Ignorable="d"
-		Height="600"
+		Height="570"
         Width="860"
 		WindowStyle="None"
         AllowsTransparency="True">
@@ -23,7 +23,7 @@
 							</Grid.RowDefinitions>
 							<Border
 								Name="Border"
-								Height="25"
+								Height="30"
 								Grid.Row="0"
 								Background="#2F2F2F">
 								<Grid>
@@ -47,8 +47,7 @@
                                         VerticalAlignment="Center">
                                         <ContentPresenter.Content>
 											<TextBlock Text="{TemplateBinding Header}"
-                                                       Foreground="AliceBlue"
-                                                       FontSize="14"/>
+                                                       Style="{DynamicResource textParameters}"/>
                                         </ContentPresenter.Content>
                                     </ContentPresenter>
                                 </Grid>
@@ -88,7 +87,9 @@
 			Background="#333333">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Width="30"/>
-                    <Button Width="30" Style="{DynamicResource closeButton}"/>
+                    <Button Width="30" 
+                            Style="{DynamicResource closeButton}"
+                            Command="Close"/>
                 </StackPanel>
             </Border>
 
@@ -106,21 +107,24 @@
                     </Grid.RowDefinitions>
 
                     <Expander 
-					Header="Параметры гравировки"
-					Style="{DynamicResource expander}">
+							Header="Параметры гравировки"
+							IsExpanded="True"
+							Style="{DynamicResource expander}">
                         <StackPanel>
-                            <TextBox/>
-                            <TextBox/>
-                            <TextBox/>
+                            <TextBox Height ="40" Margin="0,5"/>
+                            <TextBox Height ="40" Margin="0,5"/>
+                            <TextBox Height ="40" Margin="0,5"/>
                         </StackPanel>
                     </Expander>
 
-                    <Expander Grid.Row="1" Header="Параметры кольца">
+                    <Expander Grid.Row="1"
+                              Header="Параметры кольца"
+                              IsExpanded="True">
                         <StackPanel>
-                            <TextBox/>
-                            <TextBox/>
-                            <TextBox/>
-                            <TextBox/>
+                            <TextBox Height ="40" Margin="0,5"/>
+                            <TextBox Height ="40" Margin="0,5"/>
+                            <TextBox Height ="40" Margin="0,5"/>
+                            <TextBox Height ="40" Margin="0,5"/>
                         </StackPanel>
                     </Expander>
                 </Grid>

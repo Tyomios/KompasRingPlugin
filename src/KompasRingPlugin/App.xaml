@@ -55,6 +55,7 @@
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontWeight" Value="Light"/>
             <Setter Property="Foreground" Value="{DynamicResource primaryTextBrush}"/>
+            <Setter Property="Padding" Value="0,0,0,2"/>
         </Style>
 
         <Style x:Key="primaryButtonStyle" TargetType="{x:Type Button}">
@@ -70,8 +71,7 @@
                                 <ContentPresenter.Content>
                                     <TextBlock 
                                         Text="{TemplateBinding Content}"
-                                        Style="{DynamicResource textParameters}"
-                                        Padding="0,0,0,2"/>
+                                        Style="{DynamicResource textParameters}"/>
                                 </ContentPresenter.Content>
                             </ContentPresenter>
                         </Border>
