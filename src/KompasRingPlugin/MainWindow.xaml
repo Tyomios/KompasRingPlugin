@@ -12,9 +12,12 @@
 		WindowStyle="None"
         AllowsTransparency="True"
 		ResizeMode="NoResize"
-        IsManipulationEnabled="True"
-        >
-	<Window.Resources>
+        IsManipulationEnabled="True">
+    <Window.DataContext>
+        <local:MainVM/>
+    </Window.DataContext>
+
+    <Window.Resources>
 		<!-- Expander style -->
 		<Style x:Key="expander" TargetType="Expander">
 			<Setter Property="Template">
@@ -69,6 +72,11 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+
+        <Style x:Key="textBoxBasicStyle" TargetType="controls:AdvancedTextbox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
 	</Window.Resources>
 
 	
@@ -119,10 +127,10 @@
 							IsExpanded="True"
 							Style="{DynamicResource expander}">
                         <StackPanel>
-                            <!--<TextBox Height ="40" Margin="0,5"/>-->
-                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
-                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
-                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
+                            <controls:AdvancedTextbox 
+                                Style="{DynamicResource textBoxBasicStyle}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
                         </StackPanel>
                     </Expander>
 
@@ -136,18 +144,13 @@
                             <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
                             <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
 
-
-							<!--todo заплатка пока не добавлен colorPicker-->
-							<!--<Rectangle Height="50" 
-                                       Width="100"
-                                       Fill="Yellow"
-                                       HorizontalAlignment="Left"
-                                       Margin="5,0,0,0"/>-->
-                            <pix:PortableColorPicker Height="50"
+                            <pix:PortableColorPicker x:Name="colorPicker" 
+                                                    Height="50"
                                                      Width="100"
                                                      HorizontalAlignment="Left"
                                                      ShowAlpha="False"
-                                                     SmallChange="1"/>
+                                                     SmallChange="1"
+                                                     SelectedColor="{Binding Ring.Color, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </Expander>
                 </Grid>
@@ -169,7 +172,7 @@
                                FontSize="26"
                                TextWrapping="WrapWithOverflow"
                                HorizontalAlignment="Stretch"
-                               TextAlignment="Center"></TextBlock>
+                               TextAlignment="Center"/>
                 </Border>
             </Grid>
         </Grid>

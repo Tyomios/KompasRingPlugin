@@ -1,4 +1,6 @@
-﻿namespace Model;
+﻿using System.Windows.Media;
+
+namespace Model;
 
 /// <summary>
 /// Кольцо.
@@ -60,6 +62,17 @@ public class Ring
         set
         {
             _engraving = value;
+        }
+    }
+
+    private Color _color;
+
+    public Color Color
+    {
+        get => _color;
+        set
+        {
+            _color = value;
         }
     }
 
