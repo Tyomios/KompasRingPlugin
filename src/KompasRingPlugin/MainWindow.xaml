@@ -143,14 +143,21 @@
                             <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
                             <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
                             <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
+                            <StackPanel Orientation="Horizontal">
+                                <pix:PortableColorPicker x:Name="colorPicker" 
+                                                         Height="50"
+                                                         Width="100"
+                                                         HorizontalAlignment="Left"
+                                                         ShowAlpha="False"
+                                                         SmallChange="1"
+                                                         BorderBrush="Transparent"
+                                                         SelectedColor="{Binding Ring.Color, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
 
-                            <pix:PortableColorPicker x:Name="colorPicker" 
-                                                    Height="50"
-                                                     Width="100"
-                                                     HorizontalAlignment="Left"
-                                                     ShowAlpha="False"
-                                                     SmallChange="1"
-                                                     SelectedColor="{Binding Ring.Color, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="Цвет кольца"
+                                           Style="{DynamicResource textParameters}"
+                                           VerticalAlignment="Center"
+                                           Margin="5,0,0,0"/>
+                            </StackPanel>
                         </StackPanel>
                     </Expander>
                 </Grid>
