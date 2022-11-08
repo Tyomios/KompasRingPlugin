@@ -76,6 +76,7 @@
         <Style x:Key="textBoxBasicStyle" TargetType="controls:AdvancedTextbox">
             <Setter Property="Height" Value="40"/>
             <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Cursor" Value="IBeam"/>
         </Style>
 	</Window.Resources>
 
@@ -139,10 +140,10 @@
                               IsExpanded="True"
                               Style="{DynamicResource expander}">
                         <StackPanel>
-                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
-                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
-                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
-                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
                             <StackPanel Orientation="Horizontal">
                                 <pix:PortableColorPicker x:Name="colorPicker" 
                                                          Height="50"

@@ -49,6 +49,7 @@
 
     </UserControl.Resources>
     <Grid>
+        <!--todo установить проверку на введенные символы-->
         <TextBox x:Name="TextBox"
                  Style="{DynamicResource textBoxStyle}"/>
     </Grid>
