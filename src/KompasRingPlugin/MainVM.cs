@@ -13,7 +13,7 @@ public partial class MainVM
     [ICommand]
     private void OpenKompas3D()
     {
-        KompasConnector.Instance.Connect();
+        var doc = KompasConnector.Instance.GetDocument();
     }
 
     [ICommand]

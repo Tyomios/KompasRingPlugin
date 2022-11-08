@@ -1,6 +1,7 @@
 ﻿using Kompas6API5;
 using System;
 using System.Threading.Tasks;
+using KompasAPI7;
 
 namespace Model;
 
@@ -18,10 +19,13 @@ public class KompasConnector
 
     public static KompasConnector Instance
     {
-        get => _instance ??= new KompasConnector();
+        get => _instance ??= new ();
     }
 
-    public async void Connect()
+    /// <summary>
+    /// Выполняет подключение к приложению КОМПАС-3D.
+    /// </summary>
+    private async void Connect()
     {
         if (_kompasObject is not null)
         {
@@ -39,9 +43,17 @@ public class KompasConnector
         });
     }
 
+    /// <summary>
+    /// Возвращает новый документ для создания детали.
+    /// </summary>
+    /// <returns> Документ для создания трехмерной детали. </returns>
+    public IKompasDocument3D GetDocument()
+    {
+        if(_kompasObject is null) Connect();
 
-    //public IKompasDocument3D GetDocument()
-    //{
+        var document = (ksDocument3D)_kompasObject.Document3D();
+        document.Create();
 
-    //}
+        return (IKompasDocument3D)document;
+    }
 }
