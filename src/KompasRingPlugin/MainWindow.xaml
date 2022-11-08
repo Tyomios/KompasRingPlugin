@@ -5,11 +5,15 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:KompasRingPlugin"
 		xmlns:controls="clr-namespace:KompasRingPlugin.Controls"
+		xmlns:pix="clr-namespace:ColorPicker;assembly=ColorPicker"
 		mc:Ignorable="d"
-		Height="570"
+		Height="600"
         Width="860"
 		WindowStyle="None"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+		ResizeMode="NoResize"
+        IsManipulationEnabled="True"
+        >
 	<Window.Resources>
 		<!-- Expander style -->
 		<Style x:Key="expander" TargetType="Expander">
@@ -70,7 +74,8 @@
 	
 	<Border CornerRadius="0"
             BorderBrush="Transparent"
-            Background="#484848">
+            Background="#484848"
+            DockPanel.Dock="Top">
         <Grid>
 
             <Grid.RowDefinitions>
@@ -84,10 +89,17 @@
                     <Button Width="30"
                             Style="{DynamicResource hideWindowButton}"/>
                     <Button Width="30" 
-                            Style="{DynamicResource closeWindowButton}"
-                            Command="Close"/>
+                            Style="{DynamicResource closeWindowButton}"/>
                 </StackPanel>
             </Border>
+
+            <Thumb 
+                x:Name="headerThumb" 
+                Opacity="0" 
+                Background="{x:Null}" 
+                Foreground="{x:Null}" 
+                DragDelta="headerThumb_DragDelta"
+                Margin="0,0,60,0"/>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -108,28 +120,34 @@
 							Style="{DynamicResource expander}">
                         <StackPanel>
                             <!--<TextBox Height ="40" Margin="0,5"/>-->
-                            <controls:AdvancedTextbox/>
-                            <TextBox Height ="40" Margin="0,5"/>
-                            <TextBox Height ="40" Margin="0,5"/>
+                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
+                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
+                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
                         </StackPanel>
                     </Expander>
 
                     <Expander Grid.Row="1"
                               Header="Параметры кольца"
-                              IsExpanded="True">
+                              IsExpanded="True"
+                              Style="{DynamicResource expander}">
                         <StackPanel>
-                            <TextBox Height ="40" Margin="0,5"/>
-                            <TextBox Height ="40" Margin="0,5"/>
-                            <TextBox Height ="40" Margin="0,5"/>
-                            <TextBox Height ="40" Margin="0,5"/>
+                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
+                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
+                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
+                            <controls:AdvancedTextbox Height ="40" Margin="0,5"/>
 
 
 							<!--todo заплатка пока не добавлен colorPicker-->
-							<Rectangle Height="50" 
+							<!--<Rectangle Height="50" 
                                        Width="100"
                                        Fill="Yellow"
                                        HorizontalAlignment="Left"
-                                       Margin="5,0,0,0"/>
+                                       Margin="5,0,0,0"/>-->
+                            <pix:PortableColorPicker Height="50"
+                                                     Width="100"
+                                                     HorizontalAlignment="Left"
+                                                     ShowAlpha="False"
+                                                     SmallChange="1"/>
                         </StackPanel>
                     </Expander>
                 </Grid>

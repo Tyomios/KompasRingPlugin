@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace KompasRingPlugin;
 
@@ -11,4 +12,10 @@ public partial class MainWindow : Window
 	{
 		InitializeComponent();
 	}
+
+    private void headerThumb_DragDelta(object sender, DragDeltaEventArgs e)
+    {
+        Left = Left + e.HorizontalChange;
+        Top = Top + e.VerticalChange;
+    }
 }
