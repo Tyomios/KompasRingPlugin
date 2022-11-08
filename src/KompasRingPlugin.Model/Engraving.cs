@@ -7,6 +7,9 @@ public class Engraving
 {
     private string _text;
 
+    /// <summary>
+    /// Возвращает или задает текст гравировки.
+    /// </summary>
     public string Text
     {
         get => _text;
@@ -18,6 +21,9 @@ public class Engraving
 
     private uint _textSize;
 
+    /// <summary>
+    /// Возвращает или задает размер текста гравировки.
+    /// </summary>
     public uint TextSize
     {
         get => _textSize;
@@ -29,6 +35,9 @@ public class Engraving
 
     private float _height;
 
+    /// <summary>
+    /// Возвращает или задает высоту эскиза с гравировкой.
+    /// </summary>
     public float Height
     {
         get => _height;
