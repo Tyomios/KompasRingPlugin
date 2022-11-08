@@ -164,7 +164,8 @@
                 </Grid>
 
                 <Button 
-					Content="Построить" 
+					Content="Построить"
+                    Command="{Binding OpenKompas3DCommand}"
 					VerticalAlignment="Bottom" 
 					Width="155"
 					Height="40"
