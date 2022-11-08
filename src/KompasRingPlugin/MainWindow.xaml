@@ -87,9 +87,9 @@
 			Background="#333333">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Width="30"
-                            Style="{DynamicResource hideWindowButton}"/>
+                            Style="{DynamicResource hideWindowButton}" Click="clapBtn_Click"/>
                     <Button Width="30" 
-                            Style="{DynamicResource closeWindowButton}"/>
+                            Style="{DynamicResource closeWindowButton}" Click="exitBtn_Click"/>
                 </StackPanel>
             </Border>
 
