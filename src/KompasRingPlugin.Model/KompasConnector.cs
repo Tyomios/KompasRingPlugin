@@ -1,5 +1,4 @@
-﻿using Kompas6API5;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using KompasAPI7;
 
@@ -13,7 +12,9 @@ public class KompasConnector
 
     }
 
-    private static KompasObject _kompasObject;
+    private static IKompasAPIObject s_kompasObject;
+
+    private static IApplication s_kompasApplication;
 
     private static KompasConnector _instance;
 
@@ -25,35 +26,42 @@ public class KompasConnector
     /// <summary>
     /// Выполняет подключение к приложению КОМПАС-3D.
     /// </summary>
-    private async void Connect()
+    public async void Connect()
     {
-        if (_kompasObject is not null)
+        if (s_kompasObject is not null)
         {
             //todo окно сообщения о том, что подключение выполнено ранее.
             return;
         }
 
-        var kompasType = Type.GetTypeFromProgID("KOMPAS.Application.5");
+        var kompasType = Type.GetTypeFromProgID("KOMPAS.Application.7");
 
         await Task.Run(() =>
         {
-            _kompasObject = (KompasObject)Activator.CreateInstance(kompasType);
-            _kompasObject.ActivateControllerAPI();
-            _kompasObject.Visible = true;
+            s_kompasObject = (IKompasAPIObject)Activator.CreateInstance(kompasType);
+            s_kompasApplication = s_kompasObject.Application;
+            s_kompasApplication.Visible = true;
         });
+    }
+
+    public void Dispose()
+    {
+        if (s_kompasApplication is null) return;
+        
+        s_kompasApplication.Quit();
     }
 
     /// <summary>
     /// Возвращает новый документ для создания детали.
     /// </summary>
     /// <returns> Документ для создания трехмерной детали. </returns>
-    public IKompasDocument3D GetDocument()
-    {
-        if(_kompasObject is null) Connect();
+    //public IKompasDocument3D GetDocument()
+    //{
+    //    //if(s_kompasObject is null) Connect();
 
-        var document = (ksDocument3D)_kompasObject.Document3D();
-        document.Create();
+    //    var document = (KompasDocument3D)s_kompasObject.Document3D(); //todo доработать время ожидания подключения или вынести в 2 метода.
+    //    document.Crea;
 
-        return (IKompasDocument3D)document;
-    }
+    //    return (IKompasDocument3D)document;
+    //}
 }

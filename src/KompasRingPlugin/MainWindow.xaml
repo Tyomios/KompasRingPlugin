@@ -96,9 +96,12 @@
 			Background="#333333">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Width="30"
-                            Style="{DynamicResource hideWindowButton}" Click="clapBtn_Click"/>
+                            Style="{DynamicResource hideWindowButton}"
+                            Click="clapBtn_Click"/>
+
                     <Button Width="30" 
-                            Style="{DynamicResource closeWindowButton}" Click="exitBtn_Click"/>
+                            Style="{DynamicResource closeWindowButton}"
+                            Command="{Binding CloseApplicationCommand}"/>
                 </StackPanel>
             </Border>
 
