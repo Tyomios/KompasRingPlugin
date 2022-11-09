@@ -1,4 +1,5 @@
 ﻿using System.Net.Mime;
+using System.Threading;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -16,7 +17,8 @@ public partial class MainVM
     private void OpenKompas3D()
     {
         KompasConnector.Instance.Connect();
-        //var doc = KompasConnector.Instance.GetDocument();
+        Thread.Sleep(4000);
+        var doc = KompasConnector.Instance.GetDocument();
     }
 
     [ICommand]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kompas6Constants;
 using KompasAPI7;
 
 namespace Model;
@@ -58,13 +59,17 @@ public class KompasConnector
     /// Возвращает новый документ для создания детали.
     /// </summary>
     /// <returns> Документ для создания трехмерной детали. </returns>
-    //public IKompasDocument3D GetDocument()
-    //{
-    //    //if(s_kompasObject is null) Connect();
+    public IKompasDocument3D GetDocument()
+    {
+        //if(s_kompasObject is null) Connect();
 
-    //    var document = (KompasDocument3D)s_kompasObject.Document3D(); //todo доработать время ожидания подключения или вынести в 2 метода.
-    //    document.Crea;
-
-    //    return (IKompasDocument3D)document;
-    //}
+        if (s_kompasApplication.ActiveDocument is not null 
+            && s_kompasApplication.ActiveDocument.Type.Equals(DocumentTypeEnum.ksDocumentPart))
+        {
+            return (IKompasDocument3D)s_kompasApplication.ActiveDocument;
+        }
+        var newDocument = s_kompasApplication.Documents.Add(DocumentTypeEnum.ksDocumentPart);
+        s_kompasApplication.ActiveDocument = newDocument;
+        return (IKompasDocument3D)s_kompasApplication.ActiveDocument;
+    }
 }
