@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Kompas6Constants;
 using KompasAPI7;
+using Thread = System.Threading.Thread;
 
 namespace Model;
 
@@ -27,7 +29,7 @@ public class KompasConnector
     /// <summary>
     /// Выполняет подключение к приложению КОМПАС-3D.
     /// </summary>
-    public async void Connect()
+    private async void Connect()
     {
         if (s_kompasObject is not null)
         {
@@ -61,15 +63,19 @@ public class KompasConnector
     /// <returns> Документ для создания трехмерной детали. </returns>
     public IKompasDocument3D GetDocument()
     {
-        //if(s_kompasObject is null) Connect();
+        if(s_kompasObject is null) Connect();
 
-        if (s_kompasApplication.ActiveDocument is not null 
-            && s_kompasApplication.ActiveDocument.Type.Equals(DocumentTypeEnum.ksDocumentPart))
+        Thread.Sleep(4000); //todo подумать о замене.
+        var activeDocument = s_kompasApplication.ActiveDocument;
+        if (activeDocument is not null 
+            && activeDocument.Type.Equals(DocumentTypeEnum.ksDocumentPart))
         {
             return (IKompasDocument3D)s_kompasApplication.ActiveDocument;
         }
+
         var newDocument = s_kompasApplication.Documents.Add(DocumentTypeEnum.ksDocumentPart);
         s_kompasApplication.ActiveDocument = newDocument;
+
         return (IKompasDocument3D)s_kompasApplication.ActiveDocument;
     }
 }
