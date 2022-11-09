@@ -31,7 +31,7 @@ public partial class MainVM
     [ICommand]
     private void CloseApplication()
     {
-        KompasConnector.Instance.Dispose();
+        KompasConnector.Instance.Disconnect();
         Application.Current.Shutdown();
     }
 }

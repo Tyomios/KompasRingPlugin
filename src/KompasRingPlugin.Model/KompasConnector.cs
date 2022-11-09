@@ -44,7 +44,10 @@ public class KompasConnector
         });
     }
 
-    public void Dispose()
+    /// <summary>
+    /// Производит закрытие приложения КОМПАС-3D, если оно было открыто.
+    /// </summary>
+    public void Disconnect()
     {
         if (s_kompasApplication is null) return;
         
