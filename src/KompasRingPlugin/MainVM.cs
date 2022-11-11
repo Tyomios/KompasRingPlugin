@@ -1,10 +1,10 @@
-﻿using System.Net.Mime;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using KompasAPI7;
 using Model;
+
 
 namespace KompasRingPlugin;
 
@@ -15,9 +15,13 @@ public partial class MainVM
     private Ring _ring = new();
 
     [ICommand]
-    private void OpenKompas3D()
+    private async void OpenKompas3D()
     {
-        var doc = KompasConnector.Instance.GetDocument();
+        IKompasDocument3D doc;
+        await Task.Run((() =>
+        {
+            doc = KompasConnector.Instance.GetDocument().Result;
+        }));
     }
 
     [ICommand]

@@ -19,6 +19,7 @@
   <ItemGroup>
     <Reference Include="Interop.KompasAPI7">
       <HintPath>..\KompasRingPlugin.Model\obj\Debug\net6.0-windows\Interop.KompasAPI7.dll</HintPath>
+		<EmbidiedInteropTypes>false</EmbidiedInteropTypes>
     </Reference>
   </ItemGroup>
 
