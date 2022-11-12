@@ -40,7 +40,7 @@ public class KompasConnector
     /// <summary>
     /// Выполняет подключение к приложению КОМПАС-3D.
     /// </summary>
-    private async Task Connect()
+    private async Task Connect() //todo добавить попытки подключения или поиска включенного или перенести подключение при старте приложения.
     {
         if (s_kompasObject is not null)
         {
@@ -76,24 +76,12 @@ public class KompasConnector
     {
         if(s_kompasObject is null)
         {
-            Connect().Wait(10000);
+            Connect().Wait(10000); //todo все равно не всегда срабатывает.
         }
 
         Document3D doc3D = (Document3D)s_kompasObject.Document3D();
         doc3D.Create(false, true);
 
         return doc3D;
-
-        //var activeDocument = s_kompasObject.ActiveDocument3D();
-        //if (activeDocument is not null 
-        //    && activeDocument.Type.Equals(DocumentTypeEnum.ksDocumentPart))
-        //{
-        //    return (IKompasDocument3D)s_kompasObject.ActiveDocument3D();
-        //}
-
-        //var newDocument = s_kompasObject.Document3D().Documents.Add(DocumentTypeEnum.ksDocumentPart);
-        //s_kompasApplication.ActiveDocument = newDocument;
-
-        //return (IKompasDocument3D)s_kompasApplication.ActiveDocument;
     }
 }
