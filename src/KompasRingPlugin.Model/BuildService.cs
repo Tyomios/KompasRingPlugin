@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Kompas6API5;
 using KompasAPI7;
 
 namespace Model;
@@ -8,7 +9,7 @@ namespace Model;
 /// </summary>
 public class BuildService
 {
-    private IKompasDocument3D _document;
+    private ksDocument3D _document;
 
     /// <summary>
     /// создает экземпляр класса <see cref="BuildService"/>.
@@ -16,7 +17,7 @@ public class BuildService
     /// <param name="document">
     /// Используемый для построения документ.
     /// </param>
-    public BuildService(IKompasDocument3D document)
+    public BuildService(ksDocument3D document)
     {
         _document = document;
     }

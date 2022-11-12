@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Kompas6API5;
 using Kompas6Constants;
 using KompasAPI7;
 
@@ -12,7 +13,7 @@ public class KompasConnector
 
     }
 
-    private static IKompasAPIObject s_kompasObject;
+    private static KompasObject s_kompasObject;
 
     private static IApplication s_kompasApplication;
 
@@ -34,13 +35,12 @@ public class KompasConnector
             return;
         }
 
-        var kompasType = Type.GetTypeFromProgID("KOMPAS.Application.7");
+        var kompasType = Type.GetTypeFromProgID("KOMPAS.Application.5");
 
         await Task.Run(() =>
         {
-            s_kompasObject = (IKompasAPIObject)Activator.CreateInstance(kompasType);
-            s_kompasApplication = s_kompasObject.Application;
-            s_kompasApplication.Visible = true;
+            s_kompasObject = (KompasObject)Activator.CreateInstance(kompasType);
+            s_kompasObject.Visible = true;
         });
     }
 
