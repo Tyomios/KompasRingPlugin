@@ -17,8 +17,22 @@ public class RingBuilder
         {
             doc = KompasConnector.Instance.GetDocument().Result;
             var buildService = new BuildService(doc);
-            buildService.CreateSketch();
+            var sketchDefinition = buildService.CreateSketch();
+            CreateCircleSketch(sketchDefinition, 15);
         }));
         
+    }
+
+    /// <summary>
+    /// Создает эскиз кольца.
+    /// </summary>
+    /// <param name="emptySketch"></param>
+    /// <param name="radius"></param>
+    /// <param name="sketchDefinition"></param>
+    private void CreateCircleSketch(ksSketchDefinition sketchDefinition, double radius)
+    {
+        ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
+        flatDocument.ksCircle(0, 0, radius, 1);
+        sketchDefinition.EndEdit();
     }
 }

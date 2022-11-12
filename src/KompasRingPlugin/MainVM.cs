@@ -7,12 +7,21 @@ using Application = System.Windows.Application;
 
 namespace KompasRingPlugin;
 
+/// <summary>
+/// Отвечает за взаимодействие с пользователем.
+/// </summary>
 [INotifyPropertyChanged]
 public partial class MainVM
 {
+    /// <summary>
+    /// Кольцо.
+    /// </summary>
     [ObservableProperty]
     private Ring _ring = new();
 
+    /// <summary>
+    /// Построение детали в приложении КОМПАС-3D.
+    /// </summary>
     [ICommand]
     private void Build()
     {

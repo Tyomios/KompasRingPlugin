@@ -29,23 +29,20 @@ public class BuildService
     /// Создает эскиз.
     /// </summary>
     /// <param name="part"></param>
-    public void CreateSketch()
+    public ksSketchDefinition CreateSketch()
     {
         ksPart topPart = (ksPart)_document.GetPart(_topPartType);
 
-        ksEntity _drawEntity = (ksEntity)topPart.NewEntity(5);
+        ksEntity drawEntity = (ksEntity)topPart.NewEntity(5);
 
-        ksSketchDefinition _sketchDefinition = (ksSketchDefinition)_drawEntity.GetDefinition();
+        ksSketchDefinition sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
         
         ksEntity entityPlane = (ksEntity)topPart.GetDefaultEntity(1);
 
-        _sketchDefinition.SetPlane(entityPlane);
-        _drawEntity.Create();
-    }
+        sketchDefinition.SetPlane(entityPlane);
+        drawEntity.Create();
 
-    public void CreateCircleSketch(IPlane3D plane, ISketch sketch)
-    {
-
+        return sketchDefinition;
     }
 
     public void CreateAuxSurface(Point point, IPlane3DTangentToFace parentPlane)
