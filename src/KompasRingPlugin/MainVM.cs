@@ -14,22 +14,10 @@ public partial class MainVM
     private Ring _ring = new();
 
     [ICommand]
-    private async void OpenKompas3D()
-    {
-        Document3D doc;
-        await Task.Run((() =>
-        {
-            doc = KompasConnector.Instance.GetDocument().Result;
-            
-        }));
-
-        
-    }
-
-    [ICommand]
     private void Build()
     {
-
+        var ringBuilder = new RingBuilder();
+        ringBuilder.Build(_ring);
     }
 
     /// <summary>

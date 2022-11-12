@@ -168,7 +168,7 @@
 
                 <Button 
 					Content="Построить"
-                    Command="{Binding OpenKompas3DCommand}"
+                    Command="{Binding BuildCommand}"
 					VerticalAlignment="Bottom" 
 					Width="155"
 					Height="40"
