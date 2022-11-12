@@ -1,24 +1,37 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Kompas6API5;
-using Kompas6Constants;
-using KompasAPI7;
 
 namespace Model;
 
+/// <summary>
+/// Отвечает за подключение к КОМПАС-3D.
+/// </summary>
 public class KompasConnector
 {
+    /// <summary>
+    /// Создает экземпляр класса <see cref="KompasConnector"/>.
+    /// </summary>
     private KompasConnector()
     {
 
     }
 
+    /// <summary>
+    /// КОМПАС-3D.
+    /// </summary>
     private static KompasObject s_kompasObject;
 
-    private static IApplication s_kompasApplication;
+    //private static IApplication s_kompasApplication;
 
+    /// <summary>
+    /// Инстанция подключения.
+    /// </summary>
     private static KompasConnector _instance;
 
+    /// <summary>
+    /// Возвращает инстанцию подключения.
+    /// </summary>
     public static KompasConnector Instance
     {
         get => _instance ??= new ();
@@ -40,6 +53,7 @@ public class KompasConnector
         await Task.Run(() =>
         {
             s_kompasObject = (KompasObject)Activator.CreateInstance(kompasType);
+            s_kompasObject.ActivateControllerAPI();
             s_kompasObject.Visible = true;
         });
     }
@@ -49,33 +63,37 @@ public class KompasConnector
     /// </summary>
     public void Disconnect()
     {
-        if (s_kompasApplication is null) return;
+        if (s_kompasObject is null) return;
         
-        s_kompasApplication.Quit();
+        s_kompasObject.Quit();
     }
 
     /// <summary>
     /// Возвращает новый документ для создания детали.
     /// </summary>
     /// <returns> Документ для создания трехмерной детали. </returns>
-    public async Task<IKompasDocument3D> GetDocument()
+    public async Task<Document3D> GetDocument()
     {
         if(s_kompasObject is null)
         {
             Connect().Wait(10000);
         }
 
+        Document3D doc3D = (Document3D)s_kompasObject.Document3D();
+        doc3D.Create(false, true);
 
-        var activeDocument = s_kompasApplication.ActiveDocument;
-        if (activeDocument is not null 
-            && activeDocument.Type.Equals(DocumentTypeEnum.ksDocumentPart))
-        {
-            return (IKompasDocument3D)s_kompasApplication.ActiveDocument;
-        }
+        return doc3D;
 
-        var newDocument = s_kompasApplication.Documents.Add(DocumentTypeEnum.ksDocumentPart);
-        s_kompasApplication.ActiveDocument = newDocument;
+        //var activeDocument = s_kompasObject.ActiveDocument3D();
+        //if (activeDocument is not null 
+        //    && activeDocument.Type.Equals(DocumentTypeEnum.ksDocumentPart))
+        //{
+        //    return (IKompasDocument3D)s_kompasObject.ActiveDocument3D();
+        //}
 
-        return (IKompasDocument3D)s_kompasApplication.ActiveDocument;
+        //var newDocument = s_kompasObject.Document3D().Documents.Add(DocumentTypeEnum.ksDocumentPart);
+        //s_kompasApplication.ActiveDocument = newDocument;
+
+        //return (IKompasDocument3D)s_kompasApplication.ActiveDocument;
     }
 }

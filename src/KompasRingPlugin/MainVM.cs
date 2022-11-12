@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using KompasAPI7;
+using Kompas6API5;
 using Model;
+using Application = System.Windows.Application;
 
 
 namespace KompasRingPlugin;
@@ -17,16 +17,11 @@ public partial class MainVM
     [ICommand]
     private async void OpenKompas3D()
     {
-        IKompasDocument3D doc;
+        Document3D doc;
         await Task.Run((() =>
         {
             doc = KompasConnector.Instance.GetDocument().Result;
-            Part7 part = doc.TopPart;
         }));
-        
-        
-        
-        
     }
 
     [ICommand]

@@ -7,20 +7,21 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<Reference Include="Interop.Kompas6API5">
+			<HintPath>..\KompasRingPlugin.Model\obj\Debug\net6.0-windows\Interop.Kompas6API5.dll</HintPath>
+			<EmbidiedInteropTypes>false</EmbidiedInteropTypes>
+		</Reference>
+	</ItemGroup>
+
+
+	<ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="PixiEditor.ColorPicker" Version="3.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\KompasRingPlugin.Model\KompasRingPlugin.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Interop.KompasAPI7">
-      <HintPath>..\KompasRingPlugin.Model\obj\Debug\net6.0-windows\Interop.KompasAPI7.dll</HintPath>
-		<EmbidiedInteropTypes>false</EmbidiedInteropTypes>
-    </Reference>
   </ItemGroup>
 
 </Project>

@@ -50,7 +50,7 @@
       <Guid>0422828c-f174-495e-ac5d-d31014dbbe87</Guid>
       <Lcid>0</Lcid>
       <Isolated>false</Isolated>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="Kompas6API3D5COM">
       <WrapperTool>tlbimp</WrapperTool>
