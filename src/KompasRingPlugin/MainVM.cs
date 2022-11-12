@@ -5,7 +5,6 @@ using Kompas6API5;
 using Model;
 using Application = System.Windows.Application;
 
-
 namespace KompasRingPlugin;
 
 [INotifyPropertyChanged]
@@ -21,7 +20,10 @@ public partial class MainVM
         await Task.Run((() =>
         {
             doc = KompasConnector.Instance.GetDocument().Result;
+            
         }));
+
+        
     }
 
     [ICommand]
