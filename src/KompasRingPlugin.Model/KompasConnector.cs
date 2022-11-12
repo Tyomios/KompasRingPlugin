@@ -7,7 +7,6 @@ namespace Model;
 
 public class KompasConnector
 {
-
     private KompasConnector()
     {
 

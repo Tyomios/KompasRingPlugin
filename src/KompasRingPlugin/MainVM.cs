@@ -21,7 +21,12 @@ public partial class MainVM
         await Task.Run((() =>
         {
             doc = KompasConnector.Instance.GetDocument().Result;
+            Part7 part = doc.TopPart;
         }));
+        
+        
+        
+        
     }
 
     [ICommand]
