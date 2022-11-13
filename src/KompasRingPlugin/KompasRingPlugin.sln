@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasRingPlugin", "KompasRingPlugin.csproj", "{AB8A27C5-1A0D-46EC-8914-F82D173655AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KompasRingPlugin", "KompasRingPlugin.csproj", "{AB8A27C5-1A0D-46EC-8914-F82D173655AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KompasRingPlugin.Model", "..\KompasRingPlugin.Model\KompasRingPlugin.Model.csproj", "{26B18379-75BF-4DD9-8C68-1922A294C19A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KompasRingPlugin.Model", "..\KompasRingPlugin.Model\KompasRingPlugin.Model.csproj", "{26B18379-75BF-4DD9-8C68-1922A294C19A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastTestAPI", "..\FastTestAPI\FastTestAPI.csproj", "{D6E9AADE-3963-4844-BA22-6C84B6813C5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{26B18379-75BF-4DD9-8C68-1922A294C19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26B18379-75BF-4DD9-8C68-1922A294C19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26B18379-75BF-4DD9-8C68-1922A294C19A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E9AADE-3963-4844-BA22-6C84B6813C5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E9AADE-3963-4844-BA22-6C84B6813C5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E9AADE-3963-4844-BA22-6C84B6813C5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E9AADE-3963-4844-BA22-6C84B6813C5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

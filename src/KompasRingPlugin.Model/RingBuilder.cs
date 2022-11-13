@@ -16,9 +16,9 @@ public class RingBuilder
         await Task.Run((() =>
         {
             doc = KompasConnector.Instance.GetDocument().Result;
-            var buildService = new BuildService(doc);
-            var sketchDefinition = buildService.CreateSketch();
-            CreateCircleSketch(sketchDefinition, 15);
+            //var buildService = new BuildService(doc);
+            //var sketchDefinition = buildService.CreateSketch();
+            //CreateCircleSketch(sketchDefinition, 15);
         }));
         
     }

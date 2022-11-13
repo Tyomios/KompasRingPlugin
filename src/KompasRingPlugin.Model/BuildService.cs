@@ -45,6 +45,25 @@ public class BuildService
         return sketchDefinition;
     }
 
+    /// <summary>
+    /// Выполнение операции обечайка.
+    /// </summary>
+    /// <param name="sketch"> Используемый эскиз. </param>
+    public void SheetMetalRuledShell(ksEntity sketch)
+    {
+        ksPart topPart = (ksPart)_document.GetPart(_topPartType);
+
+        ksEntity shellEntity = (ksEntity)topPart.NewEntity(11321);
+
+        ksBaseExtrusionDefinition baseDefinition = (ksBaseExtrusionDefinition)shellEntity.GetDefinition();
+
+        baseDefinition.SetSideParam(true);
+        baseDefinition.SetSketch(sketch);
+
+        shellEntity.Create();
+
+    }
+
     public void CreateAuxSurface(Point point, IPlane3DTangentToFace parentPlane)
     {
 
