@@ -23,6 +23,7 @@ public class RingBuilder
             buildService.SqueezeOut(biggerCircleSketchDefinition, 10);
             buildService.SqueezeOut(smallerCircleSketchDefinition, 10, true);
 
+
         }));
         
     }

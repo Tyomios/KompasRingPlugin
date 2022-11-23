@@ -1,4 +1,7 @@
-﻿namespace Model;
+﻿using System.Collections.Generic;
+using System.Windows.Documents;
+
+namespace Model;
 
 /// <summary>
 /// Сервис содержащий методы для построения детали.
@@ -91,9 +94,41 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         _document.shadedWireframe = true;
     }
 
-    public void CreateAuxSurface(Point point, IPlane3DTangentToFace parentPlane)
+    /// <summary>
+    /// Проводит операцию скругления на ребрах.
+    /// </summary>
+    /// <param name="radius"> Угол скругления. </param>
+    /// <param name="roundedEdges"> Ребра скругления. </param>
+    public void RoundCorners(double radius, List<ksEdgeDefinition> roundedEdges)
     {
+        short o3d_fillet = 34;
 
+        var filletEntity = (ksEntity)_topPart.NewEntity(o3d_fillet);
+        var filletDefinition = (ksFilletDefinition)filletEntity.GetDefinition();
+        filletDefinition.radius = radius;
+
+        var items = (ksEntityCollection)filletDefinition.array();
+        roundedEdges.ForEach(edge => items.Add(edge));
+
+        filletEntity.Create();
+    }
+
+    public List<ksEdgeDefinition> GetCircleEdges(ksEntity part)
+    {
+        var edge = (ksEdgeDefinition)part.GetDefinition();
+        var edges = (ksEdgeCollection)edge.EdgeCollection(true);
+
+        var items = new List<ksEdgeDefinition>();
+        for (int i = 0; i < edges.GetCount(); ++i)
+        {
+            var currentEdge = (ksEdgeDefinition)edges.GetByIndex(i);
+            if (currentEdge.IsCircle())
+            {
+                items.Add(currentEdge);
+            }
+        }
+
+        return items;
     }
 
     public void InjectText(IText text, IPart7 part, ISketch sketch)
