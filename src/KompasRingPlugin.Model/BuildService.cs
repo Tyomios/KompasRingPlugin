@@ -54,7 +54,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <param name="sketch"> Эскиз для выдавливания. </param>
     /// <param name="height"> Расстояние выдавливания. </param>
     /// <param name="blindType"> Тип выдавливания (по умолчанию задан на «Строго в глубину»). </param>
-    public void SqueezeOut(ksSketchDefinition sketch, double height, bool cutMode = false, short blindType = 0)
+    public ksEntity SqueezeOut(ksSketchDefinition sketch, double height, bool cutMode = false, short blindType = 0)
     {
         // Указывает на создание операции выдавливания.
         const int o3d_baseExtrusion = 24;
@@ -92,6 +92,8 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
 
         _document.drawMode = vm_Shaded;
         _document.shadedWireframe = true;
+
+        return extrusionEntity;
     }
 
     /// <summary>
@@ -101,6 +103,11 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <param name="roundedEdges"> Ребра скругления. </param>
     public void RoundCorners(double radius, List<ksEdgeDefinition> roundedEdges)
     {
+        if (roundedEdges.Count.Equals(0))
+        {
+            throw new Exception("Переданный список ребер пуст.");
+        }
+
         short o3d_fillet = 34;
 
         var filletEntity = (ksEntity)_topPart.NewEntity(o3d_fillet);
@@ -115,18 +122,56 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
 
     public List<ksEdgeDefinition> GetCircleEdges(ksEntity part)
     {
-        var edge = (ksEdgeDefinition)part.GetDefinition();
-        var edges = (ksEdgeCollection)edge.EdgeCollection(true);
+        var body = (ksBody)_topPart.GetMainBody();
+        var faces = (ksFaceCollection)body.FaceCollection();
+        var facesCount = faces.GetCount();
 
-        var items = new List<ksEdgeDefinition>();
-        for (int i = 0; i < edges.GetCount(); ++i)
+        var planeFaces = new List<ksFaceDefinition>();
+        if (facesCount == 0)
         {
-            var currentEdge = (ksEdgeDefinition)edges.GetByIndex(i);
-            if (currentEdge.IsCircle())
-            {
-                items.Add(currentEdge);
-            }
+            return new List<ksEdgeDefinition>();
         }
+
+        var i = 0;
+        while (faces.Next() is not null)
+        {
+
+            var currentFace = (ksFaceDefinition)faces.GetByIndex(i);
+            if (currentFace.IsPlanar())
+            {
+                planeFaces.Add(currentFace);
+            }
+
+            ++i;
+        }
+
+        if (planeFaces.Count > 0)
+        {
+            var edges = new List<ksEdgeDefinition>();
+            foreach (var face in planeFaces)
+            {
+                var currentEdgeCollection = (ksEdgeCollection)face.EdgeCollection();
+                while (currentEdgeCollection.Next() is not null)
+                {
+                    var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(i);
+                    edges.Add(edge);
+
+                    ++i;
+                }
+            }
+
+            return edges;
+
+        }
+        var items = new List<ksEdgeDefinition>();
+        //for (int i = 0; i < edges.GetCount(); ++i)
+        //{
+        //    var currentEdge = (ksEdgeDefinition)edges.GetByIndex(i);
+        //    if (currentEdge.IsCircle())
+        //    {
+        //        items.Add(currentEdge);
+        //    }
+        //}
 
         return items;
     }

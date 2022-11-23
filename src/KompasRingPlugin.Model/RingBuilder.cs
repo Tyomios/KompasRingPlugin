@@ -20,10 +20,11 @@ public class RingBuilder
             var smallerCircleSketchDefinition = buildService.CreateSketch();
             CreateCircleSketch(smallerCircleSketchDefinition, 12);
 
-            buildService.SqueezeOut(biggerCircleSketchDefinition, 10);
+            var primaryPart = buildService.SqueezeOut(biggerCircleSketchDefinition, 10);
             buildService.SqueezeOut(smallerCircleSketchDefinition, 10, true);
 
-
+            var circleEdges = buildService.GetCircleEdges(primaryPart);
+            buildService.RoundCorners(5, circleEdges);
         }));
         
     }

@@ -1,4 +1,6 @@
-﻿namespace Model;
+﻿using Color = System.Windows.Media.Color;
+
+namespace Model;
 
 /// <summary>
 /// Кольцо.
