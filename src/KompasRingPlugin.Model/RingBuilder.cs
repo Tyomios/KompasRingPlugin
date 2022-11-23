@@ -24,6 +24,8 @@ public class RingBuilder
             CreateCircleSketch(smallerCircleSketchDefinition, 12);
 
             buildService.SqueezeOut(biggerCircleSketchDefinition, 10);
+            buildService.SqueezeOut(smallerCircleSketchDefinition, 10, true);
+
         }));
         
     }

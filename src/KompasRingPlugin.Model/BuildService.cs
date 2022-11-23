@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using System.Windows.Controls;
+﻿using System.Collections.ObjectModel;
+using System.Drawing;
 using Kompas6API5;
 using KompasAPI7;
 
@@ -8,7 +8,7 @@ namespace Model;
 /// <summary>
 /// Сервис содержащий методы для построения детали.
 /// </summary>
-public class BuildService
+public class BuildService //todo ReadOnlyDictionary для констант. Подумать над ключами.
 {
     private ksDocument3D _document;
 
@@ -51,35 +51,44 @@ public class BuildService
     /// <param name="sketch"> Эскиз для выдавливания. </param>
     /// <param name="height"> Расстояние выдавливания. </param>
     /// <param name="blindType"> Тип выдавливания (по умолчанию задан на «Строго в глубину»). </param>
-    public void SqueezeOut(ksSketchDefinition sketch, double height, short blindType = 0)
+    public void SqueezeOut(ksSketchDefinition sketch, double height, bool cutMode = false, short blindType = 0)
     {
-        //Тип объекта NewEntity. Указывает на создание операции выдавливания.
+        // Указывает на создание операции выдавливания.
         const int o3d_baseExtrusion = 24;
 
-        // Тип обекта DrawMode. Устанавливает полутоновое изображение модели
+        // Вырезать выдавливанием.
+        const int o3d_CutExtrusion = 26;
+
+        // Тип объекта DrawMode. Устанавливает полутоновое изображение модели
         const int vm_Shaded = 3;
 
+        //Тип направления вырезания. Обратное направление.
+        const int dtReverse = 1;
+
         var topPart = (ksPart)_document.GetPart(_topPartType);
+        ksEntity extrusionEntity = null;
+        dynamic extrusionDefinition = null;
+        bool draftOutward = true;
 
-        //Получаем интерфейс объекта "операция выдавливание"
-        var extrusionEntity = (ksEntity)topPart.NewEntity(o3d_baseExtrusion);
+        if (cutMode)
+        {
+            extrusionEntity = (ksEntity)topPart.NewEntity(o3d_CutExtrusion);
 
-        //Получаем интерфейс параметров операции "выдавливание"
-        var baseExtrusionDefinition = (ksBaseExtrusionDefinition)extrusionEntity.GetDefinition();
-
-        //Устанавливаем параметры операции выдавливания
-        baseExtrusionDefinition.SetSideParam(true, blindType, height, 0, true);
-
-        //Устанавливаем эскиз операции выдавливания
-        baseExtrusionDefinition.SetSketch(sketch);
-
-        //Создаем операцию выдавливания
+            extrusionDefinition = (ksCutExtrusionDefinition)extrusionEntity.GetDefinition();
+            extrusionDefinition.cut = true;
+            extrusionDefinition.directionType = dtReverse;
+            draftOutward = false;
+        }
+        else if (!cutMode)
+        {
+            extrusionEntity = (ksEntity)topPart.NewEntity(o3d_baseExtrusion);
+            extrusionDefinition = (ksBaseExtrusionDefinition)extrusionEntity.GetDefinition();
+        }
+        extrusionDefinition.SetSideParam(true, blindType, height, 0, draftOutward);
+        extrusionDefinition.SetSketch(sketch);
         extrusionEntity.Create();
 
-        //Устанавливаем полутоновое изображение модели
         _document.drawMode = vm_Shaded;
-
-        //Включаем отображение каркаса
         _document.shadedWireframe = true;
     }
 
