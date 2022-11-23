@@ -5,7 +5,7 @@ using KompasAPI7;
 using Thread = System.Threading.Thread;
 
 
-// ПОДКЛЮЧЕНИЕ К КОМПАСУ
+////ПОДКЛЮЧЕНИЕ К КОМПАСУ
 //var kompasType = Type.GetTypeFromProgID("KOMPAS.Application.5");
 
 //await Task.Run(() =>
@@ -15,11 +15,11 @@ using Thread = System.Threading.Thread;
 //    s_kompasObject.Visible = true;
 //});
 
-// СОЗДАНИЕ ДОКУМЕНТА
+////СОЗДАНИЕ ДОКУМЕНТА
 //Document3D doc3D = (Document3D)s_kompasObject.Document3D();
 //doc3D.Create(false, true);
 
-// СОЗДАНИЕ СКЕТЧА
+////СОЗДАНИЕ СКЕТЧА
 //ksPart topPart = (ksPart)_document.GetPart(_topPartType);
 
 //ksEntity drawEntity = (ksEntity)topPart.NewEntity(5);
@@ -33,7 +33,7 @@ using Thread = System.Threading.Thread;
 
 //return sketchDefinition;
 
-// СОЗДАНИЕ ЭСКИЗА КОЛЬЦА.
+////СОЗДАНИЕ ЭСКИЗА КОЛЬЦА.
 //ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
 //flatDocument.ksCircle(0, 0, radius, 1);
 //sketchDefinition.EndEdit();
@@ -66,18 +66,12 @@ if (activeDocument is null
 
 Console.WriteLine("Документ создан");
 
-var topPartModel = (IModelContainer)activeDocument.TopPart;
 var topPart = (IPart7)activeDocument.TopPart;
-var parts = (IModelObjects)topPart.Parts;
-
-activeDocument.CreateObjectsInCurrentLocalCS = true;
+var container = (IModelContainer)topPart;
+ISketchs sketches = container.Sketchs;
 
 Console.WriteLine("Режим редактирования + IModelContainer");
 
-ISketch sketch = topPartModel.Sketchs.Add();
-sketch.BeginEdit();
-sketch.EndEdit();
-sketch.Update();
-topPart.Update();
+ISketch newSketch = sketches.Add();
 
 

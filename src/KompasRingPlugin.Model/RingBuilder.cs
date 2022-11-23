@@ -16,9 +16,14 @@ public class RingBuilder
         await Task.Run((() =>
         {
             doc = KompasConnector.Instance.GetDocument().Result;
-            //var buildService = new BuildService(doc);
-            //var sketchDefinition = buildService.CreateSketch();
-            //CreateCircleSketch(sketchDefinition, 15);
+            var buildService = new BuildService(doc);
+            var biggerCircleSketchDefinition = buildService.CreateSketch();
+            CreateCircleSketch(biggerCircleSketchDefinition, 15);
+
+            var smallerCircleSketchDefinition = buildService.CreateSketch();
+            CreateCircleSketch(smallerCircleSketchDefinition, 12);
+
+            buildService.SqueezeOut(biggerCircleSketchDefinition, 10);
         }));
         
     }
@@ -26,7 +31,6 @@ public class RingBuilder
     /// <summary>
     /// Создает эскиз кольца.
     /// </summary>
-    /// <param name="emptySketch"></param>
     /// <param name="radius"></param>
     /// <param name="sketchDefinition"></param>
     private void CreateCircleSketch(ksSketchDefinition sketchDefinition, double radius)

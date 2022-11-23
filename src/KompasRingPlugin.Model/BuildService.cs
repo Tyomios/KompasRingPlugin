@@ -46,6 +46,44 @@ public class BuildService
     }
 
     /// <summary>
+    /// Выполняет операцию выдавливания по эскизу на заданное расстояние.
+    /// </summary>
+    /// <param name="sketch"> Эскиз для выдавливания. </param>
+    /// <param name="height"> Расстояние выдавливания. </param>
+    /// <param name="blindType"> Тип выдавливания (по умолчанию задан на «Строго в глубину»). </param>
+    public void SqueezeOut(ksSketchDefinition sketch, double height, short blindType = 0)
+    {
+        //Тип объекта NewEntity. Указывает на создание операции выдавливания.
+        const int o3d_baseExtrusion = 24;
+
+        // Тип обекта DrawMode. Устанавливает полутоновое изображение модели
+        const int vm_Shaded = 3;
+
+        var topPart = (ksPart)_document.GetPart(_topPartType);
+
+        //Получаем интерфейс объекта "операция выдавливание"
+        var extrusionEntity = (ksEntity)topPart.NewEntity(o3d_baseExtrusion);
+
+        //Получаем интерфейс параметров операции "выдавливание"
+        var baseExtrusionDefinition = (ksBaseExtrusionDefinition)extrusionEntity.GetDefinition();
+
+        //Устанавливаем параметры операции выдавливания
+        baseExtrusionDefinition.SetSideParam(true, blindType, height, 0, true);
+
+        //Устанавливаем эскиз операции выдавливания
+        baseExtrusionDefinition.SetSketch(sketch);
+
+        //Создаем операцию выдавливания
+        extrusionEntity.Create();
+
+        //Устанавливаем полутоновое изображение модели
+        _document.drawMode = vm_Shaded;
+
+        //Включаем отображение каркаса
+        _document.shadedWireframe = true;
+    }
+
+    /// <summary>
     /// Выполнение операции обечайка.
     /// </summary>
     /// <param name="sketch"> Используемый эскиз. </param>
@@ -53,7 +91,7 @@ public class BuildService
     {
         ksPart topPart = (ksPart)_document.GetPart(_topPartType);
 
-        ksEntity shellEntity = (ksEntity)topPart.NewEntity(11321);
+        ksEntity shellEntity = (ksEntity)topPart.NewEntity(606);
 
         ksBaseExtrusionDefinition baseDefinition = (ksBaseExtrusionDefinition)shellEntity.GetDefinition();
 
@@ -65,11 +103,6 @@ public class BuildService
     }
 
     public void CreateAuxSurface(Point point, IPlane3DTangentToFace parentPlane)
-    {
-
-    }
-
-    public void SqueezeOut(ISketch sketch)
     {
 
     }
