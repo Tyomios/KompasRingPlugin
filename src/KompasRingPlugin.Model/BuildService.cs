@@ -1,9 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Drawing;
-using Kompas6API5;
-using KompasAPI7;
-
-namespace Model;
+﻿namespace Model;
 
 /// <summary>
 /// Сервис содержащий методы для построения детали.
@@ -40,11 +35,9 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <param name="part"></param>
     public ksSketchDefinition CreateSketch()
     {
-        ksEntity drawEntity = (ksEntity)_topPart.NewEntity(5);
-
-        ksSketchDefinition sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
-        
-        ksEntity entityPlane = (ksEntity)_topPart.GetDefaultEntity(1);
+        var drawEntity = (ksEntity)_topPart.NewEntity(5);
+        var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
+        var entityPlane = (ksEntity)_topPart.GetDefaultEntity(1);
 
         sketchDefinition.SetPlane(entityPlane);
         drawEntity.Create();
@@ -99,16 +92,6 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     }
 
     public void CreateAuxSurface(Point point, IPlane3DTangentToFace parentPlane)
-    {
-
-    }
-
-    public void Bend(IPart7 part, double bendValue)
-    {
-
-    }
-
-    public void OpenRing(IPart7 part, IPlane3DTangentToFace parentPlane)
     {
 
     }

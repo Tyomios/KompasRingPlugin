@@ -1,6 +1,4 @@
-﻿using System.Windows.Media;
-
-namespace Model;
+﻿namespace Model;
 
 /// <summary>
 /// Кольцо.

@@ -1,7 +1,4 @@
-﻿using Kompas6API5;
-using System.Threading.Tasks;
-
-namespace Model;
+﻿namespace Model;
 
 /// <summary>
 /// Занимается построением детали.

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Kompas6API5;
-using KompasAPI7;
-using Kompas6Constants;
-
-namespace Model;
+﻿namespace Model;
 
 /// <summary>
 /// Отвечает за подключение к КОМПАС-3D.
