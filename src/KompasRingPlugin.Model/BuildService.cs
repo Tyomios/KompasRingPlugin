@@ -112,35 +112,27 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
 
         var filletEntity = (ksEntity)_topPart.NewEntity(o3d_fillet);
         ksFilletDefinition filletDefinition = (ksFilletDefinition)filletEntity.GetDefinition();
-        filletDefinition.radius = radius;
-
         ksEntityCollection items = (ksEntityCollection)filletDefinition.array();
 
-        foreach (var edge in roundedEdges)
-        {
-            items.Add(edge);
-        }
-        //roundedEdges.ForEach(edge => items.Add(edge));
-
+        filletDefinition.radius = radius;
+        roundedEdges.ForEach(edge => items.Add(edge));
         filletEntity.Create();
     }
 
     public List<ksEdgeDefinition> GetCircleEdges(ksEntity part)
     {
-        var body = (ksBody)_topPart.GetMainBody();
-        var faces = (ksFaceCollection)body.FaceCollection();
+        var faces = GetAllFaces();
         var facesCount = faces.GetCount();
 
-        var planeFaces = new List<ksFaceDefinition>();
         if (facesCount == 0)
         {
             return new List<ksEdgeDefinition>();
         }
 
+        var planeFaces = new List<ksFaceDefinition>();
         var i = 0;
         while (faces.Next() is not null)
         {
-
             var currentFace = (ksFaceDefinition)faces.GetByIndex(i);
             if (currentFace.IsPlanar())
             {
@@ -165,13 +157,24 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
                     ++j;
                 }
             }
-
             return edges;
 
         }
         var items = new List<ksEdgeDefinition>();
 
         return items;
+    }
+
+    /// <summary>
+    /// Получает все поверхности твердотельного объекта документа.
+    /// </summary>
+    /// <returns></returns>
+    public ksFaceCollection GetAllFaces()
+    {
+        var body = (ksBody)_topPart.GetMainBody();
+        var faces = (ksFaceCollection)body.FaceCollection();
+
+        return faces;
     }
 
     public void InjectText(IText text, IPart7 part, ISketch sketch)
