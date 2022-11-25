@@ -111,11 +111,16 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         short o3d_fillet = 34;
 
         var filletEntity = (ksEntity)_topPart.NewEntity(o3d_fillet);
-        var filletDefinition = (ksFilletDefinition)filletEntity.GetDefinition();
+        ksFilletDefinition filletDefinition = (ksFilletDefinition)filletEntity.GetDefinition();
         filletDefinition.radius = radius;
 
-        var items = (ksEntityCollection)filletDefinition.array();
-        roundedEdges.ForEach(edge => items.Add(edge));
+        ksEntityCollection items = (ksEntityCollection)filletDefinition.array();
+
+        foreach (var edge in roundedEdges)
+        {
+            items.Add(edge);
+        }
+        //roundedEdges.ForEach(edge => items.Add(edge));
 
         filletEntity.Create();
     }
@@ -150,13 +155,14 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
             var edges = new List<ksEdgeDefinition>();
             foreach (var face in planeFaces)
             {
+                var j = 0;
                 var currentEdgeCollection = (ksEdgeCollection)face.EdgeCollection();
                 while (currentEdgeCollection.Next() is not null)
                 {
-                    var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(i);
+                    var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(j);
                     edges.Add(edge);
 
-                    ++i;
+                    ++j;
                 }
             }
 
@@ -164,14 +170,6 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
 
         }
         var items = new List<ksEdgeDefinition>();
-        //for (int i = 0; i < edges.GetCount(); ++i)
-        //{
-        //    var currentEdge = (ksEdgeDefinition)edges.GetByIndex(i);
-        //    if (currentEdge.IsCircle())
-        //    {
-        //        items.Add(currentEdge);
-        //    }
-        //}
 
         return items;
     }

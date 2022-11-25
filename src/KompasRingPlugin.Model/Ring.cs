@@ -98,7 +98,10 @@ public class Ring
     /// </returns>
     public static bool IsReadyForBuild(Ring ring)
     {
-        if (ring.Width.Equals(0) || ring.Height.Equals(0) || ring.Radius.Equals(0) || ring.RoundScale.Equals(0))
+        if (ring.Width.Equals(0) 
+            || ring.Height.Equals(0) 
+            || ring.Radius.Equals(0) 
+            || ring.RoundScale.Equals(0))
         {
             return false;
         }

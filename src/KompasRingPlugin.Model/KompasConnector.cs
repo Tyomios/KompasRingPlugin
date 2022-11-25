@@ -59,9 +59,16 @@ public class KompasConnector
     /// </summary>
     public void Disconnect()
     {
-        if (s_kompasObject is null) return;
-        
-        s_kompasObject.Quit();
+        try
+        {
+            if (s_kompasObject is null) return;
+
+            s_kompasObject.Quit();
+        }
+        catch 
+        {
+            
+        }
     }
 
     /// <summary>
@@ -72,7 +79,7 @@ public class KompasConnector
     {
         if(s_kompasObject is null)
         {
-            Connect().Wait(10000); //todo все равно не всегда срабатывает.
+            await Connect(); //todo все равно не всегда срабатывает.
         }
 
         Document3D doc3D = (Document3D)s_kompasObject.Document3D();
