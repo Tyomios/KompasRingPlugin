@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Documents;
+
 
 namespace Model;
 
@@ -18,8 +18,6 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// </summary>
     private ksPart _topPart;
 
-    private const int _topPartType = -1;
-
     /// <summary>
     /// создает экземпляр класса <see cref="BuildService"/>.
     /// </summary>
@@ -29,7 +27,8 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     public BuildService(ksDocument3D document)
     {
         _document = document;
-        _topPart = (ksPart)_document.GetPart(_topPartType);
+        var topPartType = -1;
+        _topPart = (ksPart)_document.GetPart(topPartType);
     }
 
     /// <summary>
@@ -119,11 +118,14 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         filletEntity.Create();
     }
 
-    public List<ksEdgeDefinition> GetCircleEdges(ksEntity part)
+    /// <summary>
+    /// Возвращает список ребер плоских поверхностей.
+    /// </summary>
+    /// <returns>  </returns>
+    public List<ksEdgeDefinition> GetCircleEdges()
     {
         var faces = GetAllFaces();
         var facesCount = faces.GetCount();
-
         if (facesCount == 0)
         {
             return new List<ksEdgeDefinition>();
@@ -161,7 +163,6 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
 
         }
         var items = new List<ksEdgeDefinition>();
-
         return items;
     }
 

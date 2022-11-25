@@ -23,7 +23,7 @@ public class RingBuilder
             var primaryPart = buildService.SqueezeOut(biggerCircleSketchDefinition, 10);
             buildService.SqueezeOut(smallerCircleSketchDefinition, 10, true);
 
-            var circleEdges = buildService.GetCircleEdges(primaryPart);
+            var circleEdges = buildService.GetCircleEdges();
             buildService.RoundCorners(5, circleEdges);
         }));
         
