@@ -18,19 +18,6 @@ public partial class AdvancedTextbox : UserControl
     public static readonly DependencyProperty InputDataProperty = DependencyProperty.Register(
         nameof(InputData), typeof(string), typeof(AdvancedTextbox), new PropertyMetadata(default(string)));
 
-    
-    //public static readonly DependencyProperty InputDataProperty = DependencyProperty.Register(
-    //    nameof(InputData), typeof(string), typeof(AdvancedTextbox),
-    //    new FrameworkPropertyMetadata(null,
-    //        FrameworkPropertyMetadataOptions.AffectsRender,
-    //        new PropertyChangedCallback(OnContainElementChanged)));
-
-    //private static void OnContainElementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    //{
-    //    ((AdvancedTextbox)d).textBox.Text = (string)e.NewValue;
-    //    //if (e.NewValue != null) StartAnimation(((AdvancedTextbox)d));
-    //}
-
     public string InputData
     {
         get { return (string)GetValue(InputDataProperty); }

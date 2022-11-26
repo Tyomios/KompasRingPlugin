@@ -1,9 +1,13 @@
-﻿using Kompas6API3D5COM;
-using Kompas6API5;
-using Kompas6Constants;
-using KompasAPI7;
-using Thread = System.Threading.Thread;
+﻿using Model;
 
+var ring = new Ring
+{
+    Height = 4,
+    Width = 10,
+    Radius = 10,
+    RoundScale = 10
+};
 
-
-
+var ringBuilder = new RingBuilder();
+ringBuilder.Build(ring);
+Console.WriteLine("Кольцо построено.");
