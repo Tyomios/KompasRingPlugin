@@ -9,6 +9,9 @@ public class Ring
 {
     private float _width;
 
+    /// <summary>
+    /// Возвращает или задает ширину кольца.
+    /// </summary>
     public float Width
     {
         get => _width;
@@ -21,6 +24,9 @@ public class Ring
 
     private float _height;
 
+    /// <summary>
+    /// Возвращает или задает толщину кольца.
+    /// </summary>
     public float Height
     {
         get => _height;
@@ -100,8 +106,7 @@ public class Ring
     {
         if (ring.Width.Equals(0) 
             || ring.Height.Equals(0) 
-            || ring.Radius.Equals(0) 
-            || ring.RoundScale.Equals(0))
+            || ring.Radius.Equals(0))
         {
             return false;
         }

@@ -7,7 +7,7 @@ public class RingBuilder
 {
     public async void Build(Ring ring)
     {
-        //if(!Ring.IsReadyForBuild(ring)) return;
+        if(!Ring.IsReadyForBuild(ring)) return;
 
         Document3D doc;
         await Task.Run((() =>
@@ -15,16 +15,16 @@ public class RingBuilder
             doc = KompasConnector.Instance.GetDocument().Result;
             var buildService = new BuildService(doc);
             var biggerCircleSketchDefinition = buildService.CreateSketch();
-            CreateCircleSketch(biggerCircleSketchDefinition, 15);
+            CreateCircleSketch(biggerCircleSketchDefinition, ring.Radius + ring.Height);
 
             var smallerCircleSketchDefinition = buildService.CreateSketch();
-            CreateCircleSketch(smallerCircleSketchDefinition, 12);
+            CreateCircleSketch(smallerCircleSketchDefinition, ring.Radius);
 
-            var primaryPart = buildService.SqueezeOut(biggerCircleSketchDefinition, 10);
-            buildService.SqueezeOut(smallerCircleSketchDefinition, 10, true);
+            var primaryPart = buildService.SqueezeOut(biggerCircleSketchDefinition, ring.Width);
+            var subPart = buildService.SqueezeOut(smallerCircleSketchDefinition, ring.Width, true);
 
             var circleEdges = buildService.GetCircleEdges();
-            buildService.RoundCorners(5, circleEdges);
+            buildService.RoundCorners(ring.RoundScale, circleEdges);
         }));
         
     }

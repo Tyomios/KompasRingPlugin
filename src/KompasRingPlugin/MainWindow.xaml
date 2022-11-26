@@ -143,10 +143,14 @@
                               IsExpanded="True"
                               Style="{DynamicResource expander}">
                         <StackPanel>
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
+                                                      InputData="{Binding Ring.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
+                                                      InputData="{Binding Ring.Radius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
+                                                      InputData="{Binding Ring.RoundScale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
+                                                      InputData="{Binding Ring.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <StackPanel Orientation="Horizontal">
                                 <pix:PortableColorPicker x:Name="colorPicker" 
                                                          Height="50"
