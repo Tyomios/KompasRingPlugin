@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Kompas6API5;
+using System.Collections.Generic;
 
 
 namespace Model;
@@ -32,14 +33,17 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     }
 
     /// <summary>
-    /// Создает эскиз.
+    /// Создает эскиз на одной из базовых плоскостей.
     /// </summary>
-    /// <param name="part"></param>
-    public ksSketchDefinition CreateSketch()
+    /// <param name="plane"> Базовая плоскость на которой строится эскиз.</param>
+    /// <returns>
+    /// Пустой эскиз.
+    /// </returns>
+    public ksSketchDefinition CreateSketchOnBasePlane(BasePlane plane = BasePlane.XOY)
     {
         var drawEntity = (ksEntity)_topPart.NewEntity(5);
         var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
-        var entityPlane = (ksEntity)_topPart.GetDefaultEntity(1);
+        var entityPlane = (ksEntity)_topPart.GetDefaultEntity((short)plane);
 
         sketchDefinition.SetPlane(entityPlane);
         drawEntity.Create();
@@ -91,7 +95,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
 
         _document.drawMode = vm_Shaded;
         _document.shadedWireframe = true;
-
+        
         return extrusionEntity;
     }
 
@@ -178,8 +182,10 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         return faces;
     }
 
-    public void InjectText(IText text, IPart7 part, ISketch sketch)
+    public void InjectText(ksSketchDefinition sketch, string text)
     {
-
+        ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
+        flatDocument.ksText(0,0,0,4,0, 0, text);
+        sketch.EndEdit();
     }
 }

@@ -2,12 +2,16 @@
 
 var ring = new Ring
 {
-    Height = 4,
+    Height = 5,
     Width = 10,
-    Radius = 10,
-    RoundScale = 10
+    Radius = 5,
+    RoundScale = 5
 };
 
 var ringBuilder = new RingBuilder();
-ringBuilder.Build(ring);
-Console.WriteLine("Кольцо построено.");
+await Task.Run(() =>
+{
+    ringBuilder.Build(ring);
+    Console.WriteLine("Кольцо построено.");
+});
+

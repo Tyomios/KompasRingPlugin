@@ -132,9 +132,12 @@
 							Style="{DynamicResource expander}">
                         <StackPanel>
                             <controls:AdvancedTextbox 
-                                Style="{DynamicResource textBoxBasicStyle}"/>
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"/>
+                                Style="{DynamicResource textBoxBasicStyle}"
+                                InputData="{Binding Ring.Engraving.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
+                                                      InputData="{Binding Ring.Engraving.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
+                                                      InputData="{Binding Ring.Engraving.TextSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </Expander>
 

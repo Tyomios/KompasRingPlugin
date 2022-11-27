@@ -1,4 +1,6 @@
-﻿namespace Model;
+﻿using System.Windows;
+
+namespace Model;
 
 /// <summary>
 /// Занимается построением детали.
@@ -14,17 +16,26 @@ public class RingBuilder
         {
             doc = KompasConnector.Instance.GetDocument().Result;
             var buildService = new BuildService(doc);
-            var biggerCircleSketchDefinition = buildService.CreateSketch();
+            var biggerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
             CreateCircleSketch(biggerCircleSketchDefinition, ring.Radius + ring.Height);
 
-            var smallerCircleSketchDefinition = buildService.CreateSketch();
+            var smallerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
             CreateCircleSketch(smallerCircleSketchDefinition, ring.Radius);
 
-            var primaryPart = buildService.SqueezeOut(biggerCircleSketchDefinition, ring.Width);
-            var subPart = buildService.SqueezeOut(smallerCircleSketchDefinition, ring.Width, true);
+            buildService.SqueezeOut(biggerCircleSketchDefinition, ring.Width);
+            buildService.SqueezeOut(smallerCircleSketchDefinition, ring.Width, true);
 
             var circleEdges = buildService.GetCircleEdges();
+            if (circleEdges.Count < 2 && ring.RoundScale > 0)
+            {
+                MessageBox.Show("Деталь построена неверно. Недостаточно граней для скругления");
+                return;
+            }
             buildService.RoundCorners(ring.RoundScale, circleEdges);
+
+            var textSketch = buildService.CreateSketchOnBasePlane(BasePlane.XOZ);
+            buildService.InjectText(textSketch, "тест");
+            buildService.SqueezeOut(textSketch, ring.Engraving.Height, true);
         }));
         
     }

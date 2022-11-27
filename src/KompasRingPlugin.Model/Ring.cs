@@ -7,6 +7,11 @@ namespace Model;
 /// </summary>
 public class Ring
 {
+    public Ring()
+    {
+        Engraving = new Engraving();
+    }
+
     private float _width;
 
     /// <summary>

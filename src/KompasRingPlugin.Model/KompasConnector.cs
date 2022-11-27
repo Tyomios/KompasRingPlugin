@@ -79,7 +79,7 @@ public class KompasConnector
     {
         if(s_kompasObject is null)
         {
-            await Connect(); //todo все равно не всегда срабатывает.
+            await Connect();
         }
 
         Document3D doc3D = (Document3D)s_kompasObject.Document3D();
