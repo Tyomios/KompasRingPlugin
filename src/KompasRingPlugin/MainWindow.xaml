@@ -154,22 +154,30 @@
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsDoubleOnly="True"
-                                                      Info="Введите толщину кольца"/>
+                                                      Info="Введите толщину кольца"
+                                                      MinValue="25"
+                                                      MaxValue="70"/>
 
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Radius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsDoubleOnly="True"
-                                                      Info="Введите внутренний размер кольца"/>
+                                                      Info="Введите внутренний размер кольца"
+                                                      MinValue="20"
+                                                      MaxValue="150"/>
 
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.RoundScale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsDoubleOnly="True"
-                                                      Info="Введите угол скругления кольцаs"/>
+                                                      Info="Введите угол скругления кольца"
+                                                      MinValue="0"
+                                                      MaxValue="45"/>
 
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsDoubleOnly="True"
-                                                      Info="Введите ширину кольца"/>
+                                                      Info="Введите ширину кольца"
+                                                      MinValue="10"
+                                                      MaxValue="100"/>
                             <StackPanel Orientation="Horizontal">
                                 <pix:PortableColorPicker x:Name="colorPicker" 
                                                          Height="50"

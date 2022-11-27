@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 
 namespace KompasRingPlugin.Controls;
@@ -83,12 +84,14 @@ public partial class AdvancedTextbox : UserControl
             }
 
             Double.TryParse(textBox.Text, out double data);
-            if (data < MinValue)
+            if (data < MinValue || data > MaxValue)
             {
-                textBox.Text =
-                    $"Введите значение в диапазоне от {Math.Round(MinValue, 2)} до {Math.Round(MaxValue, 2)}";
+                infoTextBlock.Text =
+                    $"Введите значение в диапазоне от {Math.Round(MinValue, 2)} мм до {Math.Round(MaxValue, 2)} мм";
 
                 textBox.Tag = "errorStyle";
+                textBox.Text = String.Empty;
+                infoTextBlock.Visibility = Visibility.Visible;
             }
         }
         catch //todo обработка на наличие точки.
@@ -113,6 +116,18 @@ public partial class AdvancedTextbox : UserControl
     private void InfoTextBlock_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         infoTextBlock.Visibility = Visibility.Hidden;
+        if (textBox.Tag.Equals("errorStyle"))
+        {
+            textBox.Tag = "regular";
+        }
         textBox.Focus();
+    }
+
+    private void TextBox_OnGotFocus(object sender, RoutedEventArgs e)
+    {
+        if (infoTextBlock.Visibility == Visibility.Visible)
+        {
+            infoTextBlock.Visibility = Visibility.Hidden;
+        }
     }
 }
