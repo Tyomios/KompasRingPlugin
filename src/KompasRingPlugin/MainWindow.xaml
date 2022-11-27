@@ -158,15 +158,18 @@
 
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Radius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"/>
+                                                      IsDoubleOnly="True"
+                                                      Info="Введите внутренний размер кольца"/>
 
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.RoundScale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"/>
+                                                      IsDoubleOnly="True"
+                                                      Info="Введите угол скругления кольца."/>
 
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"/>
+                                                      IsDoubleOnly="True"
+                                                      Info="Введите ширину кольца"/>
                             <StackPanel Orientation="Horizontal">
                                 <pix:PortableColorPicker x:Name="colorPicker" 
                                                          Height="50"
