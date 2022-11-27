@@ -54,5 +54,11 @@
                  TextChanged="TextBox_OnTextChanged"
                  LostFocus="TextBox_OnLostFocus"
                  PreviewTextInput="TextBox_OnPreviewTextInput"/>
+
+        <TextBlock x:Name="infoTextBlock"
+                   Foreground="AliceBlue"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   MouseLeftButtonDown="InfoTextBlock_OnMouseLeftButtonDown"/>
     </Grid>
 </UserControl>

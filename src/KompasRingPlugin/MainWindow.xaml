@@ -133,13 +133,16 @@
                         <StackPanel>
                             <controls:AdvancedTextbox 
                                 Style="{DynamicResource textBoxBasicStyle}"
-                                InputData="{Binding Ring.Engraving.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                InputData="{Binding Ring.Engraving.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Info="Введите текст гравировки"/>
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Engraving.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"/>
+                                                      IsDoubleOnly="True"
+                                                      Info="Введите глубину гравировки"/>
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Engraving.TextSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"/>
+                                                      IsDoubleOnly="True"
+                                                      Info="Введите размер текста гравировки"/>
                         </StackPanel>
                     </Expander>
 
@@ -150,7 +153,8 @@
                         <StackPanel>
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"/>
+                                                      IsDoubleOnly="True"
+                                                      Info="Введите толщину кольца"/>
 
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Radius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

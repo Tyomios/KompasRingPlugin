@@ -14,6 +14,10 @@ public partial class AdvancedTextbox : UserControl
     public AdvancedTextbox()
     {
         InitializeComponent();
+        if (Info is not null)
+        {
+            infoTextBlock.Text = Info;
+        }
     }
 
     public static readonly DependencyProperty InputDataProperty = DependencyProperty.Register(
@@ -31,9 +35,32 @@ public partial class AdvancedTextbox : UserControl
         }
     }
 
+    /// <summary>
+    /// Возвращает или задает минимальное граничное значение.
+    /// </summary>
     public double MinValue { get; set; }
 
+    /// <summary>
+    /// Возвращает или задает максимальное граничное значение.
+    /// </summary>
     public double MaxValue { get; set; }
+
+    /// <summary>
+    /// Отображает информацию, как об ошибке валидации,
+    /// так и об ответственности элемента за данные детали.
+    /// </summary>
+    public string Info { get; set; }
+
+    public static readonly DependencyProperty InfoProperty = DependencyProperty.Register(
+        nameof(Info), typeof(string), typeof(AdvancedTextbox),
+        new FrameworkPropertyMetadata("Введите значение",
+            FrameworkPropertyMetadataOptions.AffectsRender,
+            new PropertyChangedCallback(OnContainElementChanged)));
+
+    private static void OnContainElementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ((AdvancedTextbox)d).infoTextBlock.Text = (string)e.NewValue;
+    }
 
     /// <summary>
     /// Режим ввода данных.
@@ -81,5 +108,11 @@ public partial class AdvancedTextbox : UserControl
     private static bool IsCorrectDouble(string str)
     {
         return Double.TryParse(str, out double result);
+    }
+
+    private void InfoTextBlock_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        infoTextBlock.Visibility = Visibility.Hidden;
+        textBox.Focus();
     }
 }
