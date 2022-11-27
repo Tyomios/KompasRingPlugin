@@ -164,7 +164,7 @@
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.RoundScale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsDoubleOnly="True"
-                                                      Info="Введите угол скругления кольца."/>
+                                                      Info="Введите угол скругления кольцаs"/>
 
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
