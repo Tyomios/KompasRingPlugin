@@ -82,17 +82,13 @@ public partial class AdvancedTextbox : UserControl
     {
         try
         {
-            if (MinValue.Equals(Double.NaN) //todo тест
-                || MaxValue.Equals(Double.NaN))
-            {
-                return;
-            }
-
-            if (textBox.Text.Equals(String.Empty))
+            if (MinValue.Equals(MaxValue) 
+                || textBox.Text.Equals(String.Empty))
             {
                 infoTextBlock.Visibility = Visibility.Visible;
                 return;
             }
+
             Double.TryParse(textBox.Text, out double data);
             if (data < MinValue || data > MaxValue)
             {
@@ -139,5 +135,7 @@ public partial class AdvancedTextbox : UserControl
         {
             infoTextBlock.Visibility = Visibility.Hidden;
         }
+
+        textBox.Tag = "regular";
     }
 }
