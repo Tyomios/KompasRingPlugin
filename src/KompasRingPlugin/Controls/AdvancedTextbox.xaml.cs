@@ -12,13 +12,11 @@ namespace KompasRingPlugin.Controls;
 /// </summary>
 public partial class AdvancedTextbox : UserControl
 {
+    private string _tempInfo;
+
     public AdvancedTextbox()
     {
         InitializeComponent();
-        if (Info is not null)
-        {
-            infoTextBlock.Text = Info;
-        }
     }
 
     public static readonly DependencyProperty InputDataProperty = DependencyProperty.Register(
@@ -50,7 +48,14 @@ public partial class AdvancedTextbox : UserControl
     /// Отображает информацию, как об ошибке валидации,
     /// так и об ответственности элемента за данные детали.
     /// </summary>
-    public string Info { get; set; }
+    public string Info
+    {
+        get => _tempInfo;
+        set
+        {
+            _tempInfo = value;
+        }
+    }
 
     public static readonly DependencyProperty InfoProperty = DependencyProperty.Register(
         nameof(Info), typeof(string), typeof(AdvancedTextbox),
@@ -83,6 +88,11 @@ public partial class AdvancedTextbox : UserControl
                 return;
             }
 
+            if (textBox.Text.Equals(String.Empty))
+            {
+                infoTextBlock.Visibility = Visibility.Visible;
+                return;
+            }
             Double.TryParse(textBox.Text, out double data);
             if (data < MinValue || data > MaxValue)
             {
