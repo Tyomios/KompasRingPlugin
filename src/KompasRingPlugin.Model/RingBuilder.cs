@@ -41,16 +41,11 @@ public class RingBuilder
 
                 var startPoint = GetEngravingStartPoint(ring);
                 buildService.InjectText(textSketch, ring.Engraving, startPoint);
-                buildService.SqueezeOut(textSketch, fullEngravingHeight);
+                buildService.CutSqueeze(textSketch, fullEngravingHeight);
             }
 
             buildService.ColoredPart(ring.Color);
         }));
-        
-    }
-
-    private void BuildRingBody(Ring ring, BuildService buildService)
-    {
         
     }
 
@@ -68,11 +63,10 @@ public class RingBuilder
 
     private System.Windows.Point GetEngravingStartPoint(Ring ring)
     {
-        var sketchWidth = ring.Engraving.Text.Length * ring.Engraving.TextSize;
-        var startX = 0;/*sketchWidth - ring.Radius;*/
-
+        var engraving = ring.Engraving;
+        var startX = engraving.Text.Length * engraving.TextSize / 2;
         var startY = ring.Engraving.TextSize - ring.Width;
 
-        return new System.Windows.Point(startX, startY);
+        return new System.Windows.Point(-startX, startY);
     }
 }

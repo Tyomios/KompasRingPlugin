@@ -39,15 +39,13 @@ public partial class MainVM
         try
         {
             RingParamsValidator.CheckCorrectValues(_ring);
+            var ringBuilder = new RingBuilder();
+            ringBuilder.Build(_ring);
         }
         catch (Exception exception)
         {
             MessageBox.Show(exception.Message);
-            return;
         }
-
-        var ringBuilder = new RingBuilder();
-        ringBuilder.Build(_ring);
     }
 
     /// <summary>

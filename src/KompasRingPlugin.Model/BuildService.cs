@@ -1,10 +1,7 @@
 ﻿using Kompas6API5;
 using KompasAPI7;
 using System.Collections.Generic;
-using System.Windows.Media.Media3D;
-using ColorHelper;
 using Color = System.Windows.Media.Color;
-using ColorConverter = ColorHelper.ColorConverter;
 
 
 namespace Model;
