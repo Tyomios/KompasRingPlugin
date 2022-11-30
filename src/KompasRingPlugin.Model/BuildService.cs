@@ -2,7 +2,9 @@
 using KompasAPI7;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
+using ColorHelper;
 using Color = System.Windows.Media.Color;
+using ColorConverter = ColorHelper.ColorConverter;
 
 
 namespace Model;
@@ -43,8 +45,8 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         var bright = 0.80;
         var rays = 0.50;
 
-        var longColor = color.R + color.G + color.B;
-        _topPart.SetAdvancedColor(longColor, 
+        int hex = (255 << color.A) | (color.B << 16) | (color.G << 8) | (color.R << 0);
+        _topPart.SetAdvancedColor(hex, 
             commonColor, diffusion, mirroring, bright, 1, rays);
         _topPart.Update();
     }
