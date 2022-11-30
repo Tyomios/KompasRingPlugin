@@ -20,14 +20,7 @@ public class RingBuilder
             doc = KompasConnector.Instance.GetDocument().Result;
             var buildService = new BuildService(doc);
 
-            var biggerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
-            CreateCircleSketch(biggerCircleSketchDefinition, ring.Radius + ring.Height);
-
-            var smallerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
-            CreateCircleSketch(smallerCircleSketchDefinition, ring.Radius);
-
-            buildService.SqueezeOut(biggerCircleSketchDefinition, ring.Width);
-            buildService.CutSqueeze(smallerCircleSketchDefinition, ring.Width);
+            CreateRingBody(ring, buildService);
 
             var circleEdges = buildService.GetCircleEdges();
             if (circleEdges.Count < 2 && ring.RoundScale > 0)
@@ -39,18 +32,40 @@ public class RingBuilder
 
             if (!ring.Engraving.Text.Equals(String.Empty))
             {
-                var textSketch = buildService.CreateSketchOnBasePlane(BasePlane.XOZ);
-                var fullEngravingHeight = ring.Engraving.Height + ring.Radius;
-
-                var startPoint = GetEngravingStartPoint(ring);
-                buildService.InjectText(textSketch, ring.Engraving, startPoint);
-                var engraved = buildService.CutSqueeze(textSketch, fullEngravingHeight);
-                buildService.ColoredPart(new System.Windows.Media.Color{A = 0, R = 0, G = 0, B = 1}, engraved);
+                BuildEngraving(ring, buildService);
             }
 
             buildService.ColoredDetail(ring.Color);
         }));
         
+    }
+
+    private void CreateRingBody(Ring ring, BuildService buildService)
+    {
+        var biggerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
+        CreateCircleSketch(biggerCircleSketchDefinition, ring.Radius + ring.Height);
+
+        var smallerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
+        CreateCircleSketch(smallerCircleSketchDefinition, ring.Radius);
+
+        buildService.SqueezeOut(biggerCircleSketchDefinition, ring.Width);
+        buildService.CutSqueeze(smallerCircleSketchDefinition, ring.Width);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ring"></param>
+    /// <param name="buildService"></param>
+    private void BuildEngraving(Ring ring, BuildService buildService)
+    {
+        var textSketch = buildService.CreateSketchOnBasePlane(BasePlane.XOZ);
+        var fullEngravingHeight = ring.Engraving.Height + ring.Radius;
+
+        var startPoint = GetEngravingStartPoint(ring);
+        buildService.InjectText(textSketch, ring.Engraving, startPoint);
+        var engraved = buildService.CutSqueeze(textSketch, fullEngravingHeight);
+        buildService.ColoredPart(new System.Windows.Media.Color { A = 0, R = 0, G = 0, B = 1 }, engraved);
     }
 
     /// <summary>

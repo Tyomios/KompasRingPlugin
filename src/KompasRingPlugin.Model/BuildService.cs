@@ -170,7 +170,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         while (faces.Next() is not null)
         {
             var currentFace = (ksFaceDefinition)faces.GetByIndex(i);
-            if (currentFace.IsPlanar())
+            if (currentFace.IsCylinder())
             {
                 planeFaces.Add(currentFace);
             }
@@ -180,18 +180,28 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
 
         if (planeFaces.Count > 0)
         {
+            var biggerFace = planeFaces[0].GetArea(0x1) > planeFaces[1].GetArea(0x1) ? planeFaces[0] : planeFaces[1];
             var edges = new List<ksEdgeDefinition>();
-            foreach (var face in planeFaces)
-            {
-                var j = 0;
-                var currentEdgeCollection = (ksEdgeCollection)face.EdgeCollection();
-                while (currentEdgeCollection.Next() is not null)
-                {
-                    var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(j);
-                    edges.Add(edge);
+            //foreach (var face in planeFaces)
+            //{
+            //    var j = 0;
+            //    var currentEdgeCollection = (ksEdgeCollection)face.EdgeCollection();
+            //    while (currentEdgeCollection.Next() is not null)
+            //    {
+            //        var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(j);
+            //        edges.Add(edge);
 
-                    ++j;
-                }
+            //        ++j;
+            //    }
+            //}
+            var j = 0;
+            var currentEdgeCollection = (ksEdgeCollection)biggerFace.EdgeCollection();
+            while (currentEdgeCollection.Next() is not null)
+            {
+                var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(j);
+                edges.Add(edge);
+
+                ++j;
             }
             return edges;
 
