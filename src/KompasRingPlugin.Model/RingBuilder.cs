@@ -37,9 +37,13 @@ public class RingBuilder
 
             buildService.ColoredDetail(ring.Color);
         }));
-        
     }
 
+    /// <summary>
+    /// Реализует построение тела кольца.
+    /// </summary>
+    /// <param name="ring"> Кольцо для построения. </param>
+    /// <param name="buildService"> Сервисный класс работы с API КОМПАС-3D. </param>
     private void CreateRingBody(Ring ring, BuildService buildService)
     {
         var biggerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
@@ -53,10 +57,10 @@ public class RingBuilder
     }
 
     /// <summary>
-    /// 
+    /// Построение гравировки.
     /// </summary>
-    /// <param name="ring"></param>
-    /// <param name="buildService"></param>
+    /// <param name="ring"> Кольцо с гравировкой. </param>
+    /// <param name="buildService"> Сервисный класс работы с API КОМПАС-3D. </param>
     private void BuildEngraving(Ring ring, BuildService buildService)
     {
         var textSketch = buildService.CreateSketchOnBasePlane(BasePlane.XOZ);
@@ -80,6 +84,11 @@ public class RingBuilder
         sketchDefinition.EndEdit();
     }
 
+    /// <summary>
+    /// Рассчитывает начальную позицию для расположения гравировки.
+    /// </summary>
+    /// <param name="ring"> Кольцо, содержащее гравировку. </param>
+    /// <returns> Начальную точку для построения гравировки. </returns>
     private System.Windows.Point GetEngravingStartPoint(Ring ring)
     {
         var engraving = ring.Engraving;

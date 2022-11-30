@@ -51,6 +51,10 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         part.Update();
     }
 
+    /// <summary>
+    /// Перекрашивает деталь в указанный цвет.
+    /// </summary>
+    /// <param name="color">Цвет покраски</param>
     public void ColoredDetail(Color color)
     {
         var commonColor = 0.50;
