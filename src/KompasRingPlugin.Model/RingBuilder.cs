@@ -9,7 +9,10 @@ public class RingBuilder
 {
     public async void Build(Ring ring)
     {
-        if(!Ring.IsReadyForBuild(ring)) return;
+        if (!Ring.IsReadyForBuild(ring))
+        {
+            throw new Exception("Жизненеобходимые параметры кольца не заполнены");
+        }
 
         Document3D doc;
         await Task.Run((() =>
