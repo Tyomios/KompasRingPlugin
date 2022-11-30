@@ -1,6 +1,4 @@
-﻿using Kompas6API5;
-using KompasAPI7;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Color = System.Windows.Media.Color;
 
 
@@ -34,6 +32,11 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         _topPart = (ksPart)_document.GetPart(topPartType);
     }
 
+    /// <summary>
+    /// Перекрашивает компонент в указанный цвет.
+    /// </summary>
+    /// <param name="color">Цвет покраски</param>
+    /// <param name="part">Деталь</param>
     public void ColoredPart(Color color, ksEntity part)
     {
         var commonColor = 0.50;
@@ -158,56 +161,56 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <returns>  </returns>
     public List<ksEdgeDefinition> GetCircleEdges()
     {
-        var faces = GetAllFaces();
-        var facesCount = faces.GetCount();
-        if (facesCount == 0)
+        var cylinderFaces = GetCylinderFaces();
+        if (cylinderFaces.Count.Equals(0))
         {
             return new List<ksEdgeDefinition>();
         }
 
-        var planeFaces = new List<ksFaceDefinition>();
+        var biggerFace = cylinderFaces[0].GetArea(0x1) > cylinderFaces[1].GetArea(0x1)
+            ? cylinderFaces[0] : cylinderFaces[1];
+
+        var edges = new List<ksEdgeDefinition>();
+        var j = 0;
+        var currentEdgeCollection = (ksEdgeCollection)biggerFace.EdgeCollection();
+
+        while (currentEdgeCollection.Next() is not null)
+        {
+            var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(j);
+            edges.Add(edge);
+
+            ++j;
+        }
+        return edges;
+    }
+
+    /// <summary>
+    /// Возвращает все цилиндрические грани детали.
+    /// </summary>
+    /// <returns> Список цилиндрических граней. </returns>
+    public List<ksFaceDefinition> GetCylinderFaces()
+    {
+        var faces = GetAllFaces();
+        var facesCount = faces.GetCount();
+        if (facesCount == 0)
+        {
+            return new List<ksFaceDefinition>();
+        }
+
+        var cylinderFaces = new List<ksFaceDefinition>();
         var i = 0;
         while (faces.Next() is not null)
         {
             var currentFace = (ksFaceDefinition)faces.GetByIndex(i);
             if (currentFace.IsCylinder())
             {
-                planeFaces.Add(currentFace);
+                cylinderFaces.Add(currentFace);
             }
 
             ++i;
         }
 
-        if (planeFaces.Count > 0)
-        {
-            var biggerFace = planeFaces[0].GetArea(0x1) > planeFaces[1].GetArea(0x1) ? planeFaces[0] : planeFaces[1];
-            var edges = new List<ksEdgeDefinition>();
-            //foreach (var face in planeFaces)
-            //{
-            //    var j = 0;
-            //    var currentEdgeCollection = (ksEdgeCollection)face.EdgeCollection();
-            //    while (currentEdgeCollection.Next() is not null)
-            //    {
-            //        var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(j);
-            //        edges.Add(edge);
-
-            //        ++j;
-            //    }
-            //}
-            var j = 0;
-            var currentEdgeCollection = (ksEdgeCollection)biggerFace.EdgeCollection();
-            while (currentEdgeCollection.Next() is not null)
-            {
-                var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(j);
-                edges.Add(edge);
-
-                ++j;
-            }
-            return edges;
-
-        }
-        var items = new List<ksEdgeDefinition>();
-        return items;
+        return cylinderFaces;
     }
 
     /// <summary>
@@ -222,6 +225,12 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         return faces;
     }
 
+    /// <summary>
+    /// Наносит текст на эскиз.
+    /// </summary>
+    /// <param name="sketch"> Используемый эскиз </param>
+    /// <param name="engraving"> Гравировка </param>
+    /// <param name="startLocation"> Расположение текста </param>
     public void InjectText(ksSketchDefinition sketch, Engraving engraving, System.Windows.Point startLocation)
     {
         var charSize = engraving.TextSize != 0 ? engraving.TextSize : 0;
