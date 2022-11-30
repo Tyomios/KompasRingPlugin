@@ -16,6 +16,7 @@ public class RingBuilder
         {
             doc = KompasConnector.Instance.GetDocument().Result;
             var buildService = new BuildService(doc);
+
             var biggerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
             CreateCircleSketch(biggerCircleSketchDefinition, ring.Radius + ring.Height);
 
@@ -23,7 +24,7 @@ public class RingBuilder
             CreateCircleSketch(smallerCircleSketchDefinition, ring.Radius);
 
             buildService.SqueezeOut(biggerCircleSketchDefinition, ring.Width);
-            buildService.SqueezeOut(smallerCircleSketchDefinition, ring.Width, true);
+            buildService.CutSqueeze(smallerCircleSketchDefinition, ring.Width);
 
             var circleEdges = buildService.GetCircleEdges();
             if (circleEdges.Count < 2 && ring.RoundScale > 0)
@@ -40,9 +41,14 @@ public class RingBuilder
 
                 var startPoint = GetEngravingStartPoint(ring);
                 buildService.InjectText(textSketch, ring.Engraving, startPoint);
-                buildService.SqueezeOut(textSketch, fullEngravingHeight, true);
+                buildService.SqueezeOut(textSketch, fullEngravingHeight);
             }
         }));
+        
+    }
+
+    private void BuildRingBody(Ring ring, BuildService buildService)
+    {
         
     }
 

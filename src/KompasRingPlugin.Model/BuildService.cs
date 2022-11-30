@@ -1,5 +1,7 @@
 ﻿using Kompas6API5;
+using KompasAPI7;
 using System.Collections.Generic;
+using System.Windows.Media.Media3D;
 
 
 namespace Model;
@@ -57,45 +59,45 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <param name="sketch"> Эскиз для выдавливания. </param>
     /// <param name="height"> Расстояние выдавливания. </param>
     /// <param name="blindType"> Тип выдавливания (по умолчанию задан на «Строго в глубину»). </param>
-    public ksEntity SqueezeOut(ksSketchDefinition sketch, double height, bool cutMode = false, short blindType = 0)
+    public ksEntity SqueezeOut(ksSketchDefinition sketch, double height, short blindType = 0)
     {
         // Указывает на создание операции выдавливания.
         const int o3d_baseExtrusion = 24;
 
-        // Вырезать выдавливанием.
-        const int o3d_CutExtrusion = 26;
-
         // Тип объекта DrawMode. Устанавливает полутоновое изображение модели
         const int vm_Shaded = 3;
 
-        //Тип направления вырезания. Обратное направление.
-        const int dtReverse = 1;
-
-        ksEntity extrusionEntity = null;
-        dynamic extrusionDefinition = null;
-        bool draftOutward = true;
-
-        if (cutMode)
-        {
-            extrusionEntity = (ksEntity)_topPart.NewEntity(o3d_CutExtrusion);
-
-            extrusionDefinition = (ksCutExtrusionDefinition)extrusionEntity.GetDefinition();
-            extrusionDefinition.cut = true;
-            extrusionDefinition.directionType = dtReverse;
-            draftOutward = false;
-        }
-        else if (!cutMode)
-        {
-            extrusionEntity = (ksEntity)_topPart.NewEntity(o3d_baseExtrusion);
-            extrusionDefinition = (ksBaseExtrusionDefinition)extrusionEntity.GetDefinition();
-        }
-        extrusionDefinition.SetSideParam(true, blindType, height, 0, draftOutward);
+        var extrusionEntity = (ksEntity)_topPart.NewEntity(o3d_baseExtrusion);
+        var extrusionDefinition = (ksBaseExtrusionDefinition)extrusionEntity.GetDefinition();
+        extrusionDefinition.SetSideParam(true, blindType, height, 0, true);
         extrusionDefinition.SetSketch(sketch);
         extrusionEntity.Create();
 
         _document.drawMode = vm_Shaded;
         _document.shadedWireframe = true;
         
+        return extrusionEntity;
+    }
+
+    public ksEntity CutSqueeze(ksSketchDefinition sketch, double height, short blindType = 0)
+    {
+        // Вырезать выдавливанием.
+        const int o3d_CutExtrusion = 26;
+
+        // Тип объекта DrawMode. Устанавливает полутоновое изображение модели
+        const int vm_Shaded = 3;
+
+        var extrusionEntity = (ksEntity)_topPart.NewEntity(o3d_CutExtrusion);
+        var extrusionDefinition = (ksCutExtrusionDefinition)extrusionEntity.GetDefinition();
+        extrusionDefinition.SetSketch(sketch);
+        extrusionDefinition.cut = true;
+        extrusionDefinition.SetSideParam(false, 0, height);
+
+        extrusionEntity.Create();
+
+        _document.drawMode = vm_Shaded;
+        _document.shadedWireframe = true;
+
         return extrusionEntity;
     }
 
@@ -189,6 +191,4 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         flatDocument.ksText(startLocation.X,startLocation.Y,0,charSize,0, 0, engraving.Text);
         sketch.EndEdit();
     }
-
-
 }

@@ -82,12 +82,11 @@ public partial class AdvancedTextbox : UserControl
     {
         try
         {
-            if ( textBox.Text.Equals(String.Empty))
+            if (textBox.Text.Equals(String.Empty))
             {
                 infoTextBlock.Visibility = Visibility.Visible;
                 return;
             }
-
             if (MinValue.Equals(MaxValue))
             {
                 return;

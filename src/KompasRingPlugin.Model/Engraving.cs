@@ -1,10 +1,19 @@
-﻿namespace Model;
+﻿using String = System.String;
+
+namespace Model;
 
 /// <summary>
 /// Гравировка.
 /// </summary>
 public class Engraving
 {
+    public Engraving()
+    {
+        Text = String.Empty;
+        TextSize = 4;
+        Height = 2;
+    }
+
     private string _text;
 
     /// <summary>
