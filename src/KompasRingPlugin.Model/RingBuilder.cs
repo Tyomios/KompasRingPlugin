@@ -44,10 +44,11 @@ public class RingBuilder
 
                 var startPoint = GetEngravingStartPoint(ring);
                 buildService.InjectText(textSketch, ring.Engraving, startPoint);
-                buildService.CutSqueeze(textSketch, fullEngravingHeight);
+                var engraved = buildService.CutSqueeze(textSketch, fullEngravingHeight);
+                buildService.ColoredPart(new System.Windows.Media.Color{A = 0, R = 0, G = 0, B = 1}, engraved);
             }
 
-            buildService.ColoredPart(ring.Color);
+            buildService.ColoredDetail(ring.Color);
         }));
         
     }

@@ -34,7 +34,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         _topPart = (ksPart)_document.GetPart(topPartType);
     }
 
-    public void ColoredPart(Color color)
+    public void ColoredPart(Color color, ksEntity part)
     {
         var commonColor = 0.50;
         var diffusion = 0.60;
@@ -43,7 +43,21 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         var rays = 0.50;
 
         int hex = (255 << color.A) | (color.B << 16) | (color.G << 8) | (color.R << 0);
-        _topPart.SetAdvancedColor(hex, 
+        part.SetAdvancedColor(hex, 
+            commonColor, diffusion, mirroring, bright, 1, rays);
+        part.Update();
+    }
+
+    public void ColoredDetail(Color color)
+    {
+        var commonColor = 0.50;
+        var diffusion = 0.60;
+        var mirroring = 0.80;
+        var bright = 0.80;
+        var rays = 0.50;
+
+        int hex = (255 << color.A) | (color.B << 16) | (color.G << 8) | (color.R << 0);
+        _topPart.SetAdvancedColor(hex,
             commonColor, diffusion, mirroring, bright, 1, rays);
         _topPart.Update();
     }
