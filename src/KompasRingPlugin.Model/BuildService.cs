@@ -182,10 +182,13 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         return faces;
     }
 
-    public void InjectText(ksSketchDefinition sketch, string text)
+    public void InjectText(ksSketchDefinition sketch, Engraving engraving, System.Windows.Point startLocation)
     {
+        var charSize = engraving.TextSize != 0 ? engraving.TextSize : 0;
         ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
-        flatDocument.ksText(0,0,0,4,0, 0, text);
+        flatDocument.ksText(startLocation.X,startLocation.Y,0,charSize,0, 0, engraving.Text);
         sketch.EndEdit();
     }
+
+
 }

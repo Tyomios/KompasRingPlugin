@@ -36,8 +36,11 @@ public class RingBuilder
             if (!ring.Engraving.Text.Equals(String.Empty))
             {
                 var textSketch = buildService.CreateSketchOnBasePlane(BasePlane.XOZ);
-                buildService.InjectText(textSketch, ring.Engraving.Text);
-                buildService.SqueezeOut(textSketch, ring.Engraving.Height, true);
+                var fullEngravingHeight = ring.Engraving.Height + ring.Radius;
+
+                var startPoint = GetEngravingStartPoint(ring);
+                buildService.InjectText(textSketch, ring.Engraving, startPoint);
+                buildService.SqueezeOut(textSketch, fullEngravingHeight, true);
             }
         }));
         
@@ -53,5 +56,15 @@ public class RingBuilder
         ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
         flatDocument.ksCircle(0, 0, radius, 1);
         sketchDefinition.EndEdit();
+    }
+
+    private System.Windows.Point GetEngravingStartPoint(Ring ring)
+    {
+        var sketchWidth = ring.Engraving.Text.Length * ring.Engraving.TextSize;
+        var startX = 0;/*sketchWidth - ring.Radius;*/
+
+        var startY = ring.Engraving.TextSize - ring.Width;
+
+        return new System.Windows.Point(startX, startY);
     }
 }
