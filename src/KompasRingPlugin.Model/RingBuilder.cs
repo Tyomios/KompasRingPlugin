@@ -43,6 +43,8 @@ public class RingBuilder
                 buildService.InjectText(textSketch, ring.Engraving, startPoint);
                 buildService.SqueezeOut(textSketch, fullEngravingHeight);
             }
+
+            buildService.ColoredPart(ring.Color);
         }));
         
     }

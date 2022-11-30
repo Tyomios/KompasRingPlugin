@@ -2,6 +2,7 @@
 using KompasAPI7;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
+using Color = System.Windows.Media.Color;
 
 
 namespace Model;
@@ -32,6 +33,20 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         _document = document;
         var topPartType = -1;
         _topPart = (ksPart)_document.GetPart(topPartType);
+    }
+
+    public void ColoredPart(Color color)
+    {
+        var commonColor = 0.50;
+        var diffusion = 0.60;
+        var mirroring = 0.80;
+        var bright = 0.80;
+        var rays = 0.50;
+
+        var longColor = color.R + color.G + color.B;
+        _topPart.SetAdvancedColor(longColor, 
+            commonColor, diffusion, mirroring, bright, 1, rays);
+        _topPart.Update();
     }
 
     /// <summary>
