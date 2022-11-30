@@ -1,14 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Kompas6API5;
 using Model;
 using Application = System.Windows.Application;
 
-namespace KompasRingPlugin;
 
-//todo встроить граничные значения в текстбокс.
-//todo добавить стиль ошибки валидации значения по диапазону.
+namespace KompasRingPlugin;
 
 //todo добавить анимации для каждого действия
 //todo добавить экран информирования о процессе\результате
@@ -17,6 +15,7 @@ namespace KompasRingPlugin;
 //todo настройка расположения текста на детали
 //todo добавить валидаторы.
 //todo разобраться с ошибкой выдавливания
+//todo функционал выбора цвета кольца
 
 //todo модульные тесты
 //todo нагрузочные тесты
@@ -39,6 +38,16 @@ public partial class MainVM
     [ICommand]
     private void Build()
     {
+        try
+        {
+            RingParamsValidator.CheckCorrectValues(_ring);
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show(exception.Message);
+            return;
+        }
+
         var ringBuilder = new RingBuilder();
         ringBuilder.Build(_ring);
     }

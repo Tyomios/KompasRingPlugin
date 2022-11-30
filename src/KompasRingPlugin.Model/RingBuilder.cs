@@ -33,9 +33,12 @@ public class RingBuilder
             }
             buildService.RoundCorners(ring.RoundScale, circleEdges);
 
-            var textSketch = buildService.CreateSketchOnBasePlane(BasePlane.XOZ);
-            buildService.InjectText(textSketch, "тест");
-            buildService.SqueezeOut(textSketch, ring.Engraving.Height, true);
+            if (!ring.Engraving.Text.Equals(String.Empty))
+            {
+                var textSketch = buildService.CreateSketchOnBasePlane(BasePlane.XOZ);
+                buildService.InjectText(textSketch, ring.Engraving.Text);
+                buildService.SqueezeOut(textSketch, ring.Engraving.Height, true);
+            }
         }));
         
     }

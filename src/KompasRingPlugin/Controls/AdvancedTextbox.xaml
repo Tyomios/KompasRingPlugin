@@ -25,6 +25,23 @@
             <Setter Property="Padding" Value="13,0,0,0"/>
             <Setter Property="CaretBrush" Value="{DynamicResource primaryTextBrush}"/>
             <Setter Property="SelectionBrush" Value="{DynamicResource hoverBorderBrush}"/>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ControlTemplate.Resources>
+                            <BooleanToVisibilityConverter x:Key="converter" />
+                        </ControlTemplate.Resources>
+                        <DockPanel LastChildFill="True">
+                            <Border 
+                                BorderThickness="1"
+                                BorderBrush="Transparent"
+                                Visibility="{Binding ElementName=placeholder, Mode=OneWay, Path=AdornedElement.IsVisible, Converter={StaticResource converter}}">
+                                <AdornedElementPlaceholder x:Name="placeholder"/>
+                            </Border>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBoxBase}">
@@ -33,19 +50,14 @@
                                 BorderBrush="{DynamicResource controlsBorderBrush}"
                                 BorderThickness="2">
                             <Grid>
-
-                                <TextBlock x:Name="messageTextBlock"
-                                           Style="{DynamicResource textParameters}"
-                                           Margin="15,0,0,0"
-                                           VerticalAlignment="Center"/>
                                 <ContentPresenter>
-                                <ContentPresenter.Content>
-                                    <ScrollViewer Margin="0" 
-                                                  x:Name="PART_ContentHost"
-                                                  VerticalAlignment="Center"
-                                                  VerticalContentAlignment="Center"
-                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
-                                </ContentPresenter.Content>
+                                    <ContentPresenter.Content>
+                                        <ScrollViewer Margin="0" 
+                                                      x:Name="PART_ContentHost"
+                                                      VerticalAlignment="Center"
+                                                      VerticalContentAlignment="Center"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                    </ContentPresenter.Content>
                                 </ContentPresenter>
                             </Grid>
                         </Border>

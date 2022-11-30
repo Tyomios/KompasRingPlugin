@@ -15,7 +15,7 @@
 
         <SolidColorBrush x:Key="primaryTextBrush" Color="#FFFFFF"/>
 
-        <SolidColorBrush x:Key="primaryRed" Color="#c45b5b"/>
+        <SolidColorBrush x:Key="primaryRed" Color="#bc4c4c"/>
 
         <Style x:Key="invisibleToggleButton" TargetType="{x:Type ToggleButton}">
             <Setter Property="Template">
