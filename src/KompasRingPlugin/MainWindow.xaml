@@ -166,18 +166,18 @@
                                                       MaxValue="150"/>
 
                             <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
-                                                      InputData="{Binding Ring.RoundScale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"
-                                                      Info="Введите угол скругления кольца"
-                                                      MinValue="0"
-                                                      MaxValue="45"/>
-
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsDoubleOnly="True"
                                                       Info="Введите ширину кольца"
                                                       MinValue="10"
                                                       MaxValue="100"/>
+
+                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
+                                                      InputData="{Binding Ring.RoundScale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsDoubleOnly="True"
+                                                      Info="Введите угол скругления кольца"
+                                                      MinValue="0"
+                                                      MaxValue="45"/>
                             <StackPanel Orientation="Horizontal">
                                 <pix:PortableColorPicker x:Name="colorPicker" 
                                                          Height="50"
