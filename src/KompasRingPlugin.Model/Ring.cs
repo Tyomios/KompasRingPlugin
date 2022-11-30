@@ -7,6 +7,9 @@ namespace Model;
 /// </summary>
 public class Ring
 {
+    /// <summary>
+    /// Создает экземпляр класса <see cref="Ring"/>.
+    /// </summary>
     public Ring()
     {
         Engraving = new Engraving();

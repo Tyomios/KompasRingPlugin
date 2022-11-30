@@ -7,6 +7,10 @@ namespace Model;
 /// </summary>
 public class RingBuilder
 {
+    /// <summary>
+    /// Строит деталь «кольцо».
+    /// </summary>
+    /// <param name="ring"> Кольцо. </param>
     public async void Build(Ring ring)
     {
         if (!Ring.IsReadyForBuild(ring))

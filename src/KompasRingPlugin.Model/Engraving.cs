@@ -7,6 +7,9 @@ namespace Model;
 /// </summary>
 public class Engraving
 {
+    /// <summary>
+    /// Создает экземпляр класса <see cref="Engraving"/>>.
+    /// </summary>
     public Engraving()
     {
         Text = String.Empty;

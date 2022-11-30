@@ -18,8 +18,6 @@ public class KompasConnector
     /// </summary>
     private static KompasObject s_kompasObject;
 
-    //private static IApplication s_kompasApplication;
-
     /// <summary>
     /// Инстанция подключения.
     /// </summary>
