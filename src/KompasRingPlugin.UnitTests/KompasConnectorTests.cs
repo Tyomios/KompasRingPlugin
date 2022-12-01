@@ -4,29 +4,13 @@
     public class KompasConnectorTests
     {
         [Test]
-        public void Disconnect_StateUnderTest_ExpectedBehavior()
+        public void GetDocument_ExpectedBehavior()
         {
-            // Arrange
-            var kompasConnector = new KompasConnector();
-
             // Act
-            kompasConnector.Disconnect();
-
+            var result = KompasConnector.Instance.GetDocument().Result;
+            
             // Assert
-            Assert.Fail();
-        }
-
-        [Test]
-        public async Task GetDocument_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var kompasConnector = new KompasConnector();
-
-            // Act
-            var result = await kompasConnector.GetDocument();
-
-            // Assert
-            Assert.Fail();
+            Assert.IsNotNull(result);
         }
     }
 }
