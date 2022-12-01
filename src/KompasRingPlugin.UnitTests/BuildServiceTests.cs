@@ -1,4 +1,6 @@
-﻿using Kompas6API5;
+﻿using System.Windows;
+using Kompas6API5;
+using System.Windows.Media.Media3D;
 
 namespace KompasRingPlugin.UnitTests;
 
@@ -59,32 +61,56 @@ public class BuildServiceTests
 	}
 
 	[Test]
-	public void RoundCorners_StateUnderTest_ExpectedBehavior()
+	public void RoundCorners_ExpectedBehavior()
 	{
         // Arrange
         var doc = KompasConnector.Instance.GetDocument().Result;
         var service = new BuildService(doc);
-		double radius = 0;
+        var sketch = service.CreateSketchOnBasePlane();
+        ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
+        flatDocument.ksCircle(0, 0, 30, 1);
+        sketch.EndEdit();
+
+        var result = service.SqueezeOut(sketch, 20);
+
+        var edges = service.GetCircleEdges();
+        double radius = 10;
 
         // Act
-		//service.RoundCorners(radius, roundedEdges);
+        try
+        {
+            service.RoundCorners(radius, edges);
+        }
+        catch 
+        {
+            Assert.Fail();
+            return;
+        }
+		
 
 		// Assert
-		Assert.Fail();
+		Assert.Pass();
 	}
 
 	[Test]
-	public void GetCircleEdges_StateUnderTest_ExpectedBehavior()
+	public void GetCircleEdges_CoinForm()
 	{
         // Arrange
         var doc = KompasConnector.Instance.GetDocument().Result;
         var service = new BuildService(doc);
+        var sketch = service.CreateSketchOnBasePlane();
+        ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
+        flatDocument.ksCircle(0, 0, 30, 1);
+        sketch.EndEdit();
+        var detail = service.SqueezeOut(sketch, 20);
+        var expected = 2;
 
-		// Act
-		var result = service.GetCircleEdges();
+        // Act
+        var result = service.GetCircleEdges();
+        var actual = result.Count;
 
 		// Assert
-		Assert.Fail();
+		Assert.AreEqual(expected, actual);
 	}
 
 	[Test]
@@ -93,12 +119,17 @@ public class BuildServiceTests
         // Arrange
         var doc = KompasConnector.Instance.GetDocument().Result;
         var service = new BuildService(doc);
+        var sketch = service.CreateSketchOnBasePlane();
+        ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
+        flatDocument.ksCircle(0, 0, 30, 1);
+        sketch.EndEdit();
+        var expected = 3;
 
-		// Act
-		var result = service.GetAllFaces();
-
+        // Act
+        var result = service.GetAllFaces();
+        var actual = result.GetCount();
 		// Assert
-		Assert.Fail();
+		Assert.AreEqual(expected, actual);
 	}
 
 	[Test]
@@ -107,13 +138,22 @@ public class BuildServiceTests
         // Arrange
         var doc = KompasConnector.Instance.GetDocument().Result;
         var service = new BuildService(doc);
-		ksSketchDefinition sketch = null;
-		string text = null;
+        var sketch = service.CreateSketchOnBasePlane();
+        var engraving = new Engraving { Text = "Тест", TextSize = 4};
 
-		// Act
-		//service.InjectText(sketch, text);
+        // Act
+        try
+        {
+            service.InjectText(sketch, engraving, new Point(0, 0));
+        }
+        catch 
+        {
+            Assert.Fail();
+            return;
+        }
+        
 
 		// Assert
-		Assert.Fail();
+		Assert.Pass();
 	}
 }

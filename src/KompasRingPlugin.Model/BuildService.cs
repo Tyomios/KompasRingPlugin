@@ -160,7 +160,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     }
 
     /// <summary>
-    /// Возвращает список ребер плоских поверхностей.
+    /// Возвращает список наибольших ребер плоских поверхностей.
     /// </summary>
     /// <returns>  </returns>
     public List<ksEdgeDefinition> GetCircleEdges()
