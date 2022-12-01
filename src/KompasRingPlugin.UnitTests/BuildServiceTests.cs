@@ -1,57 +1,73 @@
-﻿namespace KompasRingPlugin.UnitTests;
+﻿using Kompas6API5;
+
+namespace KompasRingPlugin.UnitTests;
 
 
 [TestFixture]
 public class BuildServiceTests
 {
-	[Test]
-	public void CreateSketchOnBasePlane_StateUnderTest_ExpectedBehavior()
+    [Test]
+    public void ConstructorTest_ExpectedBehavior()
+    {
+        // Arrange
+        var doc = KompasConnector.Instance.GetDocument().Result;
+
+        // Act
+        var service = new BuildService(doc);
+
+        // Assert
+        Assert.IsNotNull(service);
+    }
+
+    [Test]
+	public void CreateSketchOnBasePlane_ExpectedBehavior()
 	{
-		// Arrange
-		var service = new BuildService(TODO);
-		BasePlane plane = default(global::Model.BasePlane);
+        // Arrange
+        var doc = KompasConnector.Instance.GetDocument().Result;
 
-		// Act
-		var result = service.CreateSketchOnBasePlane(
-			plane);
+        var service = new BuildService(doc);
+        BasePlane plane = BasePlane.XOY;
+        var expectedPlaneId = 1;
 
-		// Assert
-		Assert.Fail();
+        // Act
+        var result = service.CreateSketchOnBasePlane(plane);
+        var actualPlane = (ksEntity)result.GetPlane();
+        var actualPlaneId = actualPlane.type;
+
+        // Assert
+		Assert.AreEqual(expectedPlaneId, actualPlaneId);
 	}
 
 	[Test]
-	public void SqueezeOut_StateUnderTest_ExpectedBehavior()
+	public void SqueezeOut_ExpectedBehavior()
 	{
-		// Arrange
-		var service = new BuildService(TODO);
-		ksSketchDefinition sketch = null;
-		double height = 0;
-		bool cutMode = false;
-		short blindType = 0;
+        // Arrange
+        var doc = KompasConnector.Instance.GetDocument().Result;
+        var service = new BuildService(doc);
+        var sketch = service.CreateSketchOnBasePlane();
+        ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
+        flatDocument.ksCircle(0, 0, 30, 1);
+        sketch.EndEdit();
+        var height = 10;
 
-		// Act
-		var result = service.SqueezeOut(
-			sketch,
-			height,
-			cutMode,
-			blindType);
+        // Act
+		var result = service.SqueezeOut(sketch, height);
+        var actualParams = (ksExtrusionParam)result.GetDefinition();
 
-		// Assert
-		Assert.Fail();
+        // Assert
+		Assert.AreEqual(height, actualParams.depthNormal);
 	}
 
 	[Test]
 	public void RoundCorners_StateUnderTest_ExpectedBehavior()
 	{
-		// Arrange
-		var service = new BuildService(TODO);
+        // Arrange
+        var doc = KompasConnector.Instance.GetDocument().Result;
+        var service = new BuildService(doc);
 		double radius = 0;
-		List roundedEdges = null;
 
-		// Act
-		service.RoundCorners(
-			radius,
-			roundedEdges);
+        // Act
+		//service.RoundCorners(radius, roundedEdges);
 
 		// Assert
 		Assert.Fail();
@@ -60,8 +76,9 @@ public class BuildServiceTests
 	[Test]
 	public void GetCircleEdges_StateUnderTest_ExpectedBehavior()
 	{
-		// Arrange
-		var service = new BuildService(TODO);
+        // Arrange
+        var doc = KompasConnector.Instance.GetDocument().Result;
+        var service = new BuildService(doc);
 
 		// Act
 		var result = service.GetCircleEdges();
@@ -73,8 +90,9 @@ public class BuildServiceTests
 	[Test]
 	public void GetAllFaces_StateUnderTest_ExpectedBehavior()
 	{
-		// Arrange
-		var service = new BuildService(TODO);
+        // Arrange
+        var doc = KompasConnector.Instance.GetDocument().Result;
+        var service = new BuildService(doc);
 
 		// Act
 		var result = service.GetAllFaces();
@@ -86,15 +104,14 @@ public class BuildServiceTests
 	[Test]
 	public void InjectText_StateUnderTest_ExpectedBehavior()
 	{
-		// Arrange
-		var service = new BuildService(TODO);
+        // Arrange
+        var doc = KompasConnector.Instance.GetDocument().Result;
+        var service = new BuildService(doc);
 		ksSketchDefinition sketch = null;
 		string text = null;
 
 		// Act
-		service.InjectText(
-			sketch,
-			text);
+		//service.InjectText(sketch, text);
 
 		// Assert
 		Assert.Fail();

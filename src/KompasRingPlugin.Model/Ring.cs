@@ -112,6 +112,10 @@ public class Ring
     /// </returns>
     public static bool IsReadyForBuild(Ring ring)
     {
+        if (ring is null)
+        {
+            return false;
+        }
         if (ring.Width.Equals(0) 
             || ring.Height.Equals(0) 
             || ring.Radius.Equals(0))
