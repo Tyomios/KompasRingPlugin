@@ -111,6 +111,32 @@
         }
 
         [Test]
+        public void CheckCorrectValuesTest_ValidateTextSizeValue_EmptyText()
+        {
+            // Arrange
+            var ring = new Ring();
+            ring.Engraving.TextSize = 8;
+            ring.Width = 12;
+
+            // Act
+            try
+            {
+                RingParamsValidator.CheckCorrectValues(ring);
+            }
+            catch (Exception e)
+            {
+                if (e.Message.Equals("Значение размера текста превышает толщину кольца"))
+                {
+                    Assert.Fail();
+                    return;
+                }
+            }
+
+            // Assert
+            Assert.Pass();
+        }
+
+        [Test]
         public void CheckCorrectValuesTest_ValidateRoundScaleValue_ExpectedBehavior()
         {
             // Arrange
