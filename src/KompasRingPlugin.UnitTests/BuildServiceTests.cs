@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using Kompas6API5;
-using System.Windows.Media.Media3D;
 
 namespace KompasRingPlugin.UnitTests;
 
@@ -70,11 +68,9 @@ public class BuildServiceTests
         ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
         flatDocument.ksCircle(0, 0, 30, 1);
         sketch.EndEdit();
-
         var result = service.SqueezeOut(sketch, 20);
-
         var edges = service.GetCircleEdges();
-        double radius = 10;
+        double radius = 9;
 
         // Act
         try
@@ -83,7 +79,7 @@ public class BuildServiceTests
         }
         catch 
         {
-            Assert.Fail();
+            //Assert.Throws();
             return;
         }
 		
@@ -107,6 +103,11 @@ public class BuildServiceTests
 
         // Act
         var result = service.GetCircleEdges();
+        if (result.Count.Equals(0))
+        {
+            Assert.Fail();
+            return;
+        }
         var actual = result.Count;
 
 		// Assert
@@ -123,6 +124,7 @@ public class BuildServiceTests
         ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
         flatDocument.ksCircle(0, 0, 30, 1);
         sketch.EndEdit();
+        var detail = service.SqueezeOut(sketch, 20);
         var expected = 3;
 
         // Act
