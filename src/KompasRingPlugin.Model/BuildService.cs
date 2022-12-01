@@ -173,13 +173,21 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     public List<ksEdgeDefinition> GetCircleEdges()
     {
         var cylinderFaces = GetCylinderFaces();
+        ksFaceDefinition biggerFace = null;
         if (cylinderFaces.Count.Equals(0))
         {
             return new List<ksEdgeDefinition>();
         }
-
-        var biggerFace = cylinderFaces[0].GetArea(0x1) > cylinderFaces[1].GetArea(0x1)
-            ? cylinderFaces[0] : cylinderFaces[1];
+        if (cylinderFaces.Count.Equals(1))
+        {
+            biggerFace = cylinderFaces[0];
+        }
+        if (cylinderFaces.Count.Equals(2))
+        {
+            biggerFace = cylinderFaces[0].GetArea(0x1) > cylinderFaces[1].GetArea(0x1)
+                ? cylinderFaces[0] : cylinderFaces[1];
+        }
+        
 
         var edges = new List<ksEdgeDefinition>();
         var j = 0;

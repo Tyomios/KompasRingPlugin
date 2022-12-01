@@ -11,30 +11,26 @@ public class RingBuilderTests
 		var ringBuilder = new RingBuilder();
 		Ring ring = null;
 
-		// Act
-		try
-		{
-			ringBuilder.Build(ring);
-		}
-		catch (Exception e)
-		{
-			if (e.Message.Equals("Жизненеобходимые параметры кольца не заполнены"))
-			{
-				Assert.Pass();
-				return;
-			}
-		}
-
-		// Assert
-		Assert.Fail();
-	}
+        // Act
+        try
+        {
+            Assert.Throws<Exception>(() =>
+            {
+                ringBuilder.Build(ring);
+            });
+        }
+        catch (Exception e)
+        {
+            
+        }
+    }
 
 	[Test]
 	public void Build_EmptyFieldsTest()
 	{
 		// Arrange
 		var ringBuilder = new RingBuilder();
-		Ring ring = new Ring()
+		Ring ring = new Ring
 		{
 			Height = 0,
 			Radius = 0,
@@ -43,22 +39,13 @@ public class RingBuilderTests
 		};
 
 		// Act
-		try
-		{
-			ringBuilder.Build(ring);
-		}
-		catch (Exception e)
-		{
-			if (e.Message.Equals("Жизненеобходимые параметры кольца не заполнены"))
-			{
-				Assert.Pass();
-				return;
-			}
-		}
 
-		// Assert
-		Assert.Fail();
-	}
+        // Assert
+        Assert.Throws<Exception>(() =>
+        {
+            ringBuilder.Build(ring);
+        });
+    }
 
 	[Test]
 	public void Build_WithoutEngraving()
@@ -107,18 +94,16 @@ public class RingBuilderTests
 			}
 		};
 
-		// Act
-		try
-		{
-			ringBuilder.Build(ring);
-		}
-		catch
-		{
-			Assert.Fail();
+        // Act
+        try
+        {
+            ringBuilder.Build(ring);
+        }
+        catch (Exception e)
+        {
+            Assert.Fail();
 			return;
-		}
-
-		// Assert
+        }
 		Assert.Pass();
-	}
+    }
 }

@@ -52,10 +52,11 @@ public class BuildServiceTests
 
         // Act
 		var result = service.SqueezeOut(sketch, height);
-        var actualParams = (ksExtrusionParam)result.GetDefinition();
-
+        var extrusionDefinition = (ksBaseExtrusionDefinition)result.GetDefinition();
+        var actualParams = (ksExtrusionParam)extrusionDefinition.ExtrusionParam();
+        
         // Assert
-		Assert.AreEqual(height, actualParams.depthNormal);
+        Assert.AreEqual(height, actualParams.depthNormal);
 	}
 
 	[Test]
@@ -73,20 +74,13 @@ public class BuildServiceTests
         double radius = 9;
 
         // Act
-        try
+
+        // Assert
+        Assert.Throws<Exception>(()=>
         {
             service.RoundCorners(radius, edges);
-        }
-        catch 
-        {
-            //Assert.Throws();
-            return;
-        }
-		
-
-		// Assert
-		Assert.Pass();
-	}
+        });
+    }
 
 	[Test]
 	public void GetCircleEdges_CoinForm()
@@ -103,11 +97,6 @@ public class BuildServiceTests
 
         // Act
         var result = service.GetCircleEdges();
-        if (result.Count.Equals(0))
-        {
-            Assert.Fail();
-            return;
-        }
         var actual = result.Count;
 
 		// Assert
@@ -130,6 +119,7 @@ public class BuildServiceTests
         // Act
         var result = service.GetAllFaces();
         var actual = result.GetCount();
+
 		// Assert
 		Assert.AreEqual(expected, actual);
 	}
@@ -144,18 +134,12 @@ public class BuildServiceTests
         var engraving = new Engraving { Text = "Тест", TextSize = 4};
 
         // Act
-        try
+
+
+        // Assert
+        Assert.Throws<Exception>(() =>
         {
             service.InjectText(sketch, engraving, new Point(0, 0));
-        }
-        catch 
-        {
-            Assert.Fail();
-            return;
-        }
-        
-
-		// Assert
-		Assert.Pass();
-	}
+        });
+    }
 }
