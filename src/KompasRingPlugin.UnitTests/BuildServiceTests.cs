@@ -114,7 +114,7 @@ public class BuildServiceTests
 	}
 
 	[Test]
-	public void GetAllFaces_StateUnderTest_ExpectedBehavior()
+	public void GetAllFaces_ExpectedBehavior()
 	{
         // Arrange
         var doc = KompasConnector.Instance.GetDocument().Result;

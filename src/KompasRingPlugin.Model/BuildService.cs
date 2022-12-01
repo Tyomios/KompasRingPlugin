@@ -114,6 +114,13 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         return extrusionEntity;
     }
 
+    /// <summary>
+    /// Выполняет операцию вырезания выдавливанием по переданному эскизу.
+    /// </summary>
+    /// <param name="sketch"> Эскиз для вырезания выдавливанием. </param>
+    /// <param name="height"> Толщина расстояние выдавливания. </param>
+    /// <param name="blindType"> тип выдавливания по расстоянию. </param>
+    /// <returns> Объект операции вырезания выдавливанием.  </returns>
     public ksEntity CutSqueeze(ksSketchDefinition sketch, double height, short blindType = 0)
     {
         // Вырезать выдавливанием.
