@@ -1,4 +1,6 @@
-﻿namespace Model;
+﻿using System;
+
+namespace Model;
 
 /// <summary>
 /// Сервисный класс проверки значений для построения кольца с гравировкой
