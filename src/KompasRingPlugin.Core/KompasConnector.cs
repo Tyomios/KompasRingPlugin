@@ -1,4 +1,4 @@
-﻿namespace Model;
+﻿namespace Core;
 
 /// <summary>
 /// Отвечает за подключение к КОМПАС-3D.

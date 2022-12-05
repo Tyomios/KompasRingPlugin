@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Model;
 using Color = System.Windows.Media.Color;
 
 
-namespace Model;
+namespace Core;
 
 /// <summary>
 /// Сервис содержащий методы для построения детали.

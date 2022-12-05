@@ -1,4 +1,4 @@
-﻿namespace Model;
+﻿namespace Core;
 
 /// <summary>
 /// Базовые плоскости 3Д документа.

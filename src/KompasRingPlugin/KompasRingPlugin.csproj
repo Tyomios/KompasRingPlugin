@@ -20,8 +20,9 @@
     <PackageReference Include="PixiEditor.ColorPicker" Version="3.3.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\KompasRingPlugin.Model\KompasRingPlugin.Model.csproj" />
-  </ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\KompasRingPlugin.Core\KompasRingPlugin.Core.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using Model;
 
-namespace Model;
+namespace Core;
 
 /// <summary>
 /// Занимается построением детали.
