@@ -126,6 +126,8 @@
             
             <Button Grid.Row="2"
                     Style="{DynamicResource warningButtonStyle}"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,0,6"
                     Width="90"
                     Height="25"
                     Content="Ok"/>
