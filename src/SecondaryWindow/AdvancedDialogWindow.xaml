@@ -30,6 +30,9 @@
             <DataTemplate DataType="{x:Type viewModels:WarningVM}">
                 <views:warningView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SuccessVM}">
+                <views:successResultView/>
+            </DataTemplate>
         </ContentPresenter.Resources>
     </ContentPresenter>
 </Window>

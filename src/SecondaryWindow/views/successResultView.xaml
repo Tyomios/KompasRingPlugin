@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="SecondaryWindow.views.successResultView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SecondaryWindow.views"
+             mc:Ignorable="d" 
+             d:DesignHeight="155" d:DesignWidth="260">
+    <UserControl.DataContext>
+
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <Style x:Key="textParameters" TargetType="{x:Type TextBlock}">
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="FontWeight" Value="Light"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                        <Setter Property="Padding" Value="0,0,0,0"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border x:Name="primaryBorder"
+            Background="#666666"
+            BorderBrush="#50F042"
+            BorderThickness="1">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0.6*"/>
+            </Grid.RowDefinitions>
+
+            <Image 
+                 Source="../resources/successCircle.png"
+                 Width="54"
+                 VerticalAlignment="Bottom"
+                 Margin="0,0,0,15"/>
+            <TextBlock Grid.Row="2"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Text="{Binding Message}"
+                       Style="{DynamicResource textParameters}"
+                       d:Text="Построение завершено"/>
+        </Grid>
+    </Border>
+</UserControl>
