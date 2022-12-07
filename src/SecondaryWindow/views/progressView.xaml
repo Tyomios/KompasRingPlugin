@@ -4,17 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SecondaryWindow.views"
+             xmlns:viewModels="clr-namespace:SecondaryWindow.viewModels"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:li="http://github.com/zeluisping/loadingIndicators/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="155"
              d:DesignWidth="260">
+    <UserControl.DataContext>
+        <viewModels:ProgressVM/>
+    </UserControl.DataContext>
+
     <UserControl.Resources>
-        <Style x:Key="textParameters" TargetType="{x:Type TextBlock}">
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontWeight" Value="Light"/>
-            <Setter Property="Foreground" Value="#FFFFFF"/>
-            <Setter Property="Padding" Value="0,0,0,2"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary Theme="Dark" />
+                <ui:ControlsDictionary />
+                <ResourceDictionary>
+                    <Style x:Key="textParameters" TargetType="{x:Type TextBlock}">
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="FontWeight" Value="Light"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                        <Setter Property="Padding" Value="0,0,0,0"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Border x:Name="primaryBorder"
             Background="#666666"
@@ -30,6 +45,8 @@
 
             <StackPanel Grid.Row="1" Orientation="Vertical">
                 <!-- todo <ProgressBar></ProgressBar>-->
+                <!--<ui:ProgressRing Width="40"
+                                 Height="40"></ui:ProgressRing>-->
 
                 <!--<TextBlock Text=""></TextBlock>-->
             </StackPanel>
