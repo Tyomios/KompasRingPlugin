@@ -22,11 +22,14 @@
                          Color="#50F042"/>
     </Window.Resources>
 
-    <ItemsControl ItemsSource="{Binding}">
-        <ItemsControl.ItemTemplate>
+    <ContentPresenter Content="{Binding}">
+        <ContentPresenter.Resources>
             <DataTemplate DataType="{x:Type viewModels:ProgressVM}">
                 <views:progressView/>
             </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+            <DataTemplate DataType="{x:Type viewModels:WarningVM}">
+                <views:warningView/>
+            </DataTemplate>
+        </ContentPresenter.Resources>
+    </ContentPresenter>
 </Window>
