@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SecondaryWindow
+namespace SecondaryWindow.views
 {
     /// <summary>
-    /// Interaction logic for AdvancedDialogWindow.xaml
+    /// Interaction logic for progressView.xaml
     /// </summary>
-    public partial class AdvancedDialogWindow : Window
+    public partial class progressView : UserControl
     {
-        public AdvancedDialogWindow()
+        public progressView()
         {
             InitializeComponent();
         }

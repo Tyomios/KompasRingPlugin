@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="SecondaryWindow.views.progressView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SecondaryWindow.views"
+             mc:Ignorable="d" 
+             d:DesignHeight="155"
+             d:DesignWidth="260">
+    <UserControl.Resources>
+        <Style x:Key="textParameters" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Padding" Value="0,0,0,2"/>
+        </Style>
+    </UserControl.Resources>
+    <Border x:Name="primaryBorder"
+            Background="#666666"
+            BorderBrush="#42D7F0"
+            BorderThickness="1">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <!-- todo <ProgressBar></ProgressBar>-->
+
+                <!--<TextBlock Text=""></TextBlock>-->
+            </StackPanel>
+
+            <TextBlock Grid.Row="2"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Text="{Binding Message}"
+                       Style="{DynamicResource textParameters}"
+                       d:Text="Выполняется построение кольца"/>
+        </Grid>
+    </Border>
+</UserControl>
