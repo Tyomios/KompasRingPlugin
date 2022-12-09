@@ -49,10 +49,19 @@ public partial class MainVM
         }
         catch (Exception exception)
         {
-            var dialogService = new DialogService(new ProgressVM("Выполняется построение кольца",40));
-            dialogService.Dialog();
-            //Thread.Sleep(2000);
+            var vm1 = new ProgressVM("Выполняется построение кольца", 40);
+            var vm2 = new ProgressVM("Выполняется построение ", 50);
+            var vm3 = new ProgressVM("Выполняется построение кольца кольца кольца", 60);
+            var dialogService = new DialogService(vm1);
 
+            dialogService.CurrentVM = vm2;
+
+
+
+            Thread.Sleep(2000);
+
+
+            dialogService.CurrentVM = vm3;
             //dialogService.CurrentVM = new ProgressVM();
             //dialogService.CurrentVM.Message = "20";
             //Thread.Sleep(1000);

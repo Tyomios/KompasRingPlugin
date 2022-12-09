@@ -11,6 +11,7 @@ public class DialogService
     {
         _view = new();
         CurrentVM = viewModel;
+        _view.Show();
     }
 
     private BaseInfoVM _currentVM;
@@ -30,11 +31,6 @@ public class DialogService
     }
 
     public static Dispatcher Dispatcher { get; set; }
-
-    public void Dialog()
-    {
-        _view.Show();
-    }
 
     public void DialogEnd(int endDelay = 100)
     {
