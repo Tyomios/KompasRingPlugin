@@ -1,4 +1,4 @@
-﻿namespace SecondaryWindow;
+﻿namespace Core;
 
 /// <summary>
 /// Тип отображаемой информации.

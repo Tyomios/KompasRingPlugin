@@ -9,7 +9,7 @@
              xmlns:li="http://github.com/zeluisping/loadingIndicators/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="265"
-             d:DesignWidth="260">
+             d:DesignWidth="450">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

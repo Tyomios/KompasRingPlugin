@@ -39,37 +39,21 @@ public partial class MainVM
     /// Построение детали в приложении КОМПАС-3D.
     /// </summary>
     [ICommand]
-    private void Build()
+    private async void Build()
     {
         try
         {
             RingParamsValidator.CheckCorrectValues(_ring);
             var ringBuilder = new RingBuilder();
-            ringBuilder.Build(_ring);
+            var dialogService = new DialogService(new ProgressVM("Проверка параметров кольца", 0));
+            ringBuilder.OnProgressing += dialogService.SetProgressData;
+            ringBuilder.OnBuildingError += dialogService.ShowWarningView;
+            ringBuilder.OnBuildingSuccess += dialogService.ShowSuccessView;
+            await ringBuilder.Build(_ring);
         }
         catch (Exception exception)
         {
-            var vm1 = new ProgressVM("Выполняется построение кольца", 40);
-            var vm2 = new ProgressVM("Выполняется построение ", 50);
-            var vm3 = new ProgressVM("Выполняется построение кольца кольца кольца", 60);
-            var dialogService = new DialogService(vm1);
-
-            dialogService.CurrentVM = vm2;
-
-
-
-            Thread.Sleep(2000);
-
-
-            dialogService.CurrentVM = vm3;
-            //dialogService.CurrentVM = new ProgressVM();
-            //dialogService.CurrentVM.Message = "20";
-            //Thread.Sleep(1000);
-            //dialogService.CurrentVM.Message = "30";
-
-            //dialogService.CurrentVM = new SuccessVM();
-
-            //dialogService.DialogEnd(1000);
+            var dialogService = new DialogService(new WarningVM(exception.Message, "Ошибка"));
         }
     }
 
