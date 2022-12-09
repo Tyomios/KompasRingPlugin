@@ -94,15 +94,39 @@
 
             <Border
 			Background="#333333">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Width="30"
-                            Style="{DynamicResource hideWindowButton}"
-                            Click="clapBtn_Click"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                    <Button Width="30" 
-                            Style="{DynamicResource closeWindowButton}"
-                            Command="{Binding CloseApplicationCommand}"/>
-                </StackPanel>
+                    <StackPanel 
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+
+                        <Image Source="resources/img.png"
+                               Margin="5,2,0,2"/>
+
+                        <TextBlock Text="КОМПАС-Плагин"
+                                   Style="{DynamicResource textParameters}"
+                                   VerticalAlignment="Center"
+                                   Margin="5"/>
+                    </StackPanel>
+
+                    <StackPanel 
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Button Width="30"
+                                Style="{DynamicResource hideWindowButton}"
+                                Click="clapBtn_Click"/>
+
+                        <Button Width="30" 
+                                Style="{DynamicResource closeWindowButton}"
+                                Command="{Binding CloseApplicationCommand}"/>
+                    </StackPanel>
+                </Grid>
             </Border>
 
             <Thumb 

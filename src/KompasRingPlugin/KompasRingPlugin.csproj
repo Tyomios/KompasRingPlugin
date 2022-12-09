@@ -5,7 +5,16 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="resources\img.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="resources\icon.ico" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<Reference Include="Interop.Kompas6API5">
@@ -23,6 +32,11 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\KompasRingPlugin.Core\KompasRingPlugin.Core.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Resource Include="resources\img.png" />
 	</ItemGroup>
 
 </Project>

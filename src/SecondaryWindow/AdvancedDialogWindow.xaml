@@ -9,18 +9,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="155"
              d:DesignWidth="260"
+             Height="255"
+             Width="430"
              AllowsTransparency="True"
              WindowStyle="None">
-    <Window.Resources>
-        <SolidColorBrush x:Key="infoBorderBrush"
-                         Color="#42D7F0"/>
-
-        <SolidColorBrush x:Key="warningBorderBrush"
-                         Color="#F0AA42"/>
-
-        <SolidColorBrush x:Key="successBorderBrush"
-                         Color="#50F042"/>
-    </Window.Resources>
 
     <ContentPresenter Content="{Binding}">
         <ContentPresenter.Resources>

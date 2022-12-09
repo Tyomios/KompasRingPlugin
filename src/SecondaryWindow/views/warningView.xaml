@@ -7,9 +7,6 @@
              xmlns:viewModels="clr-namespace:SecondaryWindow.viewModels"
              mc:Ignorable="d" 
              d:DesignHeight="155" d:DesignWidth="260">
-    <UserControl.DataContext>
-        <viewModels:WarningVM/>
-    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -106,7 +103,9 @@
                             Width="20" 
                             HorizontalAlignment="Right"
                             Style="{DynamicResource closeWindowButton}"
-                            Command="{Binding CloseApplicationCommand}"/>
+                            Command="{Binding CloseViewCommand}"
+                            CommandParameter="{Binding 
+										RelativeSource={RelativeSource AncestorType=Window}}"/>
                 </Grid>
             </Border>
 
@@ -134,7 +133,10 @@
                     Margin="0,0,0,6"
                     Width="90"
                     Height="25"
-                    Content="Ok"/>
+                    Content="Ok"
+                    Command="{Binding AssertCommand}"
+                    CommandParameter="{Binding 
+										RelativeSource={RelativeSource AncestorType=Window}}"/>
 
         </Grid>
     </Border>
