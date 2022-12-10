@@ -16,7 +16,6 @@
 
         <MediaElement Grid.Row="1"
                       x:Name="MediaElement"
-                      Source="../resources/CornerRadiusAnimation.mp4"
                       LoadedBehavior="Play"/>
 
         <Grid Grid.Row="2">

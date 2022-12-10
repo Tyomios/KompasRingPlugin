@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls.Primitives;
+using KompasRingPlugin.Controls;
 
 namespace KompasRingPlugin;
 
@@ -8,6 +11,24 @@ namespace KompasRingPlugin;
 /// </summary>
 public partial class MainWindow : Window
 {
+
+    private Dictionary<string, HelpParamsUI> _controlsParams = new()
+    {
+        { "engravingTextAdvancedTextBox", new HelpParamsUI(ActionType.EngravingText, "Это текст гравировки") },
+
+        {
+            "engravingWidthAdvancedTextBox",
+            new HelpParamsUI(ActionType.EngravingWidth, "Указанное значение не должно превышать толщину кольца")
+        },
+
+        { "ringHeightAdvancedTextBox", new HelpParamsUI(ActionType.RingHeight, String.Empty) },
+
+        { "ringSizeAdvancedTextBox", new HelpParamsUI(ActionType.RingSize, String.Empty) },
+
+        { "ringWidthAdvancedTextBox", new HelpParamsUI(ActionType.RingWidth, String.Empty) },
+
+        { "ringRoundScaleAdvancedTextBox", new HelpParamsUI(ActionType.RoundScale, String.Empty) }
+    };
 	public MainWindow()
 	{
 		InitializeComponent();
@@ -32,5 +53,16 @@ public partial class MainWindow : Window
     private void clapBtn_Click(object sender, RoutedEventArgs e)
     {
         WindowState = WindowState.Minimized;
+    }
+
+    private void UIElement_OnGotFocus(object sender, RoutedEventArgs e)
+    {
+        var control = (AdvancedTextbox)sender;
+        if (control is null)
+        {
+            return;
+        }
+
+        UserHelperControl.Test = _controlsParams[control.Name];
     }
 }

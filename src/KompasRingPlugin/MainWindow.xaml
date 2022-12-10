@@ -163,17 +163,24 @@
 							Style="{DynamicResource expander}">
                         <StackPanel>
                             <controls:AdvancedTextbox 
+                                x:Name="engravingTextAdvancedTextBox"
                                 Style="{DynamicResource textBoxBasicStyle}"
                                 InputData="{Binding Ring.Engraving.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Info="Введите текст гравировки"/>
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
-                                                      InputData="{Binding Ring.Engraving.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"
-                                                      Info="Введите глубину гравировки"/>
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
-                                                      InputData="{Binding Ring.Engraving.TextSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"
-                                                      Info="Введите размер текста гравировки"/>
+                                Info="Введите текст гравировки"
+                                GotFocus="UIElement_OnGotFocus"/>
+                            <controls:AdvancedTextbox 
+                                x:Name="engravingWidthAdvancedTextBox"
+                                Style="{DynamicResource textBoxBasicStyle}"
+                                InputData="{Binding Ring.Engraving.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsDoubleOnly="True"
+                                Info="Введите глубину гравировки"
+                                GotFocus="UIElement_OnGotFocus"/>
+                            <controls:AdvancedTextbox 
+                                x:Name="engravingHeigthAdvancedTextBox"
+                                Style="{DynamicResource textBoxBasicStyle}"
+                                InputData="{Binding Ring.Engraving.TextSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsDoubleOnly="True"
+                                Info="Введите размер текста гравировки"/>
                         </StackPanel>
                     </Expander>
 
@@ -182,33 +189,46 @@
                               IsExpanded="True"
                               Style="{DynamicResource expander}">
                         <StackPanel>
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
-                                                      InputData="{Binding Ring.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"
-                                                      Info="Введите толщину кольца"
-                                                      MinValue="25"
-                                                      MaxValue="70"/>
+                            <controls:AdvancedTextbox 
+                                x:Name="ringHeightAdvancedTextBox"
+                                Style="{DynamicResource textBoxBasicStyle}"
+                                InputData="{Binding Ring.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsDoubleOnly="True"
+                                Info="Введите толщину кольца"
+                                MinValue="25"
+                                MaxValue="70"
+                                GotFocus="UIElement_OnGotFocus"/>
 
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
-                                                      InputData="{Binding Ring.Radius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"
-                                                      Info="Введите внутренний размер кольца"
-                                                      MinValue="20"
-                                                      MaxValue="150"/>
+                            <controls:AdvancedTextbox 
+                                x:Name="ringSizeAdvancedTextBox"
+                                Style="{DynamicResource textBoxBasicStyle}"
+                                InputData="{Binding Ring.Radius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsDoubleOnly="True"
+                                Info="Введите внутренний размер кольца"
+                                MinValue="20"
+                                MaxValue="150"
+                                GotFocus="UIElement_OnGotFocus"/>
 
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
+                            <controls:AdvancedTextbox 
+                                x:Name="ringWidthAdvancedTextBox"
+                                Style="{DynamicResource textBoxBasicStyle}"
                                                       InputData="{Binding Ring.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsDoubleOnly="True"
                                                       Info="Введите ширину кольца"
                                                       MinValue="10"
-                                                      MaxValue="100"/>
+                                                      MaxValue="100"
+                                GotFocus="UIElement_OnGotFocus"/>
 
-                            <controls:AdvancedTextbox Style="{DynamicResource textBoxBasicStyle}"
-                                                      InputData="{Binding Ring.RoundScale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"
-                                                      Info="Введите угол скругления кольца"
-                                                      MinValue="0"
-                                                      MaxValue="45"/>
+                            <controls:AdvancedTextbox 
+                                x:Name="ringRoundScaleAdvancedTextBox"
+                                Style="{DynamicResource textBoxBasicStyle}"
+                                InputData="{Binding Ring.RoundScale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsDoubleOnly="True"
+                                Info="Введите угол скругления кольца"
+                                MinValue="0"
+                                MaxValue="45"
+                                GotFocus="UIElement_OnGotFocus"/>
+
                             <StackPanel Orientation="Horizontal">
                                 <pix:PortableColorPicker x:Name="colorPicker" 
                                                          Height="50"
@@ -241,13 +261,14 @@
                 <Border Grid.Column="1"
                         Background="#3C3C3C">
 
-                    <TextBlock Style="{DynamicResource textParameters}"
+                    <controls:UserHelperControl x:Name="UserHelperControl"/>
+                    <!--<TextBlock Style="{DynamicResource textParameters}"
                                Text="Введите данные для построения детали"
                                VerticalAlignment="Center"
                                FontSize="26"
                                TextWrapping="WrapWithOverflow"
                                HorizontalAlignment="Stretch"
-                               TextAlignment="Center"/>
+                               TextAlignment="Center"/>-->
                 </Border>
             </Grid>
 

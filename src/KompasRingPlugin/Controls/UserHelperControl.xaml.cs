@@ -25,17 +25,30 @@ namespace KompasRingPlugin.Controls
         /// </summary>
         private static Dictionary<ActionType, string> _actionsAnimations = new ()
         {
-            {ActionType.RoundScale, "../resources/CornerRadiusAnimation.mp4"},
-            {ActionType.EngravingText, "../resources/EngravingTextAnimation.mp4"},
-            {ActionType.EngravingWidth, "../resources/EngravingWidthAnimation.mp4"},
-            {ActionType.RingHeight, "../resources/RingBiggerRadiusAnimation.mp4"},
-            {ActionType.RingSize, "../resources/RingSizeAnimation.mp4"},
-            {ActionType.RingWidth, "../resources/RingWidthAnimation.mp4"}
+            {ActionType.RoundScale, "file:///../resources/CornerRadiusAnimation.mp4"},
+            {ActionType.EngravingText, "file:///../resources/EngravingTextAnimation.mp4"},
+            {ActionType.EngravingWidth, "file:///../resources/EngravingWidthAnimation.mp4"},
+            {ActionType.RingHeight, "file:///../resources/RingBiggerRadiusAnimation.mp4"},
+            {ActionType.RingSize, "file:///../resources/RingSizeAnimation.mp4"},
+            {ActionType.RingWidth, "file:///../resources/RingWidthAnimation.mp4"}
         };
 
         public UserHelperControl()
         {
             InitializeComponent();
+        }
+
+        private HelpParamsUI _test;
+
+        public HelpParamsUI Test
+        {
+            get => _test;
+            set
+            {
+                _test = value;
+                addInfoTextBlock.Text = _test.AdditionInfo;
+                MediaElement.Source = new Uri(_actionsAnimations[_test.ToAction]);
+            }
         }
 
         public HelpParamsUI AdditInfo
