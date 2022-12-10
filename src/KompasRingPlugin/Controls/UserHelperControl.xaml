@@ -16,7 +16,8 @@
 
         <MediaElement Grid.Row="1"
                       x:Name="MediaElement"
-                      LoadedBehavior="Play"/>
+                      LoadedBehavior="Play"
+                      MediaFailed='MediaElement_OnMediaFailed'/>
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>

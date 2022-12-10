@@ -9,11 +9,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="resources\CornerRadiusAnimation.mp4" />
+    <None Remove="resources\EngravingTextAnimation.mp4" />
+    <None Remove="resources\EngravingWidthAnimation.mp4" />
     <None Remove="resources\img.png" />
+    <None Remove="resources\RingBiggerRadiusAnimation.mp4" />
+    <None Remove="resources\RingSizeAnimation.mp4" />
+    <None Remove="resources\RingWidthAnimation.mp4" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="resources\CornerRadiusAnimation.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\EngravingTextAnimation.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\EngravingWidthAnimation.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="resources\icon.ico" />
+    <Content Include="resources\RingBiggerRadiusAnimation.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\RingSizeAnimation.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\RingWidthAnimation.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 	<ItemGroup>
