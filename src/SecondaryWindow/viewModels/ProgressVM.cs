@@ -9,5 +9,6 @@ public partial class ProgressVM : BaseInfoVM
     {
         Message = message;
         Progress = progress;
+        IsVisible = true;
     }
 }

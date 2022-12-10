@@ -20,7 +20,10 @@
     </Window.DataContext>
 
     <Window.Resources>
-		<!-- Expander style -->
+
+        <local:BooleanToOpacityConverter x:Key="BooleanToOpacityConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <!-- Expander style -->
 		<Style x:Key="expander" TargetType="Expander">
 			<Setter Property="Template">
 				<Setter.Value>
@@ -86,7 +89,9 @@
 	<Border CornerRadius="0"
             BorderBrush="Transparent"
             Background="#484848"
-            DockPanel.Dock="Top">
+            DockPanel.Dock="Top"
+            Opacity="{Binding DialogVM.IsVisible,
+        Converter={StaticResource BooleanToOpacityConverter}}">
         <Grid>
 
             <Grid.RowDefinitions>
@@ -232,10 +237,11 @@
 					Margin="0,0,0,5"
                     Style="{DynamicResource primaryButtonStyle}"/>
 
-				<!--todo Заплатка пока нет контрола--> 
-				<Border Grid.Column="1"
+				<!--todo Заплатка пока нет контрола-->
+                <Border Grid.Column="1"
                         Background="#3C3C3C">
-					<TextBlock Style="{DynamicResource textParameters}"
+
+                    <TextBlock Style="{DynamicResource textParameters}"
                                Text="Введите данные для построения детали"
                                VerticalAlignment="Center"
                                FontSize="26"
@@ -252,16 +258,20 @@
                 Height="255"
                 Width="430"
                 Opacity="100"
-                Content="{Binding}">
+                Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}, 
+                            Path=Content.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Content="{Binding DialogVM}">
                 <ContentPresenter.Resources>
                     <DataTemplate DataType="{x:Type viewModels:ProgressVM}">
-                        <views:progressView/>
+                        <views:progressView />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewModels:WarningVM}">
-                        <views:warningView/>
+                        <views:warningView />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewModels:SuccessVM}">
-                        <views:successResultView/>
+                        <views:successResultView 
+                            Visibility="{Binding IsVisible, 
+                    Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ContentPresenter.Resources>
             </ContentPresenter>

@@ -31,12 +31,12 @@ public partial class MainVM
     [ObservableProperty]
     private Ring _ring = new();
 
-    private BaseInfoVM _dialogService;
+    [ObservableProperty]
+    private BaseInfoVM _dialogVM;
 
     public MainVM()
     {
         DialogService.Dispatcher = Dispatcher.CurrentDispatcher;
-        _dialogService = new DialogService();
     }
 
     /// <summary>
@@ -49,15 +49,21 @@ public partial class MainVM
         {
             RingParamsValidator.CheckCorrectValues(_ring);
             var ringBuilder = new RingBuilder();
-            _dialogService.Start(new ProgressVM("Проверка параметров кольца", 0));
-            ringBuilder.OnProgressing += _dialogService.SetProgressData;
-            ringBuilder.OnBuildingError += _dialogService.ShowWarningView;
-            ringBuilder.OnBuildingSuccess += _dialogService.ShowSuccessView;
+            DialogVM = new ProgressVM("Проверка параметров кольца", 0);
+            ringBuilder.OnProgressing += SetProgressData;
+            ringBuilder.OnBuildingError += ShowWarningView;
+            ringBuilder.OnBuildingSuccess += ShowSuccessView;
             await ringBuilder.Build(_ring);
+            if (DialogVM.IsVisible)
+            {
+                DialogVM.IsVisible = false;
+            }
         }
         catch (Exception exception)
         {
-            _dialogService.ShowWarningView(exception.Message);
+            ShowWarningView(exception.Message);
+            Thread.Sleep(2000);
+            DialogVM.IsVisible = false;
         }
     }
 
@@ -69,5 +75,25 @@ public partial class MainVM
     {
         KompasConnector.Instance.Disconnect();
         Application.Current.Shutdown();
+    }
+
+    private void ShowWarningView(string message)
+    {
+        DialogVM = new WarningVM(message);
+        DialogVM.IsVisible = true;
+    }
+
+    private void ShowSuccessView(string message, int delay)
+    {
+        DialogVM = new SuccessVM(message);
+        DialogVM.IsVisible = true;
+        Thread.Sleep(delay);
+        DialogVM.IsVisible = false;
+    }
+
+    private void SetProgressData(string message, uint progress)
+    {
+        DialogVM.Progress = progress;
+        DialogVM.Message = message;
     }
 }

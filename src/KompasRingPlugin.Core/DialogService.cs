@@ -57,7 +57,6 @@ public class DialogService
 
     public void SetProgressData(string message, uint progress)
     {
-
         Dispatcher.Invoke(() =>
         {
             CurrentVM.Message = message;
