@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Model;
+﻿using Model;
 
 namespace Core;
 

@@ -24,15 +24,6 @@ public abstract partial class BaseInfoVM
     [ObservableProperty]
     private string _errorMessage;
 
-    private string _capture;
-
-    public string Capture
-    {
-        get => _capture;
-        protected set
-        {
-            _capture = value;
-            OnPropertyChanged();
-        }
-    }
+    [ObservableProperty]
+    private bool _isVisible;
 }

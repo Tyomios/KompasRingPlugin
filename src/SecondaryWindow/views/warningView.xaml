@@ -87,30 +87,6 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
-            <Border
-                Background="#4F4F4F">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="20"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock 
-                            Text="{Binding Capture}"
-                            VerticalAlignment="Center"
-                            d:Text="Jib,erf"
-                            Style="{DynamicResource textParameters}"
-                            Margin="5,2"/>
-                    <Button Grid.Column="1"
-                            Width="20" 
-                            HorizontalAlignment="Right"
-                            Style="{DynamicResource closeWindowButton}"
-                            Command="{Binding CloseViewCommand}"
-                            CommandParameter="{Binding 
-										RelativeSource={RelativeSource AncestorType=Window}}"/>
-                </Grid>
-            </Border>
-
             <StackPanel Grid.Row="1">
                 <TextBlock 
                            VerticalAlignment="Top"
@@ -128,17 +104,6 @@
                            Style="{DynamicResource textParameters}"
                            d:Text="Фигура не содержит нужное число граней."/>
             </StackPanel>
-            
-            <Button Grid.Row="2"
-                    Style="{DynamicResource warningButtonStyle}"
-                    VerticalAlignment="Bottom"
-                    Margin="0,0,0,6"
-                    Width="90"
-                    Height="25"
-                    Content="Ok"
-                    Command="{Binding AssertCommand}"
-                    CommandParameter="{Binding 
-										RelativeSource={RelativeSource AncestorType=Window}}"/>
 
         </Grid>
     </Border>

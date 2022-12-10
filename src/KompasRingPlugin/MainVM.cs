@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Core;
 using Model;
+using SecondaryWindow;
 using SecondaryWindow.viewModels;
 using Application = System.Windows.Application;
 
@@ -30,9 +31,12 @@ public partial class MainVM
     [ObservableProperty]
     private Ring _ring = new();
 
+    private BaseInfoVM _dialogService;
+
     public MainVM()
     {
         DialogService.Dispatcher = Dispatcher.CurrentDispatcher;
+        _dialogService = new DialogService();
     }
 
     /// <summary>
@@ -45,15 +49,15 @@ public partial class MainVM
         {
             RingParamsValidator.CheckCorrectValues(_ring);
             var ringBuilder = new RingBuilder();
-            var dialogService = new DialogService(new ProgressVM("Проверка параметров кольца", 0));
-            ringBuilder.OnProgressing += dialogService.SetProgressData;
-            ringBuilder.OnBuildingError += dialogService.ShowWarningView;
-            ringBuilder.OnBuildingSuccess += dialogService.ShowSuccessView;
+            _dialogService.Start(new ProgressVM("Проверка параметров кольца", 0));
+            ringBuilder.OnProgressing += _dialogService.SetProgressData;
+            ringBuilder.OnBuildingError += _dialogService.ShowWarningView;
+            ringBuilder.OnBuildingSuccess += _dialogService.ShowSuccessView;
             await ringBuilder.Build(_ring);
         }
         catch (Exception exception)
         {
-            var dialogService = new DialogService(new WarningVM(exception.Message, "Ошибка"));
+            _dialogService.ShowWarningView(exception.Message);
         }
     }
 

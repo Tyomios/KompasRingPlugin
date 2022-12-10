@@ -6,6 +6,8 @@
 		xmlns:local="clr-namespace:KompasRingPlugin"
 		xmlns:controls="clr-namespace:KompasRingPlugin.Controls"
 		xmlns:pix="clr-namespace:ColorPicker;assembly=ColorPicker"
+		xmlns:viewModels="clr-namespace:SecondaryWindow.viewModels;assembly=SecondaryWindow"
+		xmlns:views="clr-namespace:SecondaryWindow.views;assembly=SecondaryWindow"
 		mc:Ignorable="d"
 		Height="600"
         Width="860"
@@ -242,6 +244,27 @@
                                TextAlignment="Center"/>
                 </Border>
             </Grid>
+
+            <ContentPresenter 
+                Grid.RowSpan="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Height="255"
+                Width="430"
+                Opacity="100"
+                Content="{Binding}">
+                <ContentPresenter.Resources>
+                    <DataTemplate DataType="{x:Type viewModels:ProgressVM}">
+                        <views:progressView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:WarningVM}">
+                        <views:warningView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewModels:SuccessVM}">
+                        <views:successResultView/>
+                    </DataTemplate>
+                </ContentPresenter.Resources>
+            </ContentPresenter>
         </Grid>
     </Border>
 </Window>

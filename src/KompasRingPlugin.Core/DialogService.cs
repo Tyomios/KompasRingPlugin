@@ -10,13 +10,11 @@ public class DialogService
 
     public static Dispatcher Dispatcher { get; set; }
 
-    public DialogService(BaseInfoVM viewModel)
+    public DialogService()
     {
         Dispatcher.Invoke(() =>
         {
             _view = new();
-            CurrentVM = viewModel;
-            _view.Show();
         });
     }
 
@@ -34,19 +32,9 @@ public class DialogService
                 {
                     _view.DataContext = _currentVM;
                 });
-
             }
         }
 
-    }
-
-    public void SetMessage(string message)
-    {
-        Dispatcher.Invoke(() =>
-        {
-            CurrentVM.Message = message;
-        });
-        
     }
 
     public void ShowSuccessView(string? message, int delay)
@@ -60,7 +48,11 @@ public class DialogService
 
     public void ShowWarningView(string message)
     {
-        CurrentVM = new WarningVM(message);
+        Dispatcher.Invoke(() =>
+        {
+            CurrentVM = new WarningVM(message);
+        });
+        
     }
 
     public void SetProgressData(string message, uint progress)
@@ -73,11 +65,16 @@ public class DialogService
         }); 
     }
 
+    public void Start(BaseInfoVM viewModel)
+    {
+        CurrentVM = viewModel;
+        _view.Show();
+    }
+
 
     public void DialogEnd(int endDelay = 100)
     {
         System.Threading.Thread.Sleep(endDelay);
-
         _view.Close();
     }
 }
