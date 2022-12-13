@@ -74,7 +74,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KompasRingPlugin.Model\KompasRingPlugin.Model.csproj" />
-    <ProjectReference Include="..\SecondaryWindow\SecondaryWindow.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,33 +21,24 @@ public class RingBuilder
         Document3D doc;
         await Task.Run((() =>
         {
-            OnProgressing?.Invoke("Создание документа", 10);
             doc = KompasConnector.Instance.GetDocument().Result;
             var buildService = new BuildService(doc);
 
-            OnProgressing?.Invoke("Построение каркаса", 40);
             CreateRingBody(ring, buildService);
 
             var circleEdges = buildService.GetCircleEdges();
             if (circleEdges.Count < 2 && ring.RoundScale > 0)
             {
-                OnBuildingError?.Invoke("Деталь построена неверно. Недостаточно граней для скругления");
                 return;
             }
 
-            OnProgressing?.Invoke("Скругление граней", 90);
             buildService.RoundCorners(ring.RoundScale, circleEdges);
 
             if (!ring.Engraving.Text.Equals(String.Empty))
             {
-                OnProgressing?.Invoke("Нанесение гравировки", 95);
                 BuildEngraving(ring, buildService);
             }
-
-            OnProgressing?.Invoke("Покраска детали", 99);
             buildService.ColoredDetail(ring.Color);
-
-            OnBuildingSuccess?.Invoke("Построение детали успешно завершено", 3000);
         }));
     }
 
@@ -109,10 +100,4 @@ public class RingBuilder
 
         return new System.Windows.Point(-startX, startY);
     }
-
-    public event Action<string, uint> OnProgressing;
-
-    public event Action<string> OnBuildingError;
-    
-    public event Action<string, int> OnBuildingSuccess;
 }
