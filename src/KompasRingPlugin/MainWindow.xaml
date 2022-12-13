@@ -272,7 +272,7 @@
                 </Border>
             </Grid>
 
-            <ContentPresenter 
+            <!--<ContentPresenter 
                 Grid.RowSpan="2"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
@@ -295,7 +295,7 @@
                     Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </DataTemplate>
                 </ContentPresenter.Resources>
-            </ContentPresenter>
+            </ContentPresenter>-->
         </Grid>
     </Border>
 </Window>

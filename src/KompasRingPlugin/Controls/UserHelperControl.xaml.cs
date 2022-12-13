@@ -29,16 +29,19 @@ namespace KompasRingPlugin.Controls
             InitializeComponent();
         }
 
-        private HelpParamsUI _test;
+        private HelpParamsUI _primaryInfo;
 
-        public HelpParamsUI Test
+        /// <summary>
+        /// Устанавливает анимацию и сообщение, содержащиеся в параметре.
+        /// </summary>
+        public HelpParamsUI PrimaryInfo
         {
-            get => _test;
+            get => _primaryInfo;
             set
             {
-                _test = value;
-                addInfoTextBlock.Text = _test.AdditionInfo;
-                MediaElement.Source = new Uri(_actionsAnimations[_test.ToAction], UriKind.Relative);
+                _primaryInfo = value;
+                addInfoTextBlock.Text = _primaryInfo.AdditionInfo;
+                MediaElement.Source = new Uri(_actionsAnimations[_primaryInfo.ToAction], UriKind.Relative);
             }
         }
 

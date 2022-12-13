@@ -4,8 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KompasRingPlugin.Controls"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" 
              d:DesignHeight="570" d:DesignWidth="323">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary Theme="Dark" />
+                <ui:ControlsDictionary />
+                <ResourceDictionary>
+                    <Style x:Key="textParameters" TargetType="{x:Type TextBlock}">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="FontWeight" Value="Light"/>
+                        <Setter Property="Foreground" Value="#FFFFFF"/>
+                        <Setter Property="Padding" Value="0,0,0,0"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -22,11 +40,51 @@
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
 
             <TextBlock 
-                        x:Name="addInfoTextBlock"/>
+                        x:Name="addInfoTextBlock"
+                        Style="{DynamicResource textParameters}"
+                        d:Text="Элемент должен иметь значения от 15 до 66"
+                        TextWrapping="WrapWithOverflow"
+                        FontSize="12"
+                        Padding="10,5,0,0"/>
+
+
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="BuildingMessageTextBlock"
+                            Grid.Column="0"
+                           Style="{DynamicResource textParameters}"
+                           FontSize="12"
+                           Text="Построение каркаса"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           Margin="0,0,0,6"/>
+
+                <ui:ProgressRing
+                    x:Name="ProgressRing"
+                    Grid.Column="1"
+                    Width="20"
+                    Visibility="Collapsed"
+                    Height="20"
+                    IsIndeterminate="True"
+                    Foreground="#42D7F0"/>
+
+                <Image 
+                    x:Name="SuccessImg"
+                    Grid.Column="1"
+                    Source="../resources/successCircle.png"
+                    Visibility="Collapsed"
+                    Width="20"
+                    VerticalAlignment="Center"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

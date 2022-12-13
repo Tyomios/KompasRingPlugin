@@ -63,6 +63,6 @@ public partial class MainWindow : Window
             return;
         }
 
-        UserHelperControl.Test = _controlsParams[control.Name];
+        UserHelperControl.PrimaryInfo = _controlsParams[control.Name];
     }
 }
