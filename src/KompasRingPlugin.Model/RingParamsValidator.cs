@@ -18,6 +18,11 @@ public static class RingParamsValidator
         {
             throw new Exception("Значение скругления превышает толщину кольца");
         }
+        if (ring.RoundScale.Equals(ring.Width / 2) && ring.JewelryAngle > 0)
+        {
+            throw new Exception("Невозможно построить корректную деталь " +
+                                "при указанных значениях скругления и ювелирного выреза");
+        }
         if (ring.Engraving.TextSize > ring.Width / 2 
             && !ring.Engraving.Text.Equals(String.Empty))
         {
