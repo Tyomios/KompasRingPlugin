@@ -116,8 +116,12 @@ public class RingBuilder
     private void CreateRectangleSketch(ksSketchDefinition sketchDefinition, double width, double height, double delta = 0.0)
     {
         ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
-        var upperLeftPoint = (-width, -delta);
-        var lowerRightPoint =  (width, -height + delta);
+        var thirdHeight = height / 3;
+        var padding = height / 6;
+
+        //верхний прямоугольник
+        var upperLeftPoint = (-width, -delta - padding);
+        var lowerRightPoint =  (width, -height + delta + padding);
 
         flatDocument.ksLineSeg(upperLeftPoint.Item1, upperLeftPoint.Item2,
             lowerRightPoint.Item1, upperLeftPoint.Item2, 1);
@@ -130,7 +134,24 @@ public class RingBuilder
 
         flatDocument.ksLineSeg(upperLeftPoint.Item1, lowerRightPoint.Item2,
             upperLeftPoint.Item1, upperLeftPoint.Item2, 1);
+
+
+        ////нижний прямоугольник.
+        //upperLeftPoint = (-width, lowerRightPoint.Item2 - thirdHeight);
+        //lowerRightPoint = (width, -height + delta);
         
+        //flatDocument.ksLineSeg(upperLeftPoint.Item1, upperLeftPoint.Item2,
+        //    lowerRightPoint.Item1, upperLeftPoint.Item2, 1);
+
+        //flatDocument.ksLineSeg(lowerRightPoint.Item1, upperLeftPoint.Item2,
+        //    lowerRightPoint.Item1, lowerRightPoint.Item2, 1);
+
+        //flatDocument.ksLineSeg(lowerRightPoint.Item1, lowerRightPoint.Item2,
+        //    upperLeftPoint.Item1, lowerRightPoint.Item2, 1);
+
+        //flatDocument.ksLineSeg(upperLeftPoint.Item1, lowerRightPoint.Item2,
+        //    upperLeftPoint.Item1, upperLeftPoint.Item2, 1);
+
         sketchDefinition.EndEdit();
     }
 
