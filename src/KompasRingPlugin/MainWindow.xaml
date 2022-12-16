@@ -251,19 +251,23 @@
                                 <StackPanel Grid.Column="1"
                                             VerticalAlignment="Center"
                                             Orientation="Vertical">
+
                                     <Slider Minimum="0"
                                             Maximum="360"
+                                            Value="{Binding Ring.JewelryAngle}"
                                             TickFrequency="45"
+                                            IsSnapToTickEnabled="True"
                                             HorizontalAlignment="Right"
-                                            Width="180"
+                                            Width="160"
                                             VerticalAlignment="Center"/>
 
                                     <TextBlock
-                                        Text="Угол выреза по кольцу"
+                                        Text="{Binding Ring.JewelryAngle, StringFormat=Угол выреза кольца{0}}"
                                         HorizontalAlignment="Right"
                                         Style="{DynamicResource textParameters}"
                                         VerticalAlignment="Center"
-                                        Margin="0,0,20,0"/>
+                                        Margin="0,3,0,0"/>
+
                                 </StackPanel>
                                 
                             </Grid>

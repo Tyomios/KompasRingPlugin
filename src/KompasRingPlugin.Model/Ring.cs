@@ -15,91 +15,42 @@ public class Ring
         Engraving = new Engraving();
     }
 
-    private float _width;
-
     /// <summary>
     /// Возвращает или задает ширину кольца.
     /// </summary>
-    public float Width
-    {
-        get => _width;
-        set
-        {
-            _width = value;
-        }
-    }
+    public float Width { get; set; }
 
-
-    private float _height;
 
     /// <summary>
     /// Возвращает или задает толщину кольца.
     /// </summary>
-    public float Height
-    {
-        get => _height;
-        set
-        {
-            _height = value;
-        }
-    }
+    public float Height { get; set; }
 
-
-    private float _radius;
 
     /// <summary>
     /// Возвращает или задает радиус кольца.
     /// </summary>
-    public float Radius
-    {
-        get => _radius;
-        set
-        {
-            _radius = value;
-        }
-    }
-
-    private uint _roundScale;
+    public float Radius { get; set; }
 
     /// <summary>
     /// Возвращает или задает угол скругления граней кольца.
     /// </summary>
-    public uint RoundScale
-    {
-        get => _roundScale;
-        set
-        {
-            _roundScale = value;
-        }
-    }
-
-    private Engraving _engraving;
+    public uint RoundScale { get; set; }
 
     /// <summary>
     /// Возвращает или задает гравировку кольца.
     /// </summary>
-    public Engraving Engraving
-    {
-        get => _engraving;
-        set
-        {
-            _engraving = value;
-        }
-    }
-
-    private Color _color;
+    public Engraving Engraving { get; set; }
 
     /// <summary>
     /// Возвращает или задает цвет кольца.
     /// </summary>
-    public Color Color
-    {
-        get => _color;
-        set
-        {
-            _color = value;
-        }
-    }
+    public Color Color { get; set; }
+
+    /// <summary>
+    /// Возвращает или задает угол выреза по окружности кольца.
+    /// </summary>
+    public uint JewelryAngle { get; set; }
 
     /// <summary>
     /// Проверка кольца на определения всех параметров для построения

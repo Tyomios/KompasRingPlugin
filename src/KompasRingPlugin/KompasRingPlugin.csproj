@@ -16,7 +16,6 @@
     <None Remove="resources\RingBiggerRadiusAnimation.mp4" />
     <None Remove="resources\RingSizeAnimation.mp4" />
     <None Remove="resources\RingWidthAnimation.mp4" />
-    <None Remove="resources\successCircle.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,7 +61,6 @@
 
 	<ItemGroup>
 	  <Resource Include="resources\img.png" />
-	  <Resource Include="resources\successCircle.png" />
 	</ItemGroup>
 
 </Project>
