@@ -159,7 +159,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <param name="height"> Толщина расстояние выдавливания. </param>
     /// <param name="blindType"> тип выдавливания по расстоянию. </param>
     /// <returns> Объект операции вырезания выдавливанием.  </returns>
-    public ksEntity CutSqueeze(ksSketchDefinition sketch, double height, short blindType = 0)
+    public ksEntity CutSqueeze(ksSketchDefinition sketch, double height)
     {
         // Вырезать выдавливанием.
         const int o3d_CutExtrusion = 26;
@@ -171,7 +171,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         var extrusionDefinition = (ksCutExtrusionDefinition)extrusionEntity.GetDefinition();
         extrusionDefinition.SetSketch(sketch);
         extrusionDefinition.cut = true;
-        extrusionDefinition.SetSideParam(false, 0, height);
+        extrusionDefinition.SetSideParam(false, 0, height); //todo не ставить true - ставит расстояние 10.
 
         extrusionEntity.Create();
 

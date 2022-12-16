@@ -44,7 +44,7 @@ public class RingBuilder
             {
                 //todo либо разбираться как реверсить направление вырезания, либо смещать плоскость в другую сторону.
                 var outerRadius = ring.Radius + ring.Height;
-                var additionPlane = buildService.CreateAdditionPlane(BasePlane.XOZ, outerRadius);
+                var additionPlane = buildService.CreateAdditionPlane(BasePlane.XOZ, -outerRadius);
                 var upperRectangleSketch = buildService.CreateSketch(additionPlane);
                 CreateRectangleSketch(upperRectangleSketch, outerRadius, ring.Width);
                 buildService.CutSqueeze(upperRectangleSketch,
