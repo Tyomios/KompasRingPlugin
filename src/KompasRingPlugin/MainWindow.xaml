@@ -6,9 +6,7 @@
 		xmlns:local="clr-namespace:KompasRingPlugin"
 		xmlns:controls="clr-namespace:KompasRingPlugin.Controls"
 		xmlns:pix="clr-namespace:ColorPicker;assembly=ColorPicker"
-		xmlns:viewModels="clr-namespace:SecondaryWindow.viewModels;assembly=SecondaryWindow"
-		xmlns:views="clr-namespace:SecondaryWindow.views;assembly=SecondaryWindow"
-		mc:Ignorable="d"
+        mc:Ignorable="d"
 		Height="600"
         Width="860"
 		WindowStyle="None"
@@ -229,21 +227,46 @@
                                 MaxValue="45"
                                 GotFocus="UIElement_OnGotFocus"/>
 
-                            <StackPanel Orientation="Horizontal">
-                                <pix:PortableColorPicker x:Name="colorPicker" 
-                                                         Height="50"
-                                                         Width="100"
-                                                         HorizontalAlignment="Left"
-                                                         ShowAlpha="False"
-                                                         SmallChange="1"
-                                                         BorderBrush="Transparent"
-                                                         SelectedColor="{Binding Ring.Color, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <pix:PortableColorPicker x:Name="colorPicker" 
+                                                             Height="50"
+                                                             Width="100"
+                                                             HorizontalAlignment="Left"
+                                                             ShowAlpha="False"
+                                                             SmallChange="1"
+                                                             BorderBrush="Transparent"
+                                                             SelectedColor="{Binding Ring.Color, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                <TextBlock Text="Цвет кольца"
-                                           Style="{DynamicResource textParameters}"
-                                           VerticalAlignment="Center"
-                                           Margin="5,0,0,0"/>
-                            </StackPanel>
+                                    <TextBlock Text="Цвет кольца"
+                                               Style="{DynamicResource textParameters}"
+                                               VerticalAlignment="Center"
+                                               Margin="5,0,0,0"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Orientation="Vertical">
+                                    <Slider Minimum="0"
+                                            Maximum="360"
+                                            TickFrequency="45"
+                                            HorizontalAlignment="Right"
+                                            Width="180"
+                                            VerticalAlignment="Center"/>
+
+                                    <TextBlock
+                                        Text="Угол выреза по кольцу"
+                                        HorizontalAlignment="Right"
+                                        Style="{DynamicResource textParameters}"
+                                        VerticalAlignment="Center"
+                                        Margin="0,0,20,0"/>
+                                </StackPanel>
+                                
+                            </Grid>
                         </StackPanel>
                     </Expander>
                 </Grid>
@@ -257,45 +280,12 @@
 					Margin="0,0,0,5"
                     Style="{DynamicResource primaryButtonStyle}"/>
 
-				<!--todo Заплатка пока нет контрола-->
                 <Border Grid.Column="1"
                         Background="#3C3C3C">
 
                     <controls:UserHelperControl x:Name="UserHelperControl"/>
-                    <!--<TextBlock Style="{DynamicResource textParameters}"
-                               Text="Введите данные для построения детали"
-                               VerticalAlignment="Center"
-                               FontSize="26"
-                               TextWrapping="WrapWithOverflow"
-                               HorizontalAlignment="Stretch"
-                               TextAlignment="Center"/>-->
                 </Border>
             </Grid>
-
-            <!--<ContentPresenter 
-                Grid.RowSpan="2"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Height="255"
-                Width="430"
-                Opacity="100"
-                Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}, 
-                            Path=Content.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Content="{Binding DialogVM}">
-                <ContentPresenter.Resources>
-                    <DataTemplate DataType="{x:Type viewModels:ProgressVM}">
-                        <views:progressView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:WarningVM}">
-                        <views:warningView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:SuccessVM}">
-                        <views:successResultView 
-                            Visibility="{Binding IsVisible, 
-                    Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    </DataTemplate>
-                </ContentPresenter.Resources>
-            </ContentPresenter>-->
         </Grid>
     </Border>
 </Window>
