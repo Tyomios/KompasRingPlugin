@@ -77,7 +77,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <returns>
     /// Пустой эскиз.
     /// </returns>
-    public ksSketchDefinition CreateSketchOnBasePlane(BasePlane plane = BasePlane.XOY)
+    public ksSketchDefinition CreateSketch(BasePlane plane = BasePlane.XOY)
     {
         var drawEntity = (ksEntity)_topPart.NewEntity(5);
         var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
@@ -90,19 +90,39 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     }
 
     /// <summary>
+    /// Создает эскиз на смещенной плоскости.
+    /// </summary>
+    /// <param name="offsetPlane"> Смещенная плоскость на которой строится эскиз.</param>
+    /// <returns>
+    /// Пустой эскиз.
+    /// </returns>
+    public ksSketchDefinition CreateSketch(ksPlaneOffsetDefinition offsetPlane)
+    {
+        var drawEntity = (ksEntity)_topPart.NewEntity(5);
+        var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
+
+        sketchDefinition.SetPlane(offsetPlane);
+        drawEntity.Create();
+
+        return sketchDefinition;
+    }
+
+    /// <summary>
     /// Создает смещенную плоскость относительно одной из базовой.
     /// </summary>
     /// <param name="plane"> Базовая плоскость. </param>
     /// <param name="offset"> Смещение. </param>
-    /// <returns></returns>
+    /// <returns> Определение смещенной плоскости. </returns>
     public ksPlaneOffsetDefinition CreateAdditionPlane(BasePlane plane, double offset)
     {
         var additionPlaneEntity = (ksEntity)_topPart.NewEntity(14);
+        var entityPlane = (ksEntity)_topPart.GetDefaultEntity((short)plane);
+
         var planeOffsetDefinition = (ksPlaneOffsetDefinition)additionPlaneEntity.GetDefinition();
-
+        planeOffsetDefinition.SetPlane(entityPlane);
         planeOffsetDefinition.offset = offset;
-        planeOffsetDefinition.SetPlane(plane);
 
+        additionPlaneEntity.Create();
         return planeOffsetDefinition;
     }
 

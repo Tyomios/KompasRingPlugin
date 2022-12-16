@@ -27,17 +27,30 @@ public class RingBuilder
             CreateRingBody(ring, buildService);
 
             var circleEdges = buildService.GetCircleEdges();
+
             if (circleEdges.Count < 2 && ring.RoundScale > 0)
             {
                 return;
             }
-
-            buildService.RoundCorners(ring.RoundScale, circleEdges);
-
+            if (ring.RoundScale > 0)
+            {
+                buildService.RoundCorners(ring.RoundScale, circleEdges);
+            }
             if (!ring.Engraving.Text.Equals(String.Empty))
             {
                 BuildEngraving(ring, buildService);
             }
+            if (ring.JewelryAngle > 0)
+            {
+                //todo либо разбираться как реверсить направление вырезания, либо смещать плоскость в другую сторону.
+                var outerRadius = ring.Radius + ring.Height;
+                var additionPlane = buildService.CreateAdditionPlane(BasePlane.XOZ, outerRadius);
+                var upperRectangleSketch = buildService.CreateSketch(additionPlane);
+                CreateRectangleSketch(upperRectangleSketch, outerRadius, ring.Width);
+                buildService.CutSqueeze(upperRectangleSketch,
+                    ConvertJewerlyAngleToDistance(ring.JewelryAngle, outerRadius)); 
+            }
+
             buildService.ColoredDetail(ring.Color);
         }));
     }
@@ -49,10 +62,10 @@ public class RingBuilder
     /// <param name="buildService"> Сервисный класс работы с API КОМПАС-3D. </param>
     private void CreateRingBody(Ring ring, BuildService buildService)
     {
-        var biggerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
+        var biggerCircleSketchDefinition = buildService.CreateSketch();
         CreateCircleSketch(biggerCircleSketchDefinition, ring.Radius + ring.Height);
 
-        var smallerCircleSketchDefinition = buildService.CreateSketchOnBasePlane();
+        var smallerCircleSketchDefinition = buildService.CreateSketch();
         CreateCircleSketch(smallerCircleSketchDefinition, ring.Radius);
 
         buildService.SqueezeOut(biggerCircleSketchDefinition, ring.Width);
@@ -66,7 +79,7 @@ public class RingBuilder
     /// <param name="buildService"> Сервисный класс работы с API КОМПАС-3D. </param>
     private void BuildEngraving(Ring ring, BuildService buildService)
     {
-        var textSketch = buildService.CreateSketchOnBasePlane(BasePlane.XOZ);
+        var textSketch = buildService.CreateSketch(BasePlane.XOZ);
         var fullEngravingHeight = ring.Engraving.Height + ring.Radius;
 
         var startPoint = GetEngravingStartPoint(ring);
@@ -95,9 +108,9 @@ public class RingBuilder
     /// <param name="height"> Высота прямоугольника. </param>
     private void CreateRectangleSketch(ksSketchDefinition sketchDefinition, double width, double height)
     {
-        var flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
-        var upperLeftPoint = (-width / 2, 0.0);
-        var lowerRightPoint =  (width / 2, -height / 2);
+        ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
+        var upperLeftPoint = (-width, 0.0);
+        var lowerRightPoint =  (width, -height);
 
         flatDocument.ksLineSeg(upperLeftPoint.Item1, upperLeftPoint.Item2,
             lowerRightPoint.Item1, upperLeftPoint.Item2, 1);
@@ -126,5 +139,17 @@ public class RingBuilder
         var startY = ring.Engraving.TextSize - ring.Width;
 
         return new System.Windows.Point(-startX, startY);
+    }
+
+    private double ConvertJewerlyAngleToDistance(uint angle, double outterRadius)
+    {
+        var circleOctave = outterRadius / 4;
+        var distance = 0.0;
+        while (angle != 0)
+        {
+            angle -= 45;
+            distance += circleOctave;
+        }
+        return distance;
     }
 }

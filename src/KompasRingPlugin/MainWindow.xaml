@@ -254,7 +254,7 @@
 
                                     <Slider Minimum="0"
                                             Maximum="360"
-                                            Value="{Binding Ring.JewelryAngle}"
+                                            Value="{Binding Ring.JewelryAngle, Mode=TwoWay}"
                                             TickFrequency="45"
                                             IsSnapToTickEnabled="True"
                                             HorizontalAlignment="Right"
