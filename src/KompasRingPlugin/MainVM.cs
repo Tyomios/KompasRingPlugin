@@ -28,7 +28,8 @@ public partial class MainVM
         Width = 30,
         Height = 30,
         Radius = 40,
-        JewelryAngle = 45
+        JewelryAngle = 45,
+        RoundScale = 5
     };
 
     /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Model;
+using System.Net.NetworkInformation;
 
 namespace Core;
 
@@ -42,13 +43,7 @@ public class RingBuilder
             }
             if (ring.JewelryAngle > 0)
             {
-                
-                var outerRadius = ring.Radius + ring.Height;
-                var additionPlane = buildService.CreateAdditionPlane(BasePlane.XOZ, -outerRadius);
-                var upperRectangleSketch = buildService.CreateSketch(additionPlane);
-                CreateRectangleSketch(upperRectangleSketch, outerRadius, ring.Width);
-                buildService.CutSqueeze(upperRectangleSketch,
-                    ConvertJewerlyAngleToDistance(ring.JewelryAngle, outerRadius)); 
+                BuildJewerlyCut(ring, buildService);
             }
 
             buildService.ColoredDetail(ring.Color);
@@ -88,6 +83,18 @@ public class RingBuilder
         buildService.ColoredPart(new System.Windows.Media.Color { A = 0, R = 0, G = 0, B = 1 }, engraved);
     }
 
+    private void BuildJewerlyCut(Ring ring, BuildService buildService)
+    {
+        var outerRadius = ring.Radius + ring.Height;
+        var additionPlane = buildService.CreateAdditionPlane(BasePlane.XOZ, -outerRadius);
+
+        var upperRectangleSketch = buildService.CreateSketch(additionPlane);
+        CreateRectangleSketch(upperRectangleSketch, outerRadius, ring.Width, ring.RoundScale);
+
+        buildService.CutSqueeze(upperRectangleSketch,
+            ConvertJewerlyAngleToDistance(ring.JewelryAngle, outerRadius));
+    }
+
     /// <summary>
     /// Создает эскиз кольца.
     /// </summary>
@@ -106,11 +113,11 @@ public class RingBuilder
     /// <param name="sketchDefinition"> Скетч для построения эскиза. </param>
     /// <param name="width"> Ширина прямоугольника. </param>
     /// <param name="height"> Высота прямоугольника. </param>
-    private void CreateRectangleSketch(ksSketchDefinition sketchDefinition, double width, double height)
+    private void CreateRectangleSketch(ksSketchDefinition sketchDefinition, double width, double height, double delta = 0.0)
     {
         ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
-        var upperLeftPoint = (-width, 0.0);
-        var lowerRightPoint =  (width, -height);
+        var upperLeftPoint = (-width, -delta);
+        var lowerRightPoint =  (width, -height + delta);
 
         flatDocument.ksLineSeg(upperLeftPoint.Item1, upperLeftPoint.Item2,
             lowerRightPoint.Item1, upperLeftPoint.Item2, 1);
