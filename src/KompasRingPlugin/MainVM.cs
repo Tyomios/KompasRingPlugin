@@ -43,7 +43,7 @@ public partial class MainVM
         }
         catch (Exception exception)
         {
-            
+            MessageBox.Show(exception.Message);
         }
     }
 

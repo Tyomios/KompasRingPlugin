@@ -90,6 +90,23 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     }
 
     /// <summary>
+    /// Создает смещенную плоскость относительно одной из базовой.
+    /// </summary>
+    /// <param name="plane"> Базовая плоскость. </param>
+    /// <param name="offset"> Смещение. </param>
+    /// <returns></returns>
+    public ksPlaneOffsetDefinition CreateAdditionPlane(BasePlane plane, double offset)
+    {
+        var additionPlaneEntity = (ksEntity)_topPart.NewEntity(14);
+        var planeOffsetDefinition = (ksPlaneOffsetDefinition)additionPlaneEntity.GetDefinition();
+
+        planeOffsetDefinition.offset = offset;
+        planeOffsetDefinition.SetPlane(plane);
+
+        return planeOffsetDefinition;
+    }
+
+    /// <summary>
     /// Выполняет операцию выдавливания по эскизу на заданное расстояние.
     /// </summary>
     /// <param name="sketch"> Эскиз для выдавливания. </param>

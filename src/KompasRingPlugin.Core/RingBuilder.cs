@@ -88,6 +88,33 @@ public class RingBuilder
     }
 
     /// <summary>
+    /// Создает прямоугольник с серединой в начале координат.
+    /// </summary>
+    /// <param name="sketchDefinition"> Скетч для построения эскиза. </param>
+    /// <param name="width"> Ширина прямоугольника. </param>
+    /// <param name="height"> Высота прямоугольника. </param>
+    private void CreateRectangleSketch(ksSketchDefinition sketchDefinition, double width, double height)
+    {
+        var flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
+        var upperLeftPoint = (-width / 2, 0.0);
+        var lowerRightPoint =  (width / 2, -height / 2);
+
+        flatDocument.ksLineSeg(upperLeftPoint.Item1, upperLeftPoint.Item2,
+            lowerRightPoint.Item1, upperLeftPoint.Item2, 1);
+
+        flatDocument.ksLineSeg(lowerRightPoint.Item1, upperLeftPoint.Item2,
+            lowerRightPoint.Item1, lowerRightPoint.Item2, 1);
+
+        flatDocument.ksLineSeg(lowerRightPoint.Item1, lowerRightPoint.Item2,
+            upperLeftPoint.Item1, lowerRightPoint.Item2, 1);
+
+        flatDocument.ksLineSeg(upperLeftPoint.Item1, lowerRightPoint.Item2,
+            upperLeftPoint.Item1, upperLeftPoint.Item2, 1);
+        
+        sketchDefinition.EndEdit();
+    }
+
+    /// <summary>
     /// Рассчитывает начальную позицию для расположения гравировки.
     /// </summary>
     /// <param name="ring"> Кольцо, содержащее гравировку. </param>

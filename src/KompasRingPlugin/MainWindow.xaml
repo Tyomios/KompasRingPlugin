@@ -262,7 +262,7 @@
                                             VerticalAlignment="Center"/>
 
                                     <TextBlock
-                                        Text="{Binding Ring.JewelryAngle, StringFormat=Угол выреза кольца{0}}"
+                                        Text="{Binding Ring.JewelryAngle, StringFormat=Угол выреза кольца: {0}}"
                                         HorizontalAlignment="Right"
                                         Style="{DynamicResource textParameters}"
                                         VerticalAlignment="Center"
