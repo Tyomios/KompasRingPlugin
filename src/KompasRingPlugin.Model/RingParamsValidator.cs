@@ -14,50 +14,59 @@ public static class RingParamsValidator
     /// <returns> false при ошибке в параметрах </returns>
     public static void CheckCorrectValues(Ring ring)
     {
+        var errorList = string.Empty;
+        var errorNumber = 1;
         if (ring.RoundScale > ring.Width)
         {
-            throw new Exception("Значение скругления превышает толщину кольца");
+            errorList += $"{errorNumber++}. Значение скругления превышает толщину кольца.\n";
         }
         if (ring.RoundScale.Equals(ring.Width / 2) && ring.JewelryAngle > 0)
         {
-            throw new Exception("Невозможно построить корректную деталь " +
-                                "при указанных значениях скругления и ювелирного выреза");
+            errorList += $"{errorNumber++}. Невозможно построить корректную деталь " +
+                         "при указанных значениях скругления и ювелирного выреза.\n";
         }
         if (ring.Engraving.TextSize > ring.Width / 2 
             && !ring.Engraving.Text.Equals(String.Empty))
         {
-            throw new Exception("Значение размера текста превышает толщину кольца");
+            errorList += $"{errorNumber++}. Значение размера текста превышает толщину кольца.\n";
         }
 
         var engravingLength = ring.Engraving.TextSize * ring.Engraving.Text.Length;
         if (engravingLength >= ring.Radius * 2)
         {
-            throw new Exception("Длина текста превышает длину кольца." +
-                                "\n Измените размер текста или увеличьте размер кольца");
+            errorList += $"{errorNumber++}. Длина текста превышает длину кольца." +
+                         "\n\t Измените размер текста или увеличьте размер кольца.\n";
         }
-        if (ring.JewelryAngle.Equals(360))
+        if (ring.JewelryAngle > 180)
         {
-            throw new Exception("При выбранном угле выреза нарушена целостность кольца.");
-        }
-        if (!ring.Engraving.Text.Equals(String.Empty)
-            && ring.JewelryAngle > 270)
-        {
-            throw new Exception("При выбранном угле выреза нарушена целостность гравировки кольца.");
+            var safetyEngravingJewrlyCutRelation270 = 1;
+            var actualRelation = engravingLength / (2 * (ring.Radius + ring.Height));
+            var safetyEngravingJewrlyCutRelation225 = 1.67;
+
+            if (ring.JewelryAngle.Equals(360))
+            {
+                errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность кольца.\n";
+            }
+            else if (!ring.Engraving.Text.Equals(String.Empty)
+                && ring.JewelryAngle > 270)
+            {
+                errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
+            }
+            else if (ring.JewelryAngle.Equals(270)
+                     && actualRelation > safetyEngravingJewrlyCutRelation270)
+            {
+                errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
+            }
+            else if (ring.JewelryAngle.Equals(225)
+                     && actualRelation > safetyEngravingJewrlyCutRelation225)
+            {
+                errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
+            }
         }
 
-        var safetyEngravingJewrlyCutRelation270 = 1;
-        var actualRelation = engravingLength / (2 * (ring.Radius + ring.Height));
-        if (ring.JewelryAngle.Equals(270) 
-            && actualRelation > safetyEngravingJewrlyCutRelation270)
+        if (!errorList.Equals(String.Empty))
         {
-            throw new Exception("При выбранном угле выреза нарушена целостность гравировки кольца.");
-        }
-
-        var safetyEngravingJewrlyCutRelation225 = 1.67;
-        if (ring.JewelryAngle.Equals(225)
-            && actualRelation > safetyEngravingJewrlyCutRelation225)
-        {
-            throw new Exception("При выбранном угле выреза нарушена целостность гравировки кольца.");
+            throw new Exception(errorList);
         }
     }
 }
