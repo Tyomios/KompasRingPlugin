@@ -162,7 +162,7 @@ public class RingBuilder
     /// <returns> Начальную точку для построения гравировки. </returns>
     private System.Windows.Point GetEngravingStartPoint(Engraving engraving, double ringWidth)
     {
-        var startX = engraving.Text.Length * engraving.TextSize / 2;
+        var startX = (engraving.Text.Length * engraving.TextSize) / 2;
         var startY = engraving.TextSize - ringWidth;
 
         return new System.Windows.Point(-startX, startY);

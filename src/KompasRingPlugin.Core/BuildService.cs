@@ -292,7 +292,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     {
         var charSize = engraving.TextSize != 0 ? engraving.TextSize : 0;
         ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
-        flatDocument.ksText(startLocation.X,startLocation.Y,0,charSize,0, 0, engraving.Text);
+        flatDocument.ksText(startLocation.X / 2, startLocation.Y,0,charSize,0, 0, engraving.Text);
         sketch.EndEdit();
     }
 }

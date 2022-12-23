@@ -32,10 +32,25 @@ public static class RingParamsValidator
         var engravingLength = ring.Engraving.TextSize * ring.Engraving.Text.Length;
         if (engravingLength >= ring.Radius * 2)
         {
-            throw new Exception("Длина текста превышает длину кольца. " +
+            throw new Exception("Длина текста превышает длину кольца." +
                                 "\n Измените размер текста или увеличьте размер кольца");
         }
+        if (ring.JewelryAngle.Equals(360))
+        {
+            throw new Exception("При выбранном угле выреза нарушена целостность кольца.");
+        }
+        if (!ring.Engraving.Text.Equals(String.Empty)
+            && ring.JewelryAngle > 270)
+        {
+            throw new Exception("При выбранном угле выреза нарушена целостность гравировки кольца.");
+        }
 
+        var safetyEngravingJewrlyCutRelation = 1;
+        var actualRelation = engravingLength / 2 * (ring.Radius + ring.Height);
+        if (ring.JewelryAngle.Equals(270) 
+            && actualRelation > safetyEngravingJewrlyCutRelation)
+        {
+            throw new Exception("При выбранном угле выреза нарушена целостность гравировки кольца.");
+        }
     }
-
 }
