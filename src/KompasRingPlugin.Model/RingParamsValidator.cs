@@ -45,10 +45,17 @@ public static class RingParamsValidator
             throw new Exception("При выбранном угле выреза нарушена целостность гравировки кольца.");
         }
 
-        var safetyEngravingJewrlyCutRelation = 1;
-        var actualRelation = engravingLength / 2 * (ring.Radius + ring.Height);
+        var safetyEngravingJewrlyCutRelation270 = 1;
+        var actualRelation = engravingLength / (2 * (ring.Radius + ring.Height));
         if (ring.JewelryAngle.Equals(270) 
-            && actualRelation > safetyEngravingJewrlyCutRelation)
+            && actualRelation > safetyEngravingJewrlyCutRelation270)
+        {
+            throw new Exception("При выбранном угле выреза нарушена целостность гравировки кольца.");
+        }
+
+        var safetyEngravingJewrlyCutRelation225 = 1.67;
+        if (ring.JewelryAngle.Equals(225)
+            && actualRelation > safetyEngravingJewrlyCutRelation225)
         {
             throw new Exception("При выбранном угле выреза нарушена целостность гравировки кольца.");
         }
