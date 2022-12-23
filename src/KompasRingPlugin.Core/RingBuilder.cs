@@ -22,7 +22,22 @@ public class RingBuilder
         Document3D doc;
         await Task.Run((() =>
         {
-            doc = KompasConnector.Instance.GetDocument().Result;
+            //var getDocument = KompasConnector.Instance.GetDocument();
+            //try
+            //{
+            //    var doc = getDocument.Result;
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e);
+            //    throw;
+            //}
+            if (KompasConnector.Instance.GetDocument().Result is null)
+            {
+                throw new Exception("Не удалось получить документ от КОМПАС-3D");
+            }
+
+            doc = KompasConnector.Instance.GetDocument().Result;//todo вылетел
             var buildService = new BuildService(doc);
 
             CreateRingBody(ring, buildService);
