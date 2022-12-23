@@ -77,7 +77,7 @@ public class RingBuilder
         var textSketch = buildService.CreateSketch(BasePlane.XOZ);
         var fullEngravingHeight = ring.Engraving.Height + ring.Radius;
 
-        var startPoint = GetEngravingStartPoint(ring);
+        var startPoint = GetEngravingStartPoint(ring.Engraving, ring.Width);
         buildService.InjectText(textSketch, ring.Engraving, startPoint);
         var engraved = buildService.CutSqueeze(textSketch, fullEngravingHeight);
         buildService.ColoredPart(new System.Windows.Media.Color { A = 0, R = 0, G = 0, B = 1 }, engraved);
@@ -160,11 +160,10 @@ public class RingBuilder
     /// </summary>
     /// <param name="ring"> Кольцо, содержащее гравировку. </param>
     /// <returns> Начальную точку для построения гравировки. </returns>
-    private System.Windows.Point GetEngravingStartPoint(Ring ring)
+    private System.Windows.Point GetEngravingStartPoint(Engraving engraving, double ringWidth)
     {
-        var engraving = ring.Engraving;
         var startX = engraving.Text.Length * engraving.TextSize / 2;
-        var startY = ring.Engraving.TextSize - ring.Width;
+        var startY = engraving.TextSize - ringWidth;
 
         return new System.Windows.Point(-startX, startY);
     }

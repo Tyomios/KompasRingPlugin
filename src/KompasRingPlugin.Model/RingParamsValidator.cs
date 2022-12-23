@@ -28,5 +28,14 @@ public static class RingParamsValidator
         {
             throw new Exception("Значение размера текста превышает толщину кольца");
         }
+
+        var engravingLength = ring.Engraving.TextSize * ring.Engraving.Text.Length;
+        if (engravingLength >= ring.Radius * 2)
+        {
+            throw new Exception("Длина текста превышает длину кольца. " +
+                                "\n Измените размер текста или увеличьте размер кольца");
+        }
+
     }
+
 }
