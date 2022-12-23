@@ -89,7 +89,7 @@ public class RingBuilder
         var additionPlane = buildService.CreateAdditionPlane(BasePlane.XOZ, -outerRadius);
 
         var upperRectangleSketch = buildService.CreateSketch(additionPlane);
-        CreateRectangleSketch(upperRectangleSketch, outerRadius, ring.Width, ring.RoundScale);
+        CreateRectanglesSketch(upperRectangleSketch, outerRadius, ring.Width, ring.RoundScale);
 
         buildService.CutSqueeze(upperRectangleSketch,
             ConvertJewerlyAngleToDistance(ring.JewelryAngle, outerRadius));
@@ -108,20 +108,20 @@ public class RingBuilder
     }
 
     /// <summary>
-    /// Создает прямоугольник с серединой в начале координат.
+    /// Создает эскиз с двумя прямоугольниками с серединой в начале координат, имеющие высоту в треть нескругленной высоты кольца.
     /// </summary>
     /// <param name="sketchDefinition"> Скетч для построения эскиза. </param>
     /// <param name="width"> Ширина прямоугольника. </param>
     /// <param name="height"> Высота прямоугольника. </param>
-    private void CreateRectangleSketch(ksSketchDefinition sketchDefinition, double width, double height, double delta = 0.0)
+    private void CreateRectanglesSketch(ksSketchDefinition sketchDefinition, double width, double height, double delta = 0.0)
     {
         ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
         var thirdHeight = height / 3;
-        var padding = height / 10; // отсутуп от скругления.
+        var padding = height / 15; // отсутуп от скругления.
 
-        //верхний прямоугольник
-        var upperLeftPoint = (-width, -delta - padding);
-        var lowerRightPoint =  (width, -height + delta + padding);
+        //нижний прямоугольник
+        var upperLeftPoint = (-width, -2 * thirdHeight);
+        var lowerRightPoint = (width, -height + delta + padding);
 
         flatDocument.ksLineSeg(upperLeftPoint.Item1, upperLeftPoint.Item2,
             lowerRightPoint.Item1, upperLeftPoint.Item2, 1);
@@ -136,9 +136,9 @@ public class RingBuilder
             upperLeftPoint.Item1, upperLeftPoint.Item2, 1);
 
 
-        ////нижний прямоугольник.
-        upperLeftPoint = (-width, lowerRightPoint.Item2 - thirdHeight);
-        lowerRightPoint = (width, -height + delta);
+        ////верхний прямоугольник.
+        upperLeftPoint = (-width, -delta - padding);
+        lowerRightPoint = (width, -thirdHeight);
 
         flatDocument.ksLineSeg(upperLeftPoint.Item1, upperLeftPoint.Item2,
             lowerRightPoint.Item1, upperLeftPoint.Item2, 1);
