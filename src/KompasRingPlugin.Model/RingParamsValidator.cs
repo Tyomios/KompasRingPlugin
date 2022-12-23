@@ -41,7 +41,7 @@ public static class RingParamsValidator
         {
             var safetyEngravingJewrlyCutRelation270 = 1;
             var actualRelation = engravingLength / (2 * (ring.Radius + ring.Height));
-            var safetyEngravingJewrlyCutRelation225 = 1.67;
+            var safetyEngravingJewrlyCutRelation225 = 1.3;
 
             if (ring.JewelryAngle.Equals(360))
             {

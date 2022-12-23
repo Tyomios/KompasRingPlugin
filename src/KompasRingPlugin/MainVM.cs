@@ -10,7 +10,6 @@ using Application = System.Windows.Application;
 namespace KompasRingPlugin;
 
 //todo сравнить размеры элементов управления с указанным в гайдлайне
-//todo валидация угла выреза и размера гравировки.
 
 //todo нагрузочные тесты
 
