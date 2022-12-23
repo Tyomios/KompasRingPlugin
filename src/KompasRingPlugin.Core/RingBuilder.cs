@@ -117,7 +117,7 @@ public class RingBuilder
     {
         ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
         var thirdHeight = height / 3;
-        var padding = height / 6;
+        var padding = height / 10; // отсутуп от скругления.
 
         //верхний прямоугольник
         var upperLeftPoint = (-width, -delta - padding);
@@ -137,20 +137,20 @@ public class RingBuilder
 
 
         ////нижний прямоугольник.
-        //upperLeftPoint = (-width, lowerRightPoint.Item2 - thirdHeight);
-        //lowerRightPoint = (width, -height + delta);
-        
-        //flatDocument.ksLineSeg(upperLeftPoint.Item1, upperLeftPoint.Item2,
-        //    lowerRightPoint.Item1, upperLeftPoint.Item2, 1);
+        upperLeftPoint = (-width, lowerRightPoint.Item2 - thirdHeight);
+        lowerRightPoint = (width, -height + delta);
 
-        //flatDocument.ksLineSeg(lowerRightPoint.Item1, upperLeftPoint.Item2,
-        //    lowerRightPoint.Item1, lowerRightPoint.Item2, 1);
+        flatDocument.ksLineSeg(upperLeftPoint.Item1, upperLeftPoint.Item2,
+            lowerRightPoint.Item1, upperLeftPoint.Item2, 1);
 
-        //flatDocument.ksLineSeg(lowerRightPoint.Item1, lowerRightPoint.Item2,
-        //    upperLeftPoint.Item1, lowerRightPoint.Item2, 1);
+        flatDocument.ksLineSeg(lowerRightPoint.Item1, upperLeftPoint.Item2,
+            lowerRightPoint.Item1, lowerRightPoint.Item2, 1);
 
-        //flatDocument.ksLineSeg(upperLeftPoint.Item1, lowerRightPoint.Item2,
-        //    upperLeftPoint.Item1, upperLeftPoint.Item2, 1);
+        flatDocument.ksLineSeg(lowerRightPoint.Item1, lowerRightPoint.Item2,
+            upperLeftPoint.Item1, lowerRightPoint.Item2, 1);
+
+        flatDocument.ksLineSeg(upperLeftPoint.Item1, lowerRightPoint.Item2,
+            upperLeftPoint.Item1, upperLeftPoint.Item2, 1);
 
         sketchDefinition.EndEdit();
     }
@@ -169,14 +169,14 @@ public class RingBuilder
         return new System.Windows.Point(-startX, startY);
     }
 
-    private double ConvertJewerlyAngleToDistance(uint angle, double outterRadius)
+    private double ConvertJewerlyAngleToDistance(uint angle, double outterRadius) 
     {
-        var circleOctave = outterRadius / 4;
+        var circleQuater = outterRadius / 4;
         var distance = 0.0;
         while (angle != 0)
         {
             angle -= 45;
-            distance += circleOctave;
+            distance += circleQuater;
         }
         return distance;
     }

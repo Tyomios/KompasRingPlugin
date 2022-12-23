@@ -17,12 +17,12 @@ public class Engraving
         Height = 2;
     }
 
-    private string _text;
+    private string? _text;
 
     /// <summary>
     /// Возвращает или задает текст гравировки.
     /// </summary>
-    public string Text
+    public string? Text
     {
         get => _text;
         set
