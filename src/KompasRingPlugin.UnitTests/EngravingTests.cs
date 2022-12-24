@@ -4,6 +4,9 @@
 [TestFixture]
 public class EngravingTests
 {
+	/// <summary>
+	/// Позитивный тест конструктора гравировки.
+	/// </summary>
 	[Test]
 	public void ConstructorTest()
 	{
@@ -21,6 +24,9 @@ public class EngravingTests
 		Assert.AreEqual(expectedHeight, actual.Height);
 	}
 
+    /// <summary>
+	/// Позитивный тест геттера и сеттера текста гравировки.
+	/// </summary>
 	[Test]
 	public void TextSetterTest()
 	{
@@ -37,6 +43,9 @@ public class EngravingTests
 		Assert.AreEqual(expectedText, actual);
 	}
 
+    /// <summary>
+	/// Позитивный тест геттера и сеттера размера текста гравировки.
+	/// </summary>
 	[Test]
 	public void TextSizeSetterTest()
 	{
@@ -53,6 +62,9 @@ public class EngravingTests
 		Assert.AreEqual(expected, actual);
 	}
 
+	/// <summary>
+	/// Позитивный тест геттера и сеттера глубины гравировки.
+	/// </summary>
 	[Test]
 	public void HeightSetterTest()
 	{

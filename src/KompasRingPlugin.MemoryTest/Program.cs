@@ -5,15 +5,18 @@ using Model;
 var ringsCount = 0;
 var _ring = new Ring
 {
-	Width = 30,
+	Width = 50,
 	Height = 30,
-	Radius = 40,
+	Radius = 100,
 	JewelryAngle = 45,
-	RoundScale = 5
+	RoundScale = 10,
+    Engraving = new ()
+    {
+        Text = "Тест",
+        TextSize = 4,
+        Height = 5
+    }
 };
-
-long peakMemoryUsage = 0;
-
 
 var buildTimeFilePath = "../../../buildTime.txt";
 var itemIndexFilePath = "../../../itemIndex.txt";
@@ -77,9 +80,10 @@ using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault()
                     Console.WriteLine($"  Privileged processor time : {myProcess.PrivilegedProcessorTime}");
                     Console.WriteLine($"  Total processor time      : {myProcess.TotalProcessorTime}");
                     Console.WriteLine(
-                        $"  Затрачено всего времени		: {myProcess.TotalProcessorTime.TotalMinutes} мин : {myProcess.TotalProcessorTime.TotalSeconds} сек");
+                        $"  Затрачено всего времени : {Math.Round(myProcess.TotalProcessorTime.TotalSeconds / 60)} мин " +
+                        $": {Math.Round(myProcess.TotalProcessorTime.TotalSeconds %  60)} сек");
                     var forOne = myProcess.TotalProcessorTime / ringsCount;
-                    Console.WriteLine($"  Затрачено на одну деталь		: {forOne.Seconds}.{forOne.Milliseconds}");
+                    Console.WriteLine($"  Затрачено на одну деталь : {forOne.Seconds}.{forOne.Milliseconds}");
                 };
                 await ringBuilder.Build(_ring);
             }
@@ -92,12 +96,12 @@ using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault()
                 memoryUsageWriter.Write("]");
                 itemIndexWriter.Close();
                 memoryUsageWriter.Close();
-                Console.WriteLine($"  Построено деталей				: {ringsCount}");
+                Console.WriteLine($"  Построено деталей	: {ringsCount}");
                 Console.ReadLine();
                 return;
             }
         }
-    } while (ringsCount < 200);
+    } while (ringsCount < 220);
 
     KompasConnector.Instance.Disconnect();
     itemIndexWriter.Write("]");
