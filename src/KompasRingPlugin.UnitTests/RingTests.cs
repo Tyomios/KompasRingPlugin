@@ -24,6 +24,23 @@ public class RingTests
 	}
 
     /// <summary>
+    /// Негативный тест проверки корректности значений параметров кольца.
+    /// </summary>
+    [Test]
+    public void IsReadyForBuild_NegativeTest_NullValue()
+    {
+        // Arrange
+        
+        var expected = false;
+
+        // Act
+        var actual = Ring.IsReadyForBuild(null);
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+    }
+
+    /// <summary>
     /// Позитивный тест проверки корректности значений параметров кольца.
     /// </summary>
     [Test]

@@ -237,7 +237,7 @@ public class RingParamsValidatorTests
         {
             RingParamsValidator.CheckCorrectValues(ring);
         }
-        catch (Exception e)
+        catch
         {
             
             Assert.Fail();
@@ -331,7 +331,7 @@ public class RingParamsValidatorTests
         {
             RingParamsValidator.CheckCorrectValues(ring);
         }
-        catch (Exception e)
+        catch
         {
             Assert.Fail();
         }
@@ -392,14 +392,9 @@ public class RingParamsValidatorTests
         {
             RingParamsValidator.CheckCorrectValues(ring);
         }
-        catch (Exception e)
+        catch
         {
-            //if (e.Message.Equals("1. При выбранном угле выреза нарушена целостность кольца.\n"))
-            //{
-            //    Assert.Pass();
-            //    return;
-            //}
-			Assert.Fail();
+            Assert.Fail();
         }
 
         // Assert
