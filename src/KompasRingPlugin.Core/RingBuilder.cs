@@ -22,22 +22,15 @@ public class RingBuilder
         Document3D doc;
         await Task.Run((() =>
         {
-            //var getDocument = KompasConnector.Instance.GetDocument();
-            //try
-            //{
-            //    var doc = getDocument.Result;
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e);
-            //    throw;
-            //}
-            if (KompasConnector.Instance.GetDocument().Result is null)
+            try
             {
-                throw new Exception("Не удалось получить документ от КОМПАС-3D");
+                doc = KompasConnector.Instance.GetDocument().Result;
             }
-
-            doc = KompasConnector.Instance.GetDocument().Result;//todo вылетел
+            catch
+            {
+                throw new Exception("Не удалось получить документ");
+            }
+            
             var buildService = new BuildService(doc);
 
             CreateRingBody(ring, buildService);
@@ -62,6 +55,7 @@ public class RingBuilder
             }
 
             buildService.ColoredDetail(ring.Color);
+            OnLog?.Invoke();
         }));
     }
 
@@ -194,4 +188,6 @@ public class RingBuilder
         }
         return distance;
     }
+
+    public Action OnLog;
 }

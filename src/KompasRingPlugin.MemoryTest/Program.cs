@@ -13,7 +13,7 @@ var _ring = new Ring
 };
 
 long peakMemoryUsage = 0;
-var isCrushed = false;
+
 
 var buildTimeFilePath = "../../../buildTime.txt";
 var itemIndexFilePath = "../../../itemIndex.txt";
@@ -61,41 +61,40 @@ using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault()
             try
             {
                 var ringBuilder = new RingBuilder();
-                ringBuilder.Build(_ring);
-                ++ringsCount;
-                myProcess.Refresh();
-                Console.Clear();
-                Console.WriteLine($"  Количество деталей        : {ringsCount}");
-                itemIndexWriter.Write($" {ringsCount},");
-                //indexes.Add(ringsCount);
-                Console.WriteLine($"  Physical memory usage     : {myProcess.WorkingSet64}");
-                memoryUsageWriter.Write($" {myProcess.WorkingSet64},");
-                //memoryUsages.Add(myProcess.WorkingSet64);
-                Console.WriteLine($"  User processor time       : {myProcess.UserProcessorTime}");
-                Console.WriteLine($"  Privileged processor time : {myProcess.PrivilegedProcessorTime}");
-                Console.WriteLine($"  Total processor time      : {myProcess.TotalProcessorTime}");
-                Console.WriteLine($"  Paged system memory size  : {myProcess.PagedSystemMemorySize64}");
-                Console.WriteLine($"  Paged memory size         : {myProcess.PagedMemorySize64}");
+                ringBuilder.OnLog += () =>
+                {
+                    ++ringsCount;
+                    myProcess.Refresh();
+                    Console.Clear();
+                    Console.WriteLine($"  Количество деталей        : {ringsCount}");
+                    itemIndexWriter.Write($" {ringsCount},");
+                    Console.WriteLine($"  Physical memory usage     : {myProcess.WorkingSet64}");
+                    memoryUsageWriter.Write($" {myProcess.WorkingSet64},");
+                    Console.WriteLine($"  User processor time       : {myProcess.UserProcessorTime}");
+                    Console.WriteLine($"  Privileged processor time : {myProcess.PrivilegedProcessorTime}");
+                    Console.WriteLine($"  Total processor time      : {myProcess.TotalProcessorTime}");
+                    Console.WriteLine(
+                        $"  Затрачено всего времени		: {myProcess.TotalProcessorTime.TotalMinutes} мин : {myProcess.TotalProcessorTime.TotalSeconds} сек");
+                    var forOne = myProcess.TotalProcessorTime / ringsCount;
+                    Console.WriteLine($"  Затрачено на одну деталь		: {forOne} мс");
+                };
+                await ringBuilder.Build(_ring);
             }
             catch
             {
                 KompasConnector.Instance.Disconnect();
                 Console.WriteLine("-------------------------------");
-                Console.WriteLine("  Тестирование завершено.");
-                Console.WriteLine($"  Построено деталей				: {ringsCount}");
-                Console.WriteLine(
-                    $"  Затрачено всего времени		: {myProcess.TotalProcessorTime.TotalMinutes} мин : {myProcess.TotalProcessorTime.TotalSeconds} сек");
-                var forOne = myProcess.TotalProcessorTime.Milliseconds / ringsCount;
-                Console.WriteLine($"  Затрачено на одну деталь		: {forOne} мс");
-                Console.ReadLine();
+                Console.WriteLine("  Тестирование завершено по причине отказа программы");
                 itemIndexWriter.Write("]");
                 memoryUsageWriter.Write("]");
                 itemIndexWriter.Close();
                 memoryUsageWriter.Close();
+                Console.WriteLine($"  Построено деталей				: {ringsCount}");
+                Console.ReadLine();
                 return;
             }
         }
-    } while (ringsCount < 5);
+    } while (ringsCount < 20);
 
     KompasConnector.Instance.Disconnect();
     itemIndexWriter.Write("]");
@@ -103,10 +102,7 @@ using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault()
     itemIndexWriter.Close();
     memoryUsageWriter.Close();
 
-    if (isCrushed)
-    {
-        Console.ReadLine();
-        return;
-    }
-	Console.WriteLine("Выполнено");
+    Console.WriteLine("-------------------------------");
+    Console.WriteLine("Выполнено без ошибок");
+    Console.ReadLine();
 }
