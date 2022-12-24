@@ -69,14 +69,17 @@ using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault()
                     Console.WriteLine($"  Количество деталей        : {ringsCount}");
                     itemIndexWriter.Write($" {ringsCount},");
                     Console.WriteLine($"  Physical memory usage     : {myProcess.WorkingSet64}");
-                    memoryUsageWriter.Write($" {myProcess.WorkingSet64},");
+
+                    var currentMemoryUsage = Math.Round(myProcess.WorkingSet64 / (Math.Pow(1024, 2)), 3);
+                    memoryUsageWriter.Write($" {currentMemoryUsage.ToString().Replace(",", ".")},");
+
                     Console.WriteLine($"  User processor time       : {myProcess.UserProcessorTime}");
                     Console.WriteLine($"  Privileged processor time : {myProcess.PrivilegedProcessorTime}");
                     Console.WriteLine($"  Total processor time      : {myProcess.TotalProcessorTime}");
                     Console.WriteLine(
                         $"  Затрачено всего времени		: {myProcess.TotalProcessorTime.TotalMinutes} мин : {myProcess.TotalProcessorTime.TotalSeconds} сек");
                     var forOne = myProcess.TotalProcessorTime / ringsCount;
-                    Console.WriteLine($"  Затрачено на одну деталь		: {forOne} мс");
+                    Console.WriteLine($"  Затрачено на одну деталь		: {forOne.Seconds}.{forOne.Milliseconds}");
                 };
                 await ringBuilder.Build(_ring);
             }
@@ -94,7 +97,7 @@ using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault()
                 return;
             }
         }
-    } while (ringsCount < 20);
+    } while (ringsCount < 200);
 
     KompasConnector.Instance.Disconnect();
     itemIndexWriter.Write("]");
