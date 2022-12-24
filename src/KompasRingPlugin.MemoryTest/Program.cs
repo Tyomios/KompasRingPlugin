@@ -15,6 +15,27 @@ var _ring = new Ring
 long peakMemoryUsage = 0;
 var isCrushed = false;
 
+var buildTimeFilePath = "../../../buildTime.txt";
+var itemIndexFilePath = "../../../itemIndex.txt";
+var memoryUsageFilePath = "../../../memoryUsage.txt";
+
+if (!File.Exists(buildTimeFilePath))
+{
+    File.Create(buildTimeFilePath);
+}
+if (!File.Exists(itemIndexFilePath))
+{
+    File.Create(itemIndexFilePath);
+}
+if (!File.Exists(memoryUsageFilePath))
+{
+    File.Create(memoryUsageFilePath);
+}
+
+var buildTimeWriter = new StreamWriter(buildTimeFilePath, false);
+var itemIndexWriter = new StreamWriter(itemIndexFilePath, false);
+var memoryUsageWriter = new StreamWriter(memoryUsageFilePath, false);
+
 try
 {
     Console.WriteLine("Подготовка к тестированию... \nПодключение к компасу и проверочное построение детали.");
@@ -32,62 +53,52 @@ catch (Exception e)
 using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault())
 {
     do
-	{
-		if (!myProcess.HasExited)
-		{
+    {
+        if (!myProcess.HasExited)
+        {
             try
             {
                 var ringBuilder = new RingBuilder();
-                await ringBuilder.Build(_ring);
+                ringBuilder.Build(_ring);
+                ++ringsCount;
+                myProcess.Refresh();
+                Console.Clear();
+                Console.WriteLine($"  Количество деталей        : {ringsCount}");
+                itemIndexWriter.Write($"{ringsCount}\n");
+                Console.WriteLine($"  Physical memory usage     : {myProcess.WorkingSet64}");
+                memoryUsageWriter.Write($"{myProcess.WorkingSet64}\n");
+                Console.WriteLine($"  User processor time       : {myProcess.UserProcessorTime}");
+                Console.WriteLine($"  Privileged processor time : {myProcess.PrivilegedProcessorTime}");
+                Console.WriteLine($"  Total processor time      : {myProcess.TotalProcessorTime}");
+                Console.WriteLine($"  Paged system memory size  : {myProcess.PagedSystemMemorySize64}");
+                Console.WriteLine($"  Paged memory size         : {myProcess.PagedMemorySize64}");
             }
             catch
             {
+                KompasConnector.Instance.Disconnect();
                 Console.WriteLine("-------------------------------");
                 Console.WriteLine("  Тестирование завершено.");
                 Console.WriteLine($"  Построено деталей				: {ringsCount}");
-                Console.WriteLine($"  Затрачено всего времени		: {myProcess.TotalProcessorTime.TotalMinutes} мин : {myProcess.TotalProcessorTime.TotalSeconds} сек");
+                Console.WriteLine(
+                    $"  Затрачено всего времени		: {myProcess.TotalProcessorTime.TotalMinutes} мин : {myProcess.TotalProcessorTime.TotalSeconds} сек");
                 var forOne = myProcess.TotalProcessorTime.Milliseconds / ringsCount;
                 Console.WriteLine($"  Затрачено на одну деталь		: {forOne} мс");
-				Console.ReadLine();
+                Console.ReadLine();
+                itemIndexWriter.Close();
+                memoryUsageWriter.Close();
                 return;
             }
-            
-            ++ringsCount;
-            myProcess.Refresh();
-			Console.Clear();
-            Console.WriteLine($"  Количество деталей        : {ringsCount}");
-			Console.WriteLine($"  Physical memory usage     : {myProcess.WorkingSet64}");
-            Console.WriteLine($"  User processor time       : {myProcess.UserProcessorTime}");
-			Console.WriteLine($"  Privileged processor time : {myProcess.PrivilegedProcessorTime}");
-			Console.WriteLine($"  Total processor time      : {myProcess.TotalProcessorTime}");
-			Console.WriteLine($"  Paged system memory size  : {myProcess.PagedSystemMemorySize64}");
-			Console.WriteLine($"  Paged memory size         : {myProcess.PagedMemorySize64}");
-			
-			//peakPagedMem = myProcess.PeakPagedMemorySize64;
-			//peakVirtualMem = myProcess.PeakVirtualMemorySize64;
-			//peakWorkingSet = myProcess.PeakWorkingSet64;
+        }
+    } while (ringsCount < 200);
 
-			//if (myProcess.Responding)
-			//{
-			//	Console.WriteLine("Status = Running");
-			//}
-			//else
-			//{
-			//	Console.WriteLine("Status = Not Responding");
-			//}
-		}
-	}
-	while (ringsCount < 200);
+    KompasConnector.Instance.Disconnect();
+    itemIndexWriter.Close();
+    memoryUsageWriter.Close();
 
     if (isCrushed)
     {
         Console.ReadLine();
         return;
     }
-	Console.WriteLine();
-	Console.WriteLine($"  Process exit code          : {myProcess.ExitCode}");
-
-	//Console.WriteLine($"  Peak physical memory usage : {peakWorkingSet}");
-	//Console.WriteLine($"  Peak paged memory usage    : {peakPagedMem}");
-	//Console.WriteLine($"  Peak virtual memory usage  : {peakVirtualMem}");
+	Console.WriteLine("Выполнено");
 }

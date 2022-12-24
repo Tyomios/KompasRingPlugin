@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+        <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+        <script src="chartBuilder.js"></script>
+      </head>
+  <body>
+    <!-- Site content goes here !-->
+    <div class="ct-chart ct-minor-seventh">
+        <div>
+            <p>Затраты оперативной памяти (Гб)</p>
+        </div>
+        <script>
+            
+            function getIndexesFromServer() {
+                var indexes = [];
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'http://localhost:3000/indexes', false);
+                xhr.send();
+                if (xhr.status != 200) {
+                    alert( xhr.status + ': ' + xhr.statusText );
+                } else {
+                    indexes = xhr.responseText;
+                }
+                return indexes;
+            }
+
+            function getMemoryUsageFromServer() {
+                var memoryUsage = [];
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'http://localhost:3000/memoryUsage', false);
+                xhr.send();
+                if (xhr.status != 200) {
+                    alert( xhr.status + ': ' + xhr.statusText );
+                } else {
+                    memoryUsage = xhr.responseText;
+                }
+                return memoryUsage;
+            }
+            // var i = 0;
+            // var labels = [];
+            // var series = [];
+            // while(i < 200) //
+            // {
+            //     labels.push(i);
+            //     series.push(Math.random());
+            //     i++;
+            // }
+            
+
+            var data = {
+                // Массив меток, который содержит любые значения
+                labels: getIndexesFromServer(),
+                // Наш массив может содержать серию объектов или серии массивов с данными
+                series: [
+                    getMemoryUsageFromServer()
+                ]
+            };
+
+            var options = {
+                    width: 1400,
+                    height: 700,
+                    showPoint: false,
+                    lineSmooth: true,
+                    showArea: false,
+                    showLine: true,
+                    axisX: {
+                        showGrid: false,
+                        showLabel: true,
+                        labelInterpolationFnc: function(value, index) {
+                            return index % 10 === 0 ? value : null;
+                        },
+                        offset: 50
+                    },
+                    axisY: {
+                        showGrid: true,
+                        showLabel: true,
+                        offset: 40
+                    },
+                };
+    
+        // Создаем объект линейного графика с первым параметров - селектором.
+        // Второй параметр - объект с данными
+        var chart = new Chartist.Line('.ct-chart', data, options);
+        </script>
+        <div style="float: right;  margin-left: 5px; margin-right: 180px; margin-top: 630px;">
+            <p>Количество деталей</p>
+        </div>
+    </div>
+    <script src="bower_components/chartist/dist/chartist.min.js"></script>
+  </body>
+</html>
