@@ -1,9 +1,14 @@
 ﻿namespace KompasRingPlugin.UnitTests;
 
-
+/// <summary>
+/// Тесты кольца.
+/// </summary>
 [TestFixture]
 public class RingTests
 {
+    /// <summary>
+	/// Негативный тест проверки корректности значений параметров кольца.
+	/// </summary>
 	[Test]
 	public void IsReadyForBuild_NegativeTest()
 	{
@@ -18,7 +23,10 @@ public class RingTests
 		Assert.AreEqual(expected, actual);
 	}
 
-	[Test]
+    /// <summary>
+    /// Позитивный тест проверки корректности значений параметров кольца.
+    /// </summary>
+    [Test]
 	public void IsReadyForBuild_PositiveTest()
 	{
 		// Arrange
@@ -32,6 +40,9 @@ public class RingTests
 		Assert.AreEqual(expected, actual);
 	}
 
+	/// <summary>
+	/// Тест конструктора класса <see cref="Ring"/>.
+	/// </summary>
 	[Test]
 	public void ConstructorTest()
 	{
@@ -43,6 +54,9 @@ public class RingTests
 		Assert.IsNotNull(ring.Engraving);
 	}
 
+	/// <summary>
+	/// Тест геттера и сеттера ширины кольца.
+	/// </summary>
 	[Test]
 	public void WidthSetterTest()
 	{
@@ -59,6 +73,9 @@ public class RingTests
 		Assert.AreEqual(expectedWidth, actual);
 	}
 
+    /// <summary>
+	/// Тест геттера и сеттера размера кольца.
+	/// </summary>
 	[Test]
 	public void RadiusSetterTest()
 	{
@@ -75,7 +92,10 @@ public class RingTests
 		Assert.AreEqual(expected, actual);
 	}
 
-	[Test]
+    /// <summary>
+    /// Тест геттера и сеттера толщины кольца.
+    /// </summary>
+    [Test]
 	public void HeightSetterTest()
 	{
 		// Arrange
@@ -91,6 +111,9 @@ public class RingTests
 		Assert.AreEqual(expected, actual);
 	}
 
+    /// <summary>
+    /// Тест геттера и сеттера цвета кольца.
+    /// </summary>
 	[Test]
 	public void ColorSetterTest()
 	{
@@ -107,7 +130,10 @@ public class RingTests
 		Assert.AreEqual(expectedColor, actual);
 	}
 
-	[Test]
+    /// <summary>
+    /// Тест геттера и сеттера гравировки кольца.
+    /// </summary>
+    [Test]
 	public void EngravingSetterTest()
 	{
 		// Arrange
@@ -123,7 +149,10 @@ public class RingTests
 		Assert.AreEqual(expected, actual);
 	}
 
-	[Test]
+    /// <summary>
+    /// Тест геттера и сеттера скругления граней кольца.
+    /// </summary>
+    [Test]
 	public void RoundScaleSetterTest()
 	{
 		// Arrange

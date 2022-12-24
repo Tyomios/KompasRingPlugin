@@ -1,6 +1,8 @@
 ﻿namespace KompasRingPlugin.UnitTests;
 
-
+/// <summary>
+/// Тесты гравировки кольца.
+/// </summary>
 [TestFixture]
 public class EngravingTests
 {
