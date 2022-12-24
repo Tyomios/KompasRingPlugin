@@ -50,6 +50,8 @@ catch (Exception e)
     return;
 }
 
+itemIndexWriter.Write("[");
+memoryUsageWriter.Write("[");
 using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault())
 {
     do
@@ -64,9 +66,11 @@ using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault()
                 myProcess.Refresh();
                 Console.Clear();
                 Console.WriteLine($"  Количество деталей        : {ringsCount}");
-                itemIndexWriter.Write($"{ringsCount}\n");
+                itemIndexWriter.Write($" {ringsCount},");
+                //indexes.Add(ringsCount);
                 Console.WriteLine($"  Physical memory usage     : {myProcess.WorkingSet64}");
-                memoryUsageWriter.Write($"{myProcess.WorkingSet64}\n");
+                memoryUsageWriter.Write($" {myProcess.WorkingSet64},");
+                //memoryUsages.Add(myProcess.WorkingSet64);
                 Console.WriteLine($"  User processor time       : {myProcess.UserProcessorTime}");
                 Console.WriteLine($"  Privileged processor time : {myProcess.PrivilegedProcessorTime}");
                 Console.WriteLine($"  Total processor time      : {myProcess.TotalProcessorTime}");
@@ -84,14 +88,18 @@ using (Process myProcess = Process.GetProcessesByName("kStudy").FirstOrDefault()
                 var forOne = myProcess.TotalProcessorTime.Milliseconds / ringsCount;
                 Console.WriteLine($"  Затрачено на одну деталь		: {forOne} мс");
                 Console.ReadLine();
+                itemIndexWriter.Write("]");
+                memoryUsageWriter.Write("]");
                 itemIndexWriter.Close();
                 memoryUsageWriter.Close();
                 return;
             }
         }
-    } while (ringsCount < 200);
+    } while (ringsCount < 5);
 
     KompasConnector.Instance.Disconnect();
+    itemIndexWriter.Write("]");
+    memoryUsageWriter.Write("]");
     itemIndexWriter.Close();
     memoryUsageWriter.Close();
 
