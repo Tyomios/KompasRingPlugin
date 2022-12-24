@@ -1,8 +1,14 @@
 ﻿namespace KompasRingPlugin.UnitTests;
 
+/// <summary>
+/// Тесты валидатора параметров кольца.
+/// </summary>
 [TestFixture]
 public class RingParamsValidatorTests
 {
+    /// <summary>
+    /// Негативный тест валидации скругления граней кольца.
+    /// </summary>
 	[Test]
 	public void CheckCorrectValuesTest_ValidateRoundCornersValue()
 	{
@@ -30,6 +36,9 @@ public class RingParamsValidatorTests
 		Assert.Fail();
 	}
 
+    /// <summary>
+    /// Негативный тест валидации размера текста гравировки.
+    /// </summary>
 	[Test]
 	public void CheckCorrectValuesTest_ValidateTextSizeValue_TextSizeBiggerThanRingWidth()
 	{
@@ -58,6 +67,9 @@ public class RingParamsValidatorTests
 		Assert.Fail();
 	}
 
+    /// <summary>
+    /// Негативный тест валидации размера текста гравировки.
+    /// </summary>
 	[Test]
 	public void CheckCorrectValuesTest_ValidateTextSizeValue_TextSizeBiggerThanHalfRingWidth()
 	{
@@ -86,6 +98,9 @@ public class RingParamsValidatorTests
 		Assert.Fail();
 	}
 
+    /// <summary>
+    /// Позитивный тест валидации размера текста гравировки.
+    /// </summary>
 	[Test]
 	public void CheckCorrectValuesTest_ValidateTextSizeValue_ExpectedBehavior()
 	{
@@ -113,6 +128,9 @@ public class RingParamsValidatorTests
 		Assert.Pass();
 	}
 
+    /// <summary>
+    /// Позитивный тест валидации размера текста гравировки при пустом содержании.
+    /// </summary>
 	[Test]
 	public void CheckCorrectValuesTest_ValidateTextSizeValue_EmptyText()
 	{
@@ -139,6 +157,9 @@ public class RingParamsValidatorTests
 		Assert.Pass();
 	}
 
+    /// <summary>
+    /// Позитивный тест валидации скругления граней кольца.
+    /// </summary>
 	[Test]
 	public void CheckCorrectValuesTest_ValidateRoundScaleValue_ExpectedBehavior()
 	{
@@ -165,6 +186,9 @@ public class RingParamsValidatorTests
 		Assert.Pass();
 	}
 
+    /// <summary>
+    /// Негативный тест валидации угла выдавливания кольца.
+    /// </summary>
     [Test]
     public void CheckCorrectValuesText_ValidateJewelryAngleValue_FullCircleValue()
     {
@@ -194,6 +218,9 @@ public class RingParamsValidatorTests
         Assert.Fail();
     }
 
+    /// <summary>
+    /// Тест валидации угла выдавливания кольца при отсутствии гравировки.
+    /// </summary>
     [Test]
     public void CheckCorrectValuesText_ValidateJewelryAngleValue_EngravingIsNull()
     {
@@ -220,6 +247,9 @@ public class RingParamsValidatorTests
         Assert.Pass();
     }
 
+    /// <summary>
+    /// Тест валидации угла выдавливания кольца при установленной гравировке.
+    /// </summary>
     [Test]
     public void CheckCorrectValuesText_ValidateJewelryAngleValue_EngravingSet()
     {
@@ -249,6 +279,9 @@ public class RingParamsValidatorTests
         Assert.Fail();
     }
 
+    /// <summary>
+    /// Позитивный тест валидации угла выдавливания 225 градусов при установленной гравировке.
+    /// </summary>
     [Test]
     public void CheckCorrectValuesText_ValidateJewelryAngleValueOn225_ExpectedBehavior()
     {
@@ -278,6 +311,9 @@ public class RingParamsValidatorTests
         Assert.Pass();
     }
 
+    /// <summary>
+    /// Позитивный тест валидации угла выдавливания 270 градусов при установленной гравировке.
+    /// </summary>
     [Test]
     public void CheckCorrectValuesText_ValidateJewelryAngleValueOn270_ExpectedBehavior()
     {
@@ -297,18 +333,16 @@ public class RingParamsValidatorTests
         }
         catch (Exception e)
         {
-            //if (e.Message.Contains("При выбранном угле выреза нарушена целостность гравировки кольца.\n"))
-            //{
-            //    Assert.Pass();
-            //    return;
-            //}
-			Assert.Fail();
+            Assert.Fail();
         }
 
         // Assert
         Assert.Pass();
     }
 
+    /// <summary>
+    /// Негативный тест валидации угла выдавливания 270 градусов при установленной гравировке.
+    /// </summary>
     [Test]
     public void CheckCorrectValuesText_ValidateJewelryAngleValueOn270_UnexpectedBehavior()
     {
@@ -339,6 +373,9 @@ public class RingParamsValidatorTests
         Assert.Fail();
     }
 
+    /// <summary>
+    /// Позитивный тест валидации угла выдавливания 180 градусов при установленной гравировке.
+    /// </summary>
     [Test]
     public void CheckCorrectValuesText_ValidateJewelryAngleValue_180()
     {
