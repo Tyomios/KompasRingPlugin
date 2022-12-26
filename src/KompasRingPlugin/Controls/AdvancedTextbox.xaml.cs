@@ -4,7 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 
-namespace KompasRingPlugin.Controls;
+namespace KompasRingPlugin.Controls
+{
 
 /// <summary>
 /// Interaction logic for AdvancedTextbox.xaml
@@ -140,4 +141,5 @@ public partial class AdvancedTextbox : UserControl
 
         textBox.Tag = "regular";
     }
+}
 }

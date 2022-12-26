@@ -14,15 +14,15 @@ namespace KompasRingPlugin.Controls
         /// <summary>
         /// Содержит путь к ресурсу у соответствующего действия.
         /// </summary>
-        private static Dictionary<ActionType, string> _actionsAnimations = new ()
-        {
-            {ActionType.RoundScale, @"resources/CornerRadiusAnimation.mp4"},
-            {ActionType.EngravingText, @"resources/EngravingTextAnimation.mp4"},
-            {ActionType.EngravingWidth, @"resources/EngravingWidthAnimation.mp4"},
-            {ActionType.RingHeight, @"resources/RingBiggerRadiusAnimation.mp4"},
-            {ActionType.RingSize, @"resources/RingSizeAnimation.mp4"},
-            {ActionType.RingWidth, @"resources/RingWidthAnimation.mp4"}
-        };
+        private static Dictionary<ActionType, string> _actionsAnimations = new();
+        //{
+        //    {ActionType.RoundScale, @"resources/CornerRadiusAnimation.mp4"},
+        //    {ActionType.EngravingText, @"resources/EngravingTextAnimation.mp4"},
+        //    {ActionType.EngravingWidth, @"resources/EngravingWidthAnimation.mp4"},
+        //    {ActionType.RingHeight, @"resources/RingBiggerRadiusAnimation.mp4"},
+        //    {ActionType.RingSize, @"resources/RingSizeAnimation.mp4"},
+        //    {ActionType.RingWidth, @"resources/RingWidthAnimation.mp4"}
+        //};
 
         /// <summary>
         /// Создает экземпляр класса <see cref="UserHelperControl"/>.
