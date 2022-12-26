@@ -52,16 +52,16 @@ public static class RingParamsValidator
             {
                 errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
             }
-            else if (ring.JewelryAngle.Equals(270)
-                     && actualRelation > safetyEngravingJewrlyCutRelation270)
-            {
-                errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
-            }
-            else if (ring.JewelryAngle.Equals(225)
-                     && actualRelation > safetyEngravingJewrlyCutRelation225)
-            {
-                errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
-            }
+            //else if (ring.JewelryAngle.Equals(270)
+            //         && actualRelation > safetyEngravingJewrlyCutRelation270)
+            //{
+            //    errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
+            //}
+            //else if (ring.JewelryAngle.Equals(225)
+            //         && actualRelation > safetyEngravingJewrlyCutRelation225)
+            //{
+            //    errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
+            //}
         }
 
         if (!errorList.Equals(String.Empty))
