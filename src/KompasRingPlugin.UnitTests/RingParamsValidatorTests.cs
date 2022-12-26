@@ -1,6 +1,4 @@
-﻿using System.Windows.Media.Media3D;
-
-namespace KompasRingPlugin.UnitTests;
+﻿namespace KompasRingPlugin.UnitTests;
 
 /// <summary>
 /// Тесты валидатора параметров кольца.

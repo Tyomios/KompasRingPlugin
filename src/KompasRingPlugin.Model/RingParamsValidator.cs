@@ -45,12 +45,14 @@ public static class RingParamsValidator
 
             if (ring.JewelryAngle.Equals(360))
             {
-                errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность кольца.\n";
+                errorList += $"{errorNumber++}. " +
+                             $"При выбранном угле выреза нарушена целостность кольца.\n";
             }
             else if (!ring.Engraving.Text.Equals(String.Empty)
                 && ring.JewelryAngle > 270)
             {
-                errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
+                errorList += $"{errorNumber++}. " +
+                             $"При выбранном угле выреза нарушена целостность гравировки кольца.\n";
             }
          
         }

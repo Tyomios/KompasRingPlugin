@@ -91,13 +91,15 @@ public class RingBuilder
         buildService.ColoredPart(new System.Windows.Media.Color { A = 0, R = 0, G = 0, B = 1 }, engraved);
     }
 
+    //TODO: RSDN +
     private void BuildJewerlyCut(Ring ring, BuildService buildService)
     {
         var outerRadius = ring.Radius + ring.Height;
         var additionPlane = buildService.CreateAdditionPlane(BasePlane.XOZ, -outerRadius);
 
         var upperRectangleSketch = buildService.CreateSketch(additionPlane);
-        CreateRectanglesSketch(upperRectangleSketch, outerRadius, ring.Width, ring.RoundScale);
+        CreateRectanglesSketch(upperRectangleSketch, outerRadius,
+            ring.Width, ring.RoundScale);
 
         buildService.CutSqueeze(upperRectangleSketch,
             ConvertJewerlyAngleToDistance(ring.JewelryAngle, outerRadius));
@@ -108,7 +110,8 @@ public class RingBuilder
     /// </summary>
     /// <param name="radius"></param>
     /// <param name="sketchDefinition"></param>
-    private void CreateCircleSketch(ksSketchDefinition sketchDefinition, double radius)
+    private void CreateCircleSketch(ksSketchDefinition sketchDefinition,
+        double radius)
     {
         ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
         flatDocument.ksCircle(0, 0, radius, 1);
@@ -116,12 +119,14 @@ public class RingBuilder
     }
 
     /// <summary>
-    /// Создает эскиз с двумя прямоугольниками с серединой в начале координат, имеющие высоту в треть нескругленной высоты кольца.
+    /// Создает эскиз с двумя прямоугольниками с серединой в начале координат,
+    /// имеющие высоту в треть нескругленной высоты кольца.
     /// </summary>
     /// <param name="sketchDefinition"> Скетч для построения эскиза. </param>
     /// <param name="width"> Ширина прямоугольника. </param>
     /// <param name="height"> Высота прямоугольника. </param>
-    private void CreateRectanglesSketch(ksSketchDefinition sketchDefinition, double width, double height, double delta = 0.0)
+    private void CreateRectanglesSketch(ksSketchDefinition sketchDefinition,
+        double width, double height, double delta = 0.0)
     {
         ksDocument2D flatDocument = (ksDocument2D)sketchDefinition.BeginEdit();
         var thirdHeight = height / 3;
@@ -168,7 +173,8 @@ public class RingBuilder
     /// </summary>
     /// <param name="ring"> Кольцо, содержащее гравировку. </param>
     /// <returns> Начальную точку для построения гравировки. </returns>
-    private System.Windows.Point GetEngravingStartPoint(Engraving engraving, double ringWidth)
+    private System.Windows.Point 
+        GetEngravingStartPoint(Engraving engraving, double ringWidth)
     {
         var startX = (engraving.Text.Length * engraving.TextSize) / 2;
         var startY = engraving.TextSize - ringWidth;

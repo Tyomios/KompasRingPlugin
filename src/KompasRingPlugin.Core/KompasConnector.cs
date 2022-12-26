@@ -13,10 +13,11 @@ public class KompasConnector
 
     }
 
+    //TODO: RSDN+
     /// <summary>
     /// КОМПАС-3D.
     /// </summary>
-    private static KompasObject? s_kompasObject;
+    private static KompasObject? _kompasObject;
 
     /// <summary>
     /// Инстанция подключения.
@@ -71,7 +72,8 @@ public class KompasConnector
 
             s_kompasObject.Quit();
         }
-        catch 
+        //TODO: RSDN +
+        catch (Exception e)
         {
             
         }

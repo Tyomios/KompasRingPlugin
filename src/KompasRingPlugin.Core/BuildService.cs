@@ -10,290 +10,298 @@ namespace Core;
 /// </summary>
 public class BuildService
 {
-    /// <summary>
-    /// Документ для построения детали.
-    /// </summary>
-    private ksDocument3D _document;
+	/// <summary>
+	/// Документ для построения детали.
+	/// </summary>
+	private ksDocument3D _document;
 
-    /// <summary>
-    /// Первый элемент в дереве элементов документа.
-    /// </summary>
-    private ksPart _topPart;
+	/// <summary>
+	/// Первый элемент в дереве элементов документа.
+	/// </summary>
+	private ksPart _topPart;
 
-    /// <summary>
-    /// создает экземпляр класса <see cref="BuildService"/>.
-    /// </summary>
-    /// <param name="document">
-    /// Используемый для построения документ.
-    /// </param>
-    public BuildService(ksDocument3D document)
-    {
-        _document = document;
-        _topPart = (ksPart)_document.GetPart((int)KompasEntityType.TopPart);
-    }
+	/// <summary>
+	/// создает экземпляр класса <see cref="BuildService"/>.
+	/// </summary>
+	/// <param name="document">
+	/// Используемый для построения документ.
+	/// </param>
+	public BuildService(ksDocument3D document)
+	{
+		_document = document;
+		_topPart = (ksPart)_document.GetPart((int)KompasEntityType.TopPart);
+	}
 
-    /// <summary>
-    /// Перекрашивает компонент в указанный цвет.
-    /// </summary>
-    /// <param name="color">Цвет покраски</param>
-    /// <param name="part">Деталь</param>
-    public void ColoredPart(Color color, ksEntity part)
-    {
-        var commonColor = 0.50;
-        var diffusion = 0.60;
-        var mirroring = 0.80;
-        var bright = 0.80;
-        var rays = 0.50;
+	/// <summary>
+	/// Перекрашивает компонент в указанный цвет.
+	/// </summary>
+	/// <param name="color">Цвет покраски</param>
+	/// <param name="part">Деталь</param>
+	public void ColoredPart(Color color, ksEntity part)
+	{
+		var commonColor = 0.50;
+		var diffusion = 0.60;
+		var mirroring = 0.80;
+		var bright = 0.80;
+		var rays = 0.50;
 
-        int hex = (255 << color.A) | (color.B << 16) | (color.G << 8) | (color.R << 0);
-        part.SetAdvancedColor(hex, 
-            commonColor, diffusion, mirroring, bright, 1, rays);
-        part.Update();
-    }
+		int hex = (255 << color.A) | (color.B << 16) | (color.G << 8) | (color.R << 0);
+		part.SetAdvancedColor(hex, 
+			commonColor, diffusion, 
+            mirroring, bright, 1, rays);
+		part.Update();
+	}
 
-    /// <summary>
-    /// Перекрашивает деталь в указанный цвет.
-    /// </summary>
-    /// <param name="color">Цвет покраски</param>
-    public void ColoredDetail(Color color)
-    {
-        var commonColor = 0.50;
-        var diffusion = 0.60;
-        var mirroring = 0.80;
-        var bright = 0.80;
-        var rays = 0.50;
+	/// <summary>
+	/// Перекрашивает деталь в указанный цвет.
+	/// </summary>
+	/// <param name="color">Цвет покраски</param>
+	public void ColoredDetail(Color color)
+	{
+		var commonColor = 0.50;
+		var diffusion = 0.60;
+		var mirroring = 0.80;
+		var bright = 0.80;
+		var rays = 0.50;
 
-        int hex = (255 << color.A) | (color.B << 16) | (color.G << 8) | (color.R << 0);
-        _topPart.SetAdvancedColor(hex,
-            commonColor, diffusion, mirroring, bright, 1, rays);
-        _topPart.Update();
-    }
+		int hex = (255 << color.A) | (color.B << 16) | (color.G << 8) | (color.R << 0);
+		_topPart.SetAdvancedColor(hex,
+			commonColor, diffusion, mirroring,
+            bright, 1, rays);
+		_topPart.Update();
+	}
 
-    /// <summary>
-    /// Создает эскиз на одной из базовых плоскостей.
-    /// </summary>
-    /// <param name="plane"> Базовая плоскость на которой строится эскиз.</param>
-    /// <returns>
-    /// Пустой эскиз.
-    /// </returns>
-    public ksSketchDefinition CreateSketch(BasePlane plane = BasePlane.XOY)
-    {
-        var drawEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.Sketch);
-        var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
-        var entityPlane = (ksEntity)_topPart.GetDefaultEntity((short)plane);
+	/// <summary>
+	/// Создает эскиз на одной из базовых плоскостей.
+	/// </summary>
+	/// <param name="plane"> Базовая плоскость на которой строится эскиз.</param>
+	/// <returns>
+	/// Пустой эскиз.
+	/// </returns>
+	public ksSketchDefinition CreateSketch(BasePlane plane = BasePlane.XOY)
+	{
+		var drawEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.Sketch);
+		var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
+		var entityPlane = (ksEntity)_topPart.GetDefaultEntity((short)plane);
 
-        sketchDefinition.SetPlane(entityPlane);
-        drawEntity.Create();
+		sketchDefinition.SetPlane(entityPlane);
+		drawEntity.Create();
 
-        return sketchDefinition;
-    }
+		return sketchDefinition;
+	}
 
-    /// <summary>
-    /// Создает эскиз на смещенной плоскости.
-    /// </summary>
-    /// <param name="offsetPlane"> Смещенная плоскость на которой строится эскиз.</param>
-    /// <returns>
-    /// Пустой эскиз.
-    /// </returns>
-    public ksSketchDefinition CreateSketch(ksPlaneOffsetDefinition offsetPlane)
-    {
-        var drawEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.Sketch);
-        var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
+	/// <summary>
+	/// Создает эскиз на смещенной плоскости.
+	/// </summary>
+	/// <param name="offsetPlane"> Смещенная плоскость на которой строится эскиз.</param>
+	/// <returns>
+	/// Пустой эскиз.
+	/// </returns>
+	public ksSketchDefinition CreateSketch(ksPlaneOffsetDefinition offsetPlane)
+	{
+		var drawEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.Sketch);
+		var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
 
-        sketchDefinition.SetPlane(offsetPlane);
-        drawEntity.Create();
+		sketchDefinition.SetPlane(offsetPlane);
+		drawEntity.Create();
 
-        return sketchDefinition;
-    }
+		return sketchDefinition;
+	}
 
-    /// <summary>
-    /// Создает смещенную плоскость относительно одной из базовой.
-    /// </summary>
-    /// <param name="plane"> Базовая плоскость. </param>
-    /// <param name="offset"> Смещение. </param>
-    /// <returns>
-    /// Определение смещенной плоскости.
-    /// </returns>
-    public ksPlaneOffsetDefinition CreateAdditionPlane(BasePlane plane, double offset)
-    {
-        var additionPlaneEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.AdditionalPlane);
-        var entityPlane = (ksEntity)_topPart.GetDefaultEntity((short)plane);
+	/// <summary>
+	/// Создает смещенную плоскость относительно одной из базовой.
+	/// </summary>
+	/// <param name="plane"> Базовая плоскость. </param>
+	/// <param name="offset"> Смещение. </param>
+	/// <returns>
+	/// Определение смещенной плоскости.
+	/// </returns>
+	public ksPlaneOffsetDefinition CreateAdditionPlane(BasePlane plane, double offset)
+	{
+		var additionPlaneEntity = (ksEntity)_topPart
+			.NewEntity((short)KompasEntityType.AdditionalPlane);
+		var entityPlane = (ksEntity)_topPart.GetDefaultEntity((short)plane);
 
-        var planeOffsetDefinition = (ksPlaneOffsetDefinition)additionPlaneEntity.GetDefinition();
-        planeOffsetDefinition.SetPlane(entityPlane);
-        planeOffsetDefinition.offset = offset;
+		var planeOffsetDefinition = (ksPlaneOffsetDefinition)additionPlaneEntity.GetDefinition();
+		planeOffsetDefinition.SetPlane(entityPlane);
+		planeOffsetDefinition.offset = offset;
 
-        additionPlaneEntity.Create();
-        return planeOffsetDefinition;
-    }
+		additionPlaneEntity.Create();
+		return planeOffsetDefinition;
+	}
 
-    /// <summary>
-    /// Выполняет операцию выдавливания по эскизу на заданное расстояние.
-    /// </summary>
-    /// <param name="sketch"> Эскиз для выдавливания. </param>
-    /// <param name="height"> Расстояние выдавливания. </param>
-    /// <param name="blindType"> Тип выдавливания (по умолчанию задан на «Строго в глубину»). </param>
-    /// <returns>
-    /// Операцию выдавливания.
-    /// </returns>
-    public ksEntity SqueezeOut(ksSketchDefinition sketch, double height, short blindType = 0)
-    {
-        var extrusionEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.BaseExtrusion);
-        var extrusionDefinition = (ksBaseExtrusionDefinition)extrusionEntity.GetDefinition();
-        extrusionDefinition.SetSideParam(true, blindType, height, 0, true);
-        extrusionDefinition.SetSketch(sketch);
-        extrusionEntity.Create();
+	/// <summary>
+	/// Выполняет операцию выдавливания по эскизу на заданное расстояние.
+	/// </summary>
+	/// <param name="sketch"> Эскиз для выдавливания. </param>
+	/// <param name="height"> Расстояние выдавливания. </param>
+	/// <param name="blindType"> Тип выдавливания (по умолчанию задан на «Строго в глубину»). </param>
+	/// <returns>
+	/// Операцию выдавливания.
+	/// </returns>
+	public ksEntity SqueezeOut(ksSketchDefinition sketch, double height, short blindType = 0)
+	{
+		var extrusionEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.BaseExtrusion);
+		var extrusionDefinition = (ksBaseExtrusionDefinition)extrusionEntity.GetDefinition();
+		extrusionDefinition
+			.SetSideParam(true, blindType, height, 0, true);
+		extrusionDefinition.SetSketch(sketch);
+		extrusionEntity.Create();
 
-        // Тип объекта DrawMode. Устанавливает полутоновое изображение модели
-        var vm_Shaded = 3;
-        _document.drawMode = vm_Shaded;
-        _document.shadedWireframe = true;
-        
-        return extrusionEntity;
-    }
+		// Тип объекта DrawMode. Устанавливает полутоновое изображение модели
+		var vm_Shaded = 3;
+		_document.drawMode = vm_Shaded;
+		_document.shadedWireframe = true;
+		
+		return extrusionEntity;
+	}
 
-    /// <summary>
-    /// Выполняет операцию вырезания выдавливанием по переданному эскизу.
-    /// </summary>
-    /// <param name="sketch"> Эскиз для вырезания выдавливанием. </param>
-    /// <param name="height"> Толщина расстояние выдавливания. </param>
-    /// <returns>
-    /// Объект операции вырезания выдавливанием.
-    /// </returns>
-    public ksEntity CutSqueeze(ksSketchDefinition sketch, double height)
-    {
-        var extrusionEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.CutExtrusion);
-        var extrusionDefinition = (ksCutExtrusionDefinition)extrusionEntity.GetDefinition();
-        extrusionDefinition.SetSketch(sketch);
-        extrusionDefinition.cut = true;
-        extrusionDefinition.SetSideParam(false, 0, height); //todo не ставить true - ставит расстояние 10.
+	/// <summary>
+	/// Выполняет операцию вырезания выдавливанием по переданному эскизу.
+	/// </summary>
+	/// <param name="sketch"> Эскиз для вырезания выдавливанием. </param>
+	/// <param name="height"> Толщина расстояние выдавливания. </param>
+	/// <returns>
+	/// Объект операции вырезания выдавливанием.
+	/// </returns>
+	public ksEntity CutSqueeze(ksSketchDefinition sketch, double height)
+	{
+		var extrusionEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.CutExtrusion);
+		var extrusionDefinition = (ksCutExtrusionDefinition)extrusionEntity.GetDefinition();
+		extrusionDefinition.SetSketch(sketch);
+		extrusionDefinition.cut = true;
+		extrusionDefinition.
+			SetSideParam(false, 0, height); //todo не ставить true - ставит расстояние 10.
 
-        extrusionEntity.Create();
+		extrusionEntity.Create();
 
-        // Тип объекта DrawMode. Устанавливает полутоновое изображение модели
-        var vm_Shaded = 3;
-        _document.drawMode = vm_Shaded;
-        _document.shadedWireframe = true;
+		// Тип объекта DrawMode. Устанавливает полутоновое изображение модели
+		var vm_Shaded = 3;
+		_document.drawMode = vm_Shaded;
+		_document.shadedWireframe = true;
 
-        return extrusionEntity;
-    }
+		return extrusionEntity;
+	}
 
-    /// <summary>
-    /// Проводит операцию скругления на ребрах.
-    /// </summary>
-    /// <param name="radius"> Угол скругления. </param>
-    /// <param name="roundedEdges"> Ребра скругления. </param>
-    public void RoundCorners(double radius, List<ksEdgeDefinition> roundedEdges)
-    {
-        if (roundedEdges.Count.Equals(0))
-        {
-            throw new Exception("Переданный список ребер пуст.");
-        }
-        
-        var filletEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.Fillet);
-        ksFilletDefinition filletDefinition = (ksFilletDefinition)filletEntity.GetDefinition();
-        ksEntityCollection items = (ksEntityCollection)filletDefinition.array();
+	/// <summary>
+	/// Проводит операцию скругления на ребрах.
+	/// </summary>
+	/// <param name="radius"> Угол скругления. </param>
+	/// <param name="roundedEdges"> Ребра скругления. </param>
+	public void RoundCorners(double radius, List<ksEdgeDefinition> roundedEdges)
+	{
+		if (roundedEdges.Count.Equals(0))
+		{
+			throw new Exception("Переданный список ребер пуст.");
+		}
+		
+		var filletEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.Fillet);
+		ksFilletDefinition filletDefinition = (ksFilletDefinition)filletEntity.GetDefinition();
+		ksEntityCollection items = (ksEntityCollection)filletDefinition.array();
 
-        filletDefinition.radius = radius;
-        roundedEdges.ForEach(edge => items.Add(edge));
-        filletEntity.Create();
-    }
+		filletDefinition.radius = radius;
+		roundedEdges.ForEach(edge => items.Add(edge));
+		filletEntity.Create();
+	}
 
-    /// <summary>
-    /// Возвращает список наибольших ребер плоских поверхностей.
-    /// </summary>
-    /// <returns>
-    /// Коллекцию больших граней кругов детали.
-    /// </returns>
-    public List<ksEdgeDefinition> GetBiggerCircleEdges()
-    {
-        var cylinderFaces = GetCylinderFaces();
-        ksFaceDefinition biggerFace = null;
-        if (cylinderFaces.Count.Equals(0))
-        {
-            return new List<ksEdgeDefinition>();
-        }
-        else if (cylinderFaces.Count.Equals(1))
-        {
-            biggerFace = cylinderFaces[0];
-        }
-        else if (cylinderFaces.Count.Equals(2))
-        {
-            biggerFace = cylinderFaces[0].GetArea(0x1) > cylinderFaces[1].GetArea(0x1)
-                ? cylinderFaces[0] : cylinderFaces[1];
-        }
-        
+	/// <summary>
+	/// Возвращает список наибольших ребер плоских поверхностей.
+	/// </summary>
+	/// <returns>
+	/// Коллекцию больших граней кругов детали.
+	/// </returns>
+	public List<ksEdgeDefinition> GetBiggerCircleEdges()
+	{
+		var cylinderFaces = GetCylinderFaces();
+		ksFaceDefinition biggerFace = null;
+		if (cylinderFaces.Count.Equals(0))
+		{
+			return new List<ksEdgeDefinition>();
+		}
+		else if (cylinderFaces.Count.Equals(1))
+		{
+			biggerFace = cylinderFaces[0];
+		}
+		else if (cylinderFaces.Count.Equals(2))
+		{
+			biggerFace = cylinderFaces[0].GetArea(0x1) 
+						 > cylinderFaces[1].GetArea(0x1)
+				? cylinderFaces[0] : cylinderFaces[1];
+		}
+		
 
-        var edges = new List<ksEdgeDefinition>();
-        var j = 0;
-        var currentEdgeCollection = (ksEdgeCollection)biggerFace.EdgeCollection();
+		var edges = new List<ksEdgeDefinition>();
+		var j = 0;
+		var currentEdgeCollection = (ksEdgeCollection)biggerFace.EdgeCollection();
 
-        while (currentEdgeCollection.Next() is not null)
-        {
-            var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(j);
-            edges.Add(edge);
+		while (currentEdgeCollection.Next() is not null)
+		{
+			var edge = (ksEdgeDefinition)currentEdgeCollection.GetByIndex(j);
+			edges.Add(edge);
 
-            ++j;
-        }
-        return edges;
-    }
+			++j;
+		}
+		return edges;
+	}
 
-    /// <summary>
-    /// Возвращает все цилиндрические грани детали.
-    /// </summary>
-    /// <returns>
-    /// Список цилиндрических граней.
-    /// </returns>
-    public List<ksFaceDefinition> GetCylinderFaces()
-    {
-        var faces = GetAllFaces();
-        var facesCount = faces.GetCount();
-        if (facesCount == 0)
-        {
-            return new List<ksFaceDefinition>();
-        }
+	/// <summary>
+	/// Возвращает все цилиндрические грани детали.
+	/// </summary>
+	/// <returns>
+	/// Список цилиндрических граней.
+	/// </returns>
+	public List<ksFaceDefinition> GetCylinderFaces()
+	{
+		var faces = GetAllFaces();
+		var facesCount = faces.GetCount();
+		if (facesCount == 0)
+		{
+			return new List<ksFaceDefinition>();
+		}
 
-        var cylinderFaces = new List<ksFaceDefinition>();
-        var i = 0;
-        while (faces.Next() is not null)
-        {
-            var currentFace = (ksFaceDefinition)faces.GetByIndex(i);
-            if (currentFace.IsCylinder())
-            {
-                cylinderFaces.Add(currentFace);
-            }
+		var cylinderFaces = new List<ksFaceDefinition>();
+		var i = 0;
+		while (faces.Next() is not null)
+		{
+			var currentFace = (ksFaceDefinition)faces.GetByIndex(i);
+			if (currentFace.IsCylinder())
+			{
+				cylinderFaces.Add(currentFace);
+			}
 
-            ++i;
-        }
+			++i;
+		}
 
-        return cylinderFaces;
-    }
+		return cylinderFaces;
+	}
 
-    /// <summary>
-    /// Получает все поверхности твердотельного объекта документа.
-    /// </summary>
-    /// <returns>
-    /// Коллекцию поверхностей детали.
-    /// </returns>
-    public ksFaceCollection GetAllFaces()
-    {
-        var body = (ksBody)_topPart.GetMainBody();
-        var faces = (ksFaceCollection)body.FaceCollection();
+	/// <summary>
+	/// Получает все поверхности твердотельного объекта документа.
+	/// </summary>
+	/// <returns>
+	/// Коллекцию поверхностей детали.
+	/// </returns>
+	public ksFaceCollection GetAllFaces()
+	{
+		var body = (ksBody)_topPart.GetMainBody();
+		var faces = (ksFaceCollection)body.FaceCollection();
 
-        return faces;
-    }
+		return faces;
+	}
 
-    /// <summary>
-    /// Наносит текст на эскиз.
-    /// </summary>
-    /// <param name="sketch"> Используемый эскиз </param>
-    /// <param name="engraving"> Гравировка </param>
-    /// <param name="startLocation"> Расположение текста </param>
-    public void InjectText(ksSketchDefinition sketch, Engraving engraving, System.Windows.Point startLocation)
-    {
-        var charSize = engraving.TextSize != 0 ? engraving.TextSize : 0;
-        ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
-        flatDocument.ksText(startLocation.X / 2, startLocation.Y,0,charSize,0, 0, engraving.Text);
-        sketch.EndEdit();
-    }
+	/// <summary>
+	/// Наносит текст на эскиз.
+	/// </summary>
+	/// <param name="sketch"> Используемый эскиз </param>
+	/// <param name="engraving"> Гравировка </param>
+	/// <param name="startLocation"> Расположение текста </param>
+	public void InjectText(ksSketchDefinition sketch, 
+		Engraving engraving, System.Windows.Point startLocation)
+	{
+		var charSize = engraving.TextSize != 0 ? engraving.TextSize : 0;
+		ksDocument2D flatDocument = (ksDocument2D)sketch.BeginEdit();
+		flatDocument.ksText(startLocation.X / 2, startLocation.Y,
+			0,charSize,0, 0, engraving.Text);
+		sketch.EndEdit();
+	}
 }
