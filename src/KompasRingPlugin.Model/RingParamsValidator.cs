@@ -20,7 +20,7 @@ public static class RingParamsValidator
         {
             errorList += $"{errorNumber++}. Значение скругления превышает толщину кольца.\n";
         }
-        if (ring.RoundScale.Equals(ring.Width / 2) && ring.JewelryAngle > 0)
+        if (ring.RoundScale.Equals(Convert.ToUInt32(ring.Width / 2)) && ring.JewelryAngle > 0)
         {
             errorList += $"{errorNumber++}. Невозможно построить корректную деталь " +
                          "при указанных значениях скругления и ювелирного выреза.\n";
@@ -52,16 +52,7 @@ public static class RingParamsValidator
             {
                 errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
             }
-            //else if (ring.JewelryAngle.Equals(270)
-            //         && actualRelation > safetyEngravingJewrlyCutRelation270)
-            //{
-            //    errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
-            //}
-            //else if (ring.JewelryAngle.Equals(225)
-            //         && actualRelation > safetyEngravingJewrlyCutRelation225)
-            //{
-            //    errorList += $"{errorNumber++}. При выбранном угле выреза нарушена целостность гравировки кольца.\n";
-            //}
+         
         }
 
         if (!errorList.Equals(String.Empty))
