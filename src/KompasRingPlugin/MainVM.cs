@@ -7,11 +7,7 @@ using Model;
 using Application = System.Windows.Application;
 
 
-namespace KompasRingPlugin;
-
-//todo сравнить размеры элементов управления с указанным в гайдлайне
-
-//todo нагрузочные тесты
+namespace KompasRingPlugin{
 
 /// <summary>
 /// Отвечает за взаимодействие с пользователем.
@@ -22,15 +18,14 @@ public partial class MainVM
     /// <summary>
     /// Кольцо.
     /// </summary>
-    [ObservableProperty]
-    private Ring _ring = new()
-    {
-        Width = 30,
-        Height = 30,
-        Radius = 40,
-        JewelryAngle = 45,
-        RoundScale = 5
-    };
+    [ObservableProperty] private Ring _ring = new();
+    //{
+    //    Width = 30,
+    //    Height = 30,
+    //    Radius = 40,
+    //    JewelryAngle = 45,
+    //    RoundScale = 5
+    //};
 
     /// <summary>
     /// Построение детали в приложении КОМПАС-3D.
@@ -59,4 +54,5 @@ public partial class MainVM
         KompasConnector.Instance.Disconnect();
         Application.Current.Shutdown();
     }
+}
 }

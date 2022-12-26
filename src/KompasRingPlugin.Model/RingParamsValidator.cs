@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Model;
+namespace Model{
 
 /// <summary>
 /// Сервисный класс проверки значений для построения кольца с гравировкой
@@ -69,4 +69,5 @@ public static class RingParamsValidator
             throw new Exception(errorList);
         }
     }
+}
 }

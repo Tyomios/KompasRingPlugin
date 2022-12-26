@@ -1,6 +1,6 @@
 ﻿using String = System.String;
 
-namespace Model;
+namespace Model{
 
 /// <summary>
 /// Гравировка.
@@ -58,4 +58,5 @@ public class Engraving
             _height = value;
         }
     }
+}
 }

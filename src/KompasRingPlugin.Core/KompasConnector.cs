@@ -1,4 +1,4 @@
-﻿namespace Core;
+﻿namespace Core{
 
 /// <summary>
 /// Отвечает за подключение к КОМПАС-3D.
@@ -85,4 +85,5 @@ public class KompasConnector
 
         return doc3D;
     }
+}
 }

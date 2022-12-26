@@ -1,6 +1,6 @@
 ﻿using Color = System.Windows.Media.Color;
 
-namespace Model;
+namespace Model{
 
 /// <summary>
 /// Кольцо.
@@ -76,4 +76,5 @@ public class Ring
 
         return true;
     }
+}
 }

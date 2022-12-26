@@ -1,7 +1,6 @@
 ﻿using Model;
-using System.Net.NetworkInformation;
 
-namespace Core;
+namespace Core{
 
 /// <summary>
 /// Занимается построением детали.
@@ -190,4 +189,5 @@ public class RingBuilder
     }
 
     public Action OnLog;
+}
 }

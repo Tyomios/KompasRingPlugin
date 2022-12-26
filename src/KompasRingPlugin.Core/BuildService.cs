@@ -3,7 +3,7 @@ using Model;
 using Color = System.Windows.Media.Color;
 
 
-namespace Core;
+namespace Core{
 
 /// <summary>
 /// Сервис содержащий методы для построения детали.
@@ -295,4 +295,5 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         flatDocument.ksText(startLocation.X / 2, startLocation.Y,0,charSize,0, 0, engraving.Text);
         sketch.EndEdit();
     }
+}
 }

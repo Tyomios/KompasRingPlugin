@@ -1,4 +1,4 @@
-﻿namespace Core;
+﻿namespace Core{
 
 /// <summary>
 /// Базовые плоскости 3Д документа.
@@ -19,4 +19,5 @@ public enum BasePlane
     /// Плоскость YoZ.
     /// </summary>
     YOZ
+}
 }
