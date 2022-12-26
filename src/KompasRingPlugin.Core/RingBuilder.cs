@@ -1,5 +1,4 @@
 ﻿using Model;
-using System.Net.NetworkInformation;
 
 namespace Core;
 
@@ -35,7 +34,7 @@ public class RingBuilder
 
             CreateRingBody(ring, buildService);
 
-            var circleEdges = buildService.GetCircleEdges();
+            var circleEdges = buildService.GetBiggerCircleEdges();
 
             if (circleEdges.Count < 2 && ring.RoundScale > 0)
             {

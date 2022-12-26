@@ -8,7 +8,7 @@ namespace Core;
 /// <summary>
 /// Сервис содержащий методы для построения детали.
 /// </summary>
-public class BuildService //todo ReadOnlyDictionary для констант. Подумать над ключами.
+public class BuildService
 {
     /// <summary>
     /// Документ для построения детали.
@@ -29,8 +29,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     public BuildService(ksDocument3D document)
     {
         _document = document;
-        var topPartType = -1;
-        _topPart = (ksPart)_document.GetPart(topPartType);
+        _topPart = (ksPart)_document.GetPart((int)KompasEntityType.TopPart);
     }
 
     /// <summary>
@@ -79,7 +78,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// </returns>
     public ksSketchDefinition CreateSketch(BasePlane plane = BasePlane.XOY)
     {
-        var drawEntity = (ksEntity)_topPart.NewEntity(5);
+        var drawEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.Sketch);
         var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
         var entityPlane = (ksEntity)_topPart.GetDefaultEntity((short)plane);
 
@@ -98,7 +97,7 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// </returns>
     public ksSketchDefinition CreateSketch(ksPlaneOffsetDefinition offsetPlane)
     {
-        var drawEntity = (ksEntity)_topPart.NewEntity(5);
+        var drawEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.Sketch);
         var sketchDefinition = (ksSketchDefinition)drawEntity.GetDefinition();
 
         sketchDefinition.SetPlane(offsetPlane);
@@ -112,10 +111,12 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// </summary>
     /// <param name="plane"> Базовая плоскость. </param>
     /// <param name="offset"> Смещение. </param>
-    /// <returns> Определение смещенной плоскости. </returns>
+    /// <returns>
+    /// Определение смещенной плоскости.
+    /// </returns>
     public ksPlaneOffsetDefinition CreateAdditionPlane(BasePlane plane, double offset)
     {
-        var additionPlaneEntity = (ksEntity)_topPart.NewEntity(14);
+        var additionPlaneEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.AdditionalPlane);
         var entityPlane = (ksEntity)_topPart.GetDefaultEntity((short)plane);
 
         var planeOffsetDefinition = (ksPlaneOffsetDefinition)additionPlaneEntity.GetDefinition();
@@ -132,20 +133,19 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <param name="sketch"> Эскиз для выдавливания. </param>
     /// <param name="height"> Расстояние выдавливания. </param>
     /// <param name="blindType"> Тип выдавливания (по умолчанию задан на «Строго в глубину»). </param>
+    /// <returns>
+    /// Операцию выдавливания.
+    /// </returns>
     public ksEntity SqueezeOut(ksSketchDefinition sketch, double height, short blindType = 0)
     {
-        // Указывает на создание операции выдавливания.
-        const int o3d_baseExtrusion = 24;
-
-        // Тип объекта DrawMode. Устанавливает полутоновое изображение модели
-        const int vm_Shaded = 3;
-
-        var extrusionEntity = (ksEntity)_topPart.NewEntity(o3d_baseExtrusion);
+        var extrusionEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.BaseExtrusion);
         var extrusionDefinition = (ksBaseExtrusionDefinition)extrusionEntity.GetDefinition();
         extrusionDefinition.SetSideParam(true, blindType, height, 0, true);
         extrusionDefinition.SetSketch(sketch);
         extrusionEntity.Create();
 
+        // Тип объекта DrawMode. Устанавливает полутоновое изображение модели
+        var vm_Shaded = 3;
         _document.drawMode = vm_Shaded;
         _document.shadedWireframe = true;
         
@@ -157,17 +157,12 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// </summary>
     /// <param name="sketch"> Эскиз для вырезания выдавливанием. </param>
     /// <param name="height"> Толщина расстояние выдавливания. </param>
-    /// <param name="blindType"> тип выдавливания по расстоянию. </param>
-    /// <returns> Объект операции вырезания выдавливанием.  </returns>
+    /// <returns>
+    /// Объект операции вырезания выдавливанием.
+    /// </returns>
     public ksEntity CutSqueeze(ksSketchDefinition sketch, double height)
     {
-        // Вырезать выдавливанием.
-        const int o3d_CutExtrusion = 26;
-
-        // Тип объекта DrawMode. Устанавливает полутоновое изображение модели
-        const int vm_Shaded = 3;
-
-        var extrusionEntity = (ksEntity)_topPart.NewEntity(o3d_CutExtrusion);
+        var extrusionEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.CutExtrusion);
         var extrusionDefinition = (ksCutExtrusionDefinition)extrusionEntity.GetDefinition();
         extrusionDefinition.SetSketch(sketch);
         extrusionDefinition.cut = true;
@@ -175,6 +170,8 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
 
         extrusionEntity.Create();
 
+        // Тип объекта DrawMode. Устанавливает полутоновое изображение модели
+        var vm_Shaded = 3;
         _document.drawMode = vm_Shaded;
         _document.shadedWireframe = true;
 
@@ -192,10 +189,8 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         {
             throw new Exception("Переданный список ребер пуст.");
         }
-
-        short o3d_fillet = 34;
-
-        var filletEntity = (ksEntity)_topPart.NewEntity(o3d_fillet);
+        
+        var filletEntity = (ksEntity)_topPart.NewEntity((short)KompasEntityType.Fillet);
         ksFilletDefinition filletDefinition = (ksFilletDefinition)filletEntity.GetDefinition();
         ksEntityCollection items = (ksEntityCollection)filletDefinition.array();
 
@@ -207,8 +202,10 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <summary>
     /// Возвращает список наибольших ребер плоских поверхностей.
     /// </summary>
-    /// <returns>  </returns>
-    public List<ksEdgeDefinition> GetCircleEdges()
+    /// <returns>
+    /// Коллекцию больших граней кругов детали.
+    /// </returns>
+    public List<ksEdgeDefinition> GetBiggerCircleEdges()
     {
         var cylinderFaces = GetCylinderFaces();
         ksFaceDefinition biggerFace = null;
@@ -216,11 +213,11 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
         {
             return new List<ksEdgeDefinition>();
         }
-        if (cylinderFaces.Count.Equals(1))
+        else if (cylinderFaces.Count.Equals(1))
         {
             biggerFace = cylinderFaces[0];
         }
-        if (cylinderFaces.Count.Equals(2))
+        else if (cylinderFaces.Count.Equals(2))
         {
             biggerFace = cylinderFaces[0].GetArea(0x1) > cylinderFaces[1].GetArea(0x1)
                 ? cylinderFaces[0] : cylinderFaces[1];
@@ -244,7 +241,9 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <summary>
     /// Возвращает все цилиндрические грани детали.
     /// </summary>
-    /// <returns> Список цилиндрических граней. </returns>
+    /// <returns>
+    /// Список цилиндрических граней.
+    /// </returns>
     public List<ksFaceDefinition> GetCylinderFaces()
     {
         var faces = GetAllFaces();
@@ -273,7 +272,9 @@ public class BuildService //todo ReadOnlyDictionary для констант. П�
     /// <summary>
     /// Получает все поверхности твердотельного объекта документа.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>
+    /// Коллекцию поверхностей детали.
+    /// </returns>
     public ksFaceCollection GetAllFaces()
     {
         var body = (ksBody)_topPart.GetMainBody();

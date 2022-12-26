@@ -24,11 +24,17 @@ namespace KompasRingPlugin.Controls
             {ActionType.RingWidth, @"resources/RingWidthAnimation.mp4"}
         };
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="UserHelperControl"/>.
+        /// </summary>
         public UserHelperControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Отображает анимацию для действия.
+        /// </summary>
         private HelpParamsUI _primaryInfo;
 
         /// <summary>

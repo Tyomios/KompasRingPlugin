@@ -16,12 +16,12 @@ public class KompasConnector
     /// <summary>
     /// КОМПАС-3D.
     /// </summary>
-    private static KompasObject s_kompasObject;
+    private static KompasObject? s_kompasObject;
 
     /// <summary>
     /// Инстанция подключения.
     /// </summary>
-    private static KompasConnector _instance;
+    private static KompasConnector? _instance;
 
     /// <summary>
     /// Возвращает инстанцию подключения.
@@ -34,21 +34,29 @@ public class KompasConnector
     /// <summary>
     /// Выполняет подключение к приложению КОМПАС-3D.
     /// </summary>
-    private async Task Connect() //todo добавить попытки подключения или поиска включенного или перенести подключение при старте приложения.
+    private async Task Connect()
     {
         if (s_kompasObject is not null)
         {
-            //todo окно сообщения о том, что подключение выполнено ранее.
             return;
         }
 
         var kompasType = Type.GetTypeFromProgID("KOMPAS.Application.5");
+        if (kompasType is null)
+        {
+            throw new Exception("Не удалось обнаружить приложение КОМПАС-3D");
+        }
 
         await Task.Run(() =>
         {
             s_kompasObject = (KompasObject)Activator.CreateInstance(kompasType);
-            s_kompasObject.ActivateControllerAPI();
-            s_kompasObject.Visible = true;
+            if (s_kompasObject is not null)
+            {
+                s_kompasObject.ActivateControllerAPI();
+                s_kompasObject.Visible = true;
+                return;
+            }
+            throw new Exception("Не удалось подключиться к КОМПАС-3D");
         });
     }
 

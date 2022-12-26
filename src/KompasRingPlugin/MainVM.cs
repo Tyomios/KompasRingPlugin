@@ -9,10 +9,6 @@ using Application = System.Windows.Application;
 
 namespace KompasRingPlugin;
 
-//todo сравнить размеры элементов управления с указанным в гайдлайне
-
-//todo нагрузочные тесты
-
 /// <summary>
 /// Отвечает за взаимодействие с пользователем.
 /// </summary>

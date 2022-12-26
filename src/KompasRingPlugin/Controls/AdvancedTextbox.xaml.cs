@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 
 namespace KompasRingPlugin.Controls;
@@ -103,7 +102,7 @@ public partial class AdvancedTextbox : UserControl
                 infoTextBlock.Visibility = Visibility.Visible;
             }
         }
-        catch //todo обработка на наличие точки.
+        catch
         {
             
         }

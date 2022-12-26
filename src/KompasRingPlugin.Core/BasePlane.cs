@@ -13,10 +13,10 @@ public enum BasePlane
     /// <summary>
     /// Плоскость XoZ.
     /// </summary>
-    XOZ,
+    XOZ = 2,
 
     /// <summary>
     /// Плоскость YoZ.
     /// </summary>
-    YOZ
+    YOZ = 3,
 }
