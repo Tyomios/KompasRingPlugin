@@ -37,7 +37,7 @@ public class KompasConnector
     /// </summary>
     private async Task Connect()
     {
-        if (s_kompasObject is not null)
+        if (_kompasObject is not null)
         {
             return;
         }
@@ -50,11 +50,11 @@ public class KompasConnector
 
         await Task.Run(() =>
         {
-            s_kompasObject = (KompasObject)Activator.CreateInstance(kompasType);
-            if (s_kompasObject is not null)
+            _kompasObject = (KompasObject)Activator.CreateInstance(kompasType);
+            if (_kompasObject is not null)
             {
-                s_kompasObject.ActivateControllerAPI();
-                s_kompasObject.Visible = true;
+                _kompasObject.ActivateControllerAPI();
+                _kompasObject.Visible = true;
                 return;
             }
             throw new Exception("Не удалось подключиться к КОМПАС-3D");
@@ -68,9 +68,9 @@ public class KompasConnector
     {
         try
         {
-            if (s_kompasObject is null) return;
+            if (_kompasObject is null) return;
 
-            s_kompasObject.Quit();
+            _kompasObject.Quit();
         }
         //TODO: RSDN +
         catch (Exception e)
@@ -85,12 +85,12 @@ public class KompasConnector
     /// <returns> Документ для создания трехмерной детали. </returns>
     public async Task<Document3D> GetDocument()
     {
-        if(s_kompasObject is null)
+        if(_kompasObject is null)
         {
             await Connect();
         }
 
-        Document3D doc3D = (Document3D)s_kompasObject.Document3D();
+        Document3D doc3D = (Document3D)_kompasObject.Document3D();
         doc3D.Create(false, true);
 
         return doc3D;
