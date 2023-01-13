@@ -15,20 +15,28 @@ public partial class MainWindow : Window
 
     private Dictionary<string, HelpParamsUI> _controlsParams = new()
     {
-        { "engravingTextAdvancedTextBox", new HelpParamsUI(ActionType.EngravingText, "Это текст гравировки") },
+        { "engravingTextAdvancedTextBox", new HelpParamsUI(ActionType.EngravingText, 
+                                                        "Текст гравировки.") },
 
         {
             "engravingWidthAdvancedTextBox",
-            new HelpParamsUI(ActionType.EngravingWidth, "Указанное значение не должно превышать толщину кольца")
+            new HelpParamsUI(ActionType.EngravingWidth, "Глубина гравировки." + 
+                            "\nУказанное значение не должно превышать толщину кольца.")
         },
 
-        { "ringHeightAdvancedTextBox", new HelpParamsUI(ActionType.RingHeight, String.Empty) },
+        { "ringHeightAdvancedTextBox", 
+            new HelpParamsUI(ActionType.RingHeight, "Толщина кольца. " + 
+                                                    "\nДоступный диапазон от 25 до 70 мм.") },
 
-        { "ringSizeAdvancedTextBox", new HelpParamsUI(ActionType.RingSize, String.Empty) },
+        { "ringSizeAdvancedTextBox", new HelpParamsUI(ActionType.RingSize, "Размер кольца. " + 
+                                                        "\nДоступный диапазон от 20 до 150 мм.") },
 
-        { "ringWidthAdvancedTextBox", new HelpParamsUI(ActionType.RingWidth, String.Empty) },
+        { "ringWidthAdvancedTextBox", new HelpParamsUI(ActionType.RingWidth, "Ширина кольца. " 
+                                                            + "\nДоступный диапазон от 10 до 100 мм.") },
 
-        { "ringRoundScaleAdvancedTextBox", new HelpParamsUI(ActionType.RoundScale, String.Empty) }
+        { "ringRoundScaleAdvancedTextBox", new HelpParamsUI(ActionType.RoundScale, "Угол скругления кольца. " 
+                                                                + "\nДоступный диапазон от 0 до 45 градусов."
+                                            + "\nУказанное значение должно быть меньше ширины кольца.") }
     };
     public MainWindow()
 	{

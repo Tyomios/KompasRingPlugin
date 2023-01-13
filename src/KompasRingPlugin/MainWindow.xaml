@@ -209,7 +209,8 @@
                                 x:Name="ringWidthAdvancedTextBox"
                                 Style="{DynamicResource textBoxBasicStyle}"
                                 InputData="{Binding Ring.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
-                                StringFormat=N2, Delay=500, Converter={StaticResource StringToDoubleConverterRu}}"
+                                StringFormat=N2, Delay=500, Converter={StaticResource StringToDoubleConverterRu},
+                                ConverterParameter='Ширина кольца: '}"
                                 IsDoubleOnly="True"
                                 Info="Введите ширину кольца"
                                 MinValue="10"
