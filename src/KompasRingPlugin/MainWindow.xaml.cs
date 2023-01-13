@@ -13,24 +13,24 @@ namespace KompasRingPlugin
 public partial class MainWindow : Window
 {
 
-    private Dictionary<string, HelpParamsUI> _controlsParams = new();
-    //{
-    //    { "engravingTextAdvancedTextBox", new HelpParamsUI(ActionType.EngravingText, "Это текст гравировки") },
+    private Dictionary<string, HelpParamsUI> _controlsParams = new()
+    {
+        { "engravingTextAdvancedTextBox", new HelpParamsUI(ActionType.EngravingText, "Это текст гравировки") },
 
-    //    {
-    //        "engravingWidthAdvancedTextBox",
-    //        new HelpParamsUI(ActionType.EngravingWidth, "Указанное значение не должно превышать толщину кольца")
-    //    },
+        {
+            "engravingWidthAdvancedTextBox",
+            new HelpParamsUI(ActionType.EngravingWidth, "Указанное значение не должно превышать толщину кольца")
+        },
 
-    //    { "ringHeightAdvancedTextBox", new HelpParamsUI(ActionType.RingHeight, String.Empty) },
+        { "ringHeightAdvancedTextBox", new HelpParamsUI(ActionType.RingHeight, String.Empty) },
 
-    //    { "ringSizeAdvancedTextBox", new HelpParamsUI(ActionType.RingSize, String.Empty) },
+        { "ringSizeAdvancedTextBox", new HelpParamsUI(ActionType.RingSize, String.Empty) },
 
-    //    { "ringWidthAdvancedTextBox", new HelpParamsUI(ActionType.RingWidth, String.Empty) },
+        { "ringWidthAdvancedTextBox", new HelpParamsUI(ActionType.RingWidth, String.Empty) },
 
-    //    { "ringRoundScaleAdvancedTextBox", new HelpParamsUI(ActionType.RoundScale, String.Empty) }
-    //};
-	public MainWindow()
+        { "ringRoundScaleAdvancedTextBox", new HelpParamsUI(ActionType.RoundScale, String.Empty) }
+    };
+    public MainWindow()
 	{
 		InitializeComponent();
 	}

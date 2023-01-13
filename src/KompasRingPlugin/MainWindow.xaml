@@ -18,6 +18,8 @@
     </Window.DataContext>
 
     <Window.Resources>
+        <local:StringToDoubleConverterRu x:Key="StringToDoubleConverterRu"/>
+
         <!-- Expander style -->
 		<Style x:Key="expander" TargetType="Expander">
 			<Setter Property="Template">
@@ -79,13 +81,11 @@
             <Setter Property="Cursor" Value="IBeam"/>
         </Style>
 	</Window.Resources>
-
 	
-	<Border CornerRadius="0"
+    <Border CornerRadius="0"
             BorderBrush="Transparent"
             Background="#484848"
-            DockPanel.Dock="Top"
-            >
+            DockPanel.Dock="Top">
         <Grid>
 
             <Grid.RowDefinitions>
@@ -186,7 +186,8 @@
                             <controls:AdvancedTextbox 
                                 x:Name="ringHeightAdvancedTextBox"
                                 Style="{DynamicResource textBoxBasicStyle}"
-                                InputData="{Binding Ring.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                InputData="{Binding Ring.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                StringFormat=N2, Delay=500, Converter={StaticResource StringToDoubleConverterRu}}"
                                 IsDoubleOnly="True"
                                 Info="Введите толщину кольца"
                                 MinValue="25"
@@ -196,7 +197,8 @@
                             <controls:AdvancedTextbox 
                                 x:Name="ringSizeAdvancedTextBox"
                                 Style="{DynamicResource textBoxBasicStyle}"
-                                InputData="{Binding Ring.Radius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                InputData="{Binding Ring.Radius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                StringFormat=N2, Delay=500, Converter={StaticResource StringToDoubleConverterRu}}"
                                 IsDoubleOnly="True"
                                 Info="Введите внутренний размер кольца"
                                 MinValue="20"
@@ -206,11 +208,12 @@
                             <controls:AdvancedTextbox 
                                 x:Name="ringWidthAdvancedTextBox"
                                 Style="{DynamicResource textBoxBasicStyle}"
-                                                      InputData="{Binding Ring.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsDoubleOnly="True"
-                                                      Info="Введите ширину кольца"
-                                                      MinValue="10"
-                                                      MaxValue="100"
+                                InputData="{Binding Ring.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                StringFormat=N2, Delay=500, Converter={StaticResource StringToDoubleConverterRu}}"
+                                IsDoubleOnly="True"
+                                Info="Введите ширину кольца"
+                                MinValue="10"
+                                MaxValue="100"
                                 GotFocus="UIElement_OnGotFocus"/>
 
                             <controls:AdvancedTextbox 

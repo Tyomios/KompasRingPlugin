@@ -113,6 +113,11 @@ public partial class AdvancedTextbox : UserControl
     {
         if (IsDoubleOnly)
         {
+            if (e.Text.Equals(","))
+            {
+                e.Handled = false;
+                return;
+            }
             e.Handled = !IsCorrectDouble(((TextBox)sender).Text + e.Text);
         }
     }
