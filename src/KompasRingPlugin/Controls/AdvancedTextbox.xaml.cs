@@ -69,9 +69,14 @@ public partial class AdvancedTextbox : UserControl
     }
 
     /// <summary>
-    /// Режим ввода данных.
+    /// Возвращает или задает флаг ввода цифр.
     /// </summary>
-    public bool IsDoubleOnly { get; set; }
+    public bool IsNumberOnly { get; set; }
+
+    /// <summary>
+    /// Возвращает или задает разрешение ввода точки.
+    /// </summary>
+    public bool AllowPoint { get; set; }
 
     private void TextBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -111,11 +116,12 @@ public partial class AdvancedTextbox : UserControl
 
     private void TextBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
-        if (IsDoubleOnly)
+        if (IsNumberOnly)
         {
-            if (e.Text.Equals(","))
+            if (e.Text.Equals(",")
+                && !((TextBox)sender).Text.Contains(","))
             {
-                e.Handled = false;
+                e.Handled = !AllowPoint;
                 return;
             }
             e.Handled = !IsCorrectDouble(((TextBox)sender).Text + e.Text);
